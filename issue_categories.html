@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Browse by Topic — Civic Authority</title>
+
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="css/issue_categories.css" />
+</head>
+<body>
+
+  <!-- ===================== TOP NAVIGATION ===================== -->
+  <header class="nav">
+    <div class="container nav__inner">
+
+      <!-- Left: Logo + Nav Links -->
+      <div class="nav__left">
+        <a href="issue_categories.html" class="nav__logo">Civic Authority</a>
+        <nav aria-label="Primary">
+          <ul class="nav__links">
+            <li><a href="issue_categories.html" class="nav__link nav__link--active">Categories</a></li>
+            <li><a href="#" class="nav__link">Proposals</a></li>
+            <li><a href="#" class="nav__link">Archive</a></li>
+            <li><a href="#" class="nav__link">Activity</a></li>
+          </ul>
+        </nav>
+      </div>
+
+      <!-- Right: Search + Auth -->
+      <div class="nav__right">
+        <div class="nav__search-wrap">
+          <span class="material-symbols-outlined nav__search-icon">search</span>
+          <input
+            type="text"
+            class="nav__search"
+            placeholder="Search..."
+            aria-label="Search"
+            id="js-search-input"
+          />
+        </div>
+        <a href="#" class="nav__login">Login</a>
+        <a href="#" class="nav__join">Join</a>
+      </div>
+
+    </div>
+  </header>
+
+  <!-- ===================== MAIN CONTENT ===================== -->
+  <main>
+    <div class="container">
+
+      <!-- Page Header -->
+      <div class="page-header">
+        <h1 class="text-headline-lg page-header__title">Browse by Topic</h1>
+        <p class="text-body-lg page-header__subtitle">
+          Explore active civic discussions and proposals organized by fundamental
+          categories of public interest. Engage with the ongoing record.
+        </p>
+      </div>
+
+      <!-- Categories Grid -->
+      <!-- NOTE: Cards are rendered dynamically by issue_categories.js — do not add static <article> elements here -->
+      <div class="categories-grid" id="js-categories-grid"></div>
+
+    </div><!-- /.container -->
+  </main>
+
+  <!-- ===================== FOOTER ===================== -->
+  <footer class="footer">
+    <div class="container footer__inner">
+
+      <div class="footer__brand">
+        Civic<br/>Authority
+      </div>
+
+      <ul class="footer__nav">
+        <li><a href="#" class="footer__link">About</a></li>
+        <li><a href="#" class="footer__link">Privacy Policy</a></li>
+        <li><a href="#" class="footer__link">Terms of Service</a></li>
+        <li><a href="#" class="footer__link">Civic Partners</a></li>
+        <li><a href="#" class="footer__link">Research</a></li>
+      </ul>
+
+      <p class="footer__copy">© 2026 Civic Authority. A Modern Record of Note.</p>
+
+    </div>
+  </footer>
+
+  <!-- Script -->
+  <script type="module" src="js/pages/issue_categories.js"></script>
+
+</body>
+</html>
+
