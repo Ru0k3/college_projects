@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Civic Authority - Governance</title>
+  <link rel="stylesheet" href="css/issues-feed.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="container topbar">
+      <div class="topbar__left">
+        <a href="issue_categories.html" class="brand">Civic Authority</a>
+        <nav aria-label="Primary">
+          <ul class="topnav">
+            <li><a href="issue_categories.html" class="topnav__link topnav__link--active">Categories</a></li>
+            <li><a href="#" class="topnav__link">Proposals</a></li>
+            <li><a href="#" class="topnav__link">Archive</a></li>
+            <li><a href="#" class="topnav__link">Activity</a></li>
+          </ul>
+        </nav>
+      </div>
+      <div class="topbar__right">
+        <label class="search" aria-label="Search">
+          <svg class="search__icon" viewBox="0 0 20 20" aria-hidden="true">
+            <circle cx="8.5" cy="8.5" r="5.5"></circle>
+            <path d="M13 13l3.5 3.5"></path>
+          </svg>
+          <input type="text" placeholder="Search..." />
+        </label>
+        <a href="#" class="auth-link">Login</a>
+        <a href="#" class="join-btn">Join</a>
+        <div class="avatar" aria-hidden="true"></div>
+      </div>
+    </div>
+  </header>
+
+  <main class="page">
+    <div class="container layout">
+      <section class="content">
+        <header class="hero">
+          <h1>Governance</h1>
+          <p>
+            A dedicated forum for structural policy, administrative reform, and the
+            foundational rules that guide civic processes. Discussions here focus on
+            long-term institutional health and procedural integrity.
+          </p>
+        </header>
+
+        <div class="section-rule"></div>
+
+        <section class="toolbar" aria-label="Feed filters">
+          <div class="toolbar__tabs">
+            <button class="toolbar__tab toolbar__tab--active" type="button">All Content</button>
+            <button class="toolbar__tab" type="button">Discussions</button>
+            <button class="toolbar__tab" type="button">Expert Blogs</button>
+            <button class="toolbar__tab" type="button">Active Polls</button>
+          </div>
+          <button class="toolbar__sort" type="button">
+            <svg viewBox="0 0 20 14" aria-hidden="true">
+              <path d="M1 1h18M4 7h12M7 13h6"></path>
+            </svg>
+            <span>Trending</span>
+            <svg viewBox="0 0 10 6" aria-hidden="true">
+              <path d="M1 1l4 4 4-4"></path>
+            </svg>
+          </button>
+        </section>
+
+        <div class="section-rule section-rule--tight"></div>
+
+        <article class="post post--discussion">
+          <div class="vote">
+            <button type="button" aria-label="Upvote">
+              <svg viewBox="0 0 12 8" aria-hidden="true"><path d="M1 7l5-5 5 5"></path></svg>
+            </button>
+            <span>342</span>
+            <button type="button" aria-label="Downvote">
+              <svg viewBox="0 0 12 8" aria-hidden="true"><path d="M1 1l5 5 5-5"></path></svg>
+            </button>
+          </div>
+          <div class="post__body">
+            <div class="post__meta">
+              <span class="tag tag--muted">Discussion</span>
+              <span>2h ago by <a href="#">@policy_wonk</a></span>
+            </div>
+            <h2>Re-evaluating the Municipal Zoning Board Appointment Process</h2>
+            <p>
+              The current method for appointing members to the zoning board has
+              consistently resulted in a lack of diverse professional backgrounds.
+              I propose we shift to a hybrid model...
+            </p>
+            <div class="post__actions">
+              <a href="#">154 Comments</a>
+              <a href="#">Save</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="post post--feature">
+          <div class="feature-art">
+            <span class="tag tag--dark">Expert Blog</span>
+          </div>
+          <div class="post__body">
+            <h2>The Ethics of Algorithmic Districting</h2>
+            <p>
+              As more municipalities look to computational models for redrawing
+              district lines, we must ask: whose data trains these systems, and
+              who bears the risk when civic maps inherit hidden bias?
+            </p>
+            <div class="author-row">
+              <div class="author-row__person">
+                <div class="author-row__avatar" aria-hidden="true"></div>
+                <div>
+                  <strong>Dr. Elena Rostova</strong>
+                  <span>Professor of Civic Data</span>
+                </div>
+              </div>
+              <span class="author-row__time">8 Min Read</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="post post--poll">
+          <div class="poll-head">
+            <span class="poll-head__label">Active Poll</span>
+            <span class="tag tag--alert">Closes in 2 Days</span>
+          </div>
+          <h2>Should City Council meetings enforce a strict 3-minute limit on public comments to allow more speakers?</h2>
+          <div class="poll-options">
+            <button type="button">Yes, prioritize volume of participants</button>
+            <button type="button">No, allow 5 minutes for deeper nuance</button>
+            <button type="button">Abstain / See Results</button>
+          </div>
+          <div class="poll-footer">
+            <span>1,204 Total Votes</span>
+            <a href="#">View Discussion</a>
+          </div>
+        </article>
+
+        <div class="section-rule"></div>
+
+        <div class="load-more">
+          <button type="button">Load More Governance Items</button>
+        </div>
+      </section>
+
+      <aside class="sidebar">
+        <section class="panel">
+          <h3>Key Voices</h3>
+          <div class="panel-rule"></div>
+          <div class="voices">
+            <div class="voice">
+              <div class="voice__avatar voice__avatar--one" aria-hidden="true"></div>
+              <div>
+                <strong>Marcus Chen</strong>
+                <span>Former City Clerk</span>
+              </div>
+            </div>
+            <div class="voice">
+              <div class="voice__avatar voice__avatar--two" aria-hidden="true"></div>
+              <div>
+                <strong>Sarah Jenkins, Esq.</strong>
+                <span>Policy Analyst</span>
+              </div>
+            </div>
+            <div class="voice">
+              <div class="voice__avatar voice__avatar--three" aria-hidden="true"></div>
+              <div>
+                <strong>David Alvey</strong>
+                <span>Structural Economist</span>
+              </div>
+            </div>
+          </div>
+          <a href="#" class="panel-link">View All Contributors</a>
+        </section>
+
+        <section class="panel panel--dotted">
+          <h3>October Impact</h3>
+          <p class="panel-copy">Governance category metrics and resolved proposals.</p>
+          <div class="stats">
+            <div class="stat">
+              <strong>12</strong>
+              <span>Proposals Drafted</span>
+            </div>
+            <div class="stat">
+              <strong>3</strong>
+              <span>Policies Adopted</span>
+            </div>
+          </div>
+          <a href="#" class="panel-link panel-link--spread">Read Full Report <span>&rarr;</span></a>
+        </section>
+
+        <section class="note">
+          <p class="note__label">About This Category</p>
+          <p>
+            Governance rules dictate how decisions are made. Ensure your
+            contributions here are thoroughly researched and cite relevant
+            existing municipal codes where applicable.
+          </p>
+          <a href="#">Review Community Guidelines</a>
+        </section>
+      </aside>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-row">
+      <div>
+        <div class="footer-brand">Civic Authority</div>
+        <p>&copy; 2024 Civic Authority. A Modern Record of Note.</p>
+      </div>
+      <nav class="footer-links" aria-label="Footer">
+        <a href="#">About</a>
+        <a href="#">Privacy Policy</a>
+        <a href="#">Terms of Service</a>
+        <a href="#">Civic Partners</a>
+        <a href="#">Research</a>
+      </nav>
+    </div>
+  </footer>
+  <script type="module" src="js/pages/issues-feed.js"></script>
+</body>
+</html>
+
