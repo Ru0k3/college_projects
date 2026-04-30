@@ -10,6 +10,7 @@ import {
   setupActiveClassToggle,
   toDisplayLabel,
 } from "../utils/shared.js";
+import {loadComponent} from "../utils/load.js"
 
 const DOM = {
   feedContainer: null,
@@ -151,3 +152,6 @@ function init() {
 }
 
 document.addEventListener("DOMContentLoaded", init);
+
+loadComponent("header", "/partials/header.html");
+loadComponent("footer", "/partials/footer.html");

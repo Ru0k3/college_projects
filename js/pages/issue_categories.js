@@ -9,6 +9,8 @@ import {
   setupActiveClassToggle,
 } from "../utils/shared.js";
 
+import { loadComponent } from "../utils/load.js";
+
 const categories = [
   {
     id: "governance",
@@ -101,3 +103,5 @@ function init() {
 }
 
 document.addEventListener("DOMContentLoaded", init);
+loadComponent("header", "/partials/header.html")
+loadComponent("footer", "/partials/footer.html")
