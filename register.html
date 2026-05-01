@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Register | VoxGrid</title>
+		<link rel="stylesheet" href="css/register.css" />
+	</head>
+	<body>
+		<main class="register-page">
+			<section class="register-hero">
+				<h1>The Modern Record of Note.</h1>
+				<p>
+					Join a civic community focused on thoughtful discussion and
+					transparent participation.
+				</p>
+				<div class="hero-visual" aria-hidden="true"></div>
+			</section>
+
+			<section class="register-card" aria-labelledby="register-title">
+				<h2 id="register-title">Create an Account</h2>
+				<p>Set up your VoxGrid profile.</p>
+
+				<form
+					id="register-form"
+					data-endpoint="/api/register"
+					data-redirect="login.html"
+					novalidate
+				>
+					<label class="field" for="full-name">
+						<span>Full Name</span>
+						<input
+							id="full-name"
+							name="fullName"
+							type="text"
+							autocomplete="name"
+							placeholder="Alex Morgan"
+							required
+						/>
+					</label>
+
+					<label class="field" for="register-email">
+						<span>Email</span>
+						<input
+							id="register-email"
+							name="email"
+							type="email"
+							autocomplete="email"
+							placeholder="name@example.com"
+							required
+						/>
+					</label>
+
+					<label class="field" for="register-password">
+						<span>Password</span>
+						<input
+							id="register-password"
+							name="password"
+							type="password"
+							autocomplete="new-password"
+							placeholder="Create a password"
+							minlength="8"
+							required
+						/>
+					</label>
+
+					<label class="field" for="confirm-password">
+						<span>Confirm Password</span>
+						<input
+							id="confirm-password"
+							name="confirmPassword"
+							type="password"
+							autocomplete="new-password"
+							placeholder="Repeat your password"
+							minlength="8"
+							required
+						/>
+					</label>
+
+					<label class="terms" for="terms">
+						<input id="terms" name="terms" type="checkbox" />
+						<span>
+							I agree to the <a href="#">Terms</a> and
+							<a href="#">Privacy Policy</a>.
+						</span>
+					</label>
+
+					<button id="register-submit" type="submit">Create Account</button>
+					<p
+						id="register-status"
+						class="status"
+						role="status"
+						aria-live="polite"
+					></p>
+					<p class="switch-auth">
+						Already registered? <a href="login.html">Sign in</a>
+					</p>
+				</form>
+			</section>
+		</main>
+		<script type="module" src="js/pages/register.js"></script>
+	</body>
+</html>

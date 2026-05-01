@@ -140,7 +140,7 @@ function setupLoadMore() {
 function init() {
   cacheDom();
   preventDefaultForSelectors(
-    '.auth-link, .join-btn, .post__actions a, .poll-footer a, .panel-link, .note a, .footer-links a'
+    '.post__actions a, .poll-footer a, .panel-link, .note a, .footer-links a'
   );
   setupActiveClassToggle(".topnav__link", "topnav__link--active", {
     preventDefault: false,
