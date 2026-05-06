@@ -4,6 +4,106 @@
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<title>Blog</title>
+		<link rel="stylesheet" href="css/blog.css" />
+		<link rel="stylesheet" href="css/components.css" />
 	</head>
-	<body></body>
+	<body>
+		<div id="header"></div>
+		<main class="container">
+			<div class="meta">
+				<span>Policy & Ethics</span>
+				<span>• Oct 24, 2024</span>
+				<span>• 8 min read</span>
+			</div>
+
+			<h1>The Ethics of Algorithmic Districting</h1>
+
+			<div class="author">
+				<img src="assets/icons/profile.svg" alt="author" />
+				<div>
+					<strong>Dr. Elena Rostova</strong>
+					<p>Senior Fellow, Center for Civic Technology</p>
+				</div>
+			</div>
+
+			<!-- HERO IMAGE -->
+			<div class="hero-image"></div>
+
+			<!-- ARTICLE -->
+			<article class="content">
+				<p class="lead">
+					The transition from smoke-filled rooms to server racks was supposed to
+					sanitize the districting process. It hasn't. It has merely obfuscated
+					the politics behind a veneer of computational objectivity.
+				</p>
+
+				<p>
+					When the first algorithms were introduced to assist in drawing
+					electoral boundaries, proponents heralded a new era of fairness. The
+					logic was seductive: a machine has no political affiliation, no desire
+					for self-preservation, and no implicit bias against minority voters.
+					It merely optimizes for variables like compactness, equal population,
+					and contiguity.
+				</p>
+
+				<p>
+					However, the past decade of implementation has revealed a fundamental
+					flaw in this techno-optimism. Algorithms do not exist in a vacuum;
+					they are authored by humans and trained on historical data. If the
+					underlying data reflects decades of residential segregation, an
+					algorithm optimizing for “compactness” will invariably reinforce those
+					historical inequities.
+				</p>
+
+				<h2>The Mathematical Illusion of Fairness</h2>
+
+				<p>
+					Consider the concept of "efficiency gap," a metric often used to
+					quantify partisan gerrymandering. It attempts to measure the number of
+					"wasted votes" in an election. While mathematically elegant, relying
+					solely on such metrics can blind us to the qualitative realities of
+					civic life.
+				</p>
+
+				<blockquote>
+					“We are replacing the gerrymander of the politician with the
+					gerrymander of the data scientist. The latter is simply harder to
+					explain to a judge.”
+				</blockquote>
+
+				<p>
+					A neighborhood is not merely a collection of census blocks; it is a
+					community of interest—a shared history, common economic concerns, and
+					local infrastructure needs. An algorithm prioritizing geometric purity
+					over these qualitative bonds risks fracturing the very communities
+					that require unified representation.
+				</p>
+
+				<h2>A Framework for Algorithmic Accountability</h2>
+
+				<p>
+					We cannot—and should not—abandon computational tools in districting.
+					The sheer complexity of modern demography demands technological
+					assistance. However, we must establish a rigorous ethical framework
+					governing their use.
+				</p>
+
+				<p>
+					First, <strong>algorithmic transparency</strong> must be mandated. The
+					source code, the weighting of variables, and the training data must be
+					subject to public scrutiny and independent audit. Proprietary software
+					has no place in the fundamental mechanics of democracy.
+				</p>
+
+				<p>
+					Second, we must develop mechanisms to integrate qualitative community
+					input into the computational models. Algorithms must be capable of
+					understanding "communities of interest" not as polygons, but as
+					dynamic civic entities.
+				</p>
+			</article>
+		</main>
+		<div id="footer"></div>
+		<script type="module" src="js/pages/blog.js"></script>
+	</body>
 </html>

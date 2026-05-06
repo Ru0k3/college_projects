@@ -1,0 +1,14 @@
+@import url('https://fonts.googleapis.com/css2?family=Newsreader:wght@600;700&family=Inter:wght@400;500;600;700&display=swap');
+
+:root {
+    --bg: #fbf9f7;
+    --surface: #ffffff;
+    --text: #171513;
+    --muted: #6f6a63;
+    --line: #c9c1b8;
+    --soft-line: #ddd6ce;
+    --chip: #efebe6;
+    --alert-bg: #ffe8e4;
+    --alert-text: #b84a39;
+    --max-width: 66.25rem;
+}
