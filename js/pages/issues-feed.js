@@ -1,8 +1,4 @@
-<<<<<<< HEAD
 "use strict";
-=======
-\"use strict";
->>>>>>> b860826 (Refactor issues feed by removing unused code)
 import {
   ensureStateBlock,
   preventDefaultForSelectors,
