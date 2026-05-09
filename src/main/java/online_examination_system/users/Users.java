@@ -1,3 +1,5 @@
+package online_examination_system.users;
+
 package online_examination_system;
 
 public abstract class Users {

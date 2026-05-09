@@ -1,0 +1,66 @@
+# =========================
+# Java / Maven Build Files
+# =========================
+target/
+*.class
+*.jar
+*.war
+*.ear
+
+# Maven specific
+.mvn/
+*.log
+
+# =========================
+# IDE Files (VS Code / IntelliJ / Eclipse)
+# =========================
+.vscode/
+.idea/
+*.iml
+*.iws
+*.ipr
+.classpath
+.project
+.settings/
+
+# =========================
+# OS Generated Files
+# =========================
+.DS_Store
+Thumbs.db
+
+# =========================
+# Logs
+# =========================
+logs/
+*.log
+
+# =========================
+# Temporary / Cache Files
+# =========================
+*.tmp
+*.swp
+*.swo
+*~
+
+# =========================
+# Compiled Output (redundant safety)
+# =========================
+out/
+bin/
+
+# =========================
+# Package manager cache
+# =========================
+node_modules/   # (ignore only if frontend added later)
+
+# =========================
+# Environment files (future use)
+# =========================
+.env
+
+# =========================
+# Backup files
+# =========================
+*.bak
+*.backup
