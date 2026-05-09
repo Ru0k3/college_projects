@@ -1,6 +1,9 @@
 "use strict";
-import {loadComponent} from "../utils/load.js"
+import { loadComponent } from "../utils/load.js";
 
-
-loadComponent("header", "/partials/header.html");
-loadComponent("footer", "/partials/footer.html");
+document.addEventListener("DOMContentLoaded", async () => {
+  await Promise.all([
+    loadComponent("header", "partials/header.html"),
+    loadComponent("footer", "partials/footer.html"),
+  ]);
+});

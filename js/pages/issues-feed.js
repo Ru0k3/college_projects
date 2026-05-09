@@ -28,13 +28,13 @@ const paginationState = {
 
 const TAB_ROUTES = {
   "all content": null,
-  discussions: null,
+  discussion: "discussion.html",
   "expert blogs": null,
-  "active polls": null,
+  "active polls": "individual-poll.html",
 };
 
 const POST_TYPE_CLASSES = {
-  discussions: "post--discussion",
+  discussion: "post--discussion",
   "expert blogs": "post--feature",
   "active polls": "post--poll",
 };
@@ -151,7 +151,10 @@ function init() {
   renderCurrentTab("all content");
 }
 
-document.addEventListener("DOMContentLoaded", init);
-
-loadComponent("header", "/partials/header.html");
-loadComponent("footer", "/partials/footer.html");
+document.addEventListener("DOMContentLoaded", async () => {
+  await Promise.all([
+    loadComponent("header", "partials/header.html"),
+    loadComponent("footer", "partials/footer.html"),
+  ]);
+  init();
+});
