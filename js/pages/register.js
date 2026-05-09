@@ -2,68 +2,43 @@
 import { preventDefaultForSelectors, select } from "../utils/shared.js";
 import { postJson, readValue, setStatus } from "../utils/auth.js";
 
-const DEFAULT_ENDPOINT = "/api/register";
-const DEFAULT_REDIRECT = "login.html";
+import { signupUser } from "../api/auth.js";
 
-const DOM = { form: null, submit: null, status: null };
+const form = document.querySelector("#register-form");
+const errorBox = document.querySelector("#signup-error");
 
-function cacheDom() {
-  DOM.form = select("#register-form");
-  DOM.submit = select("#register-submit");
-  DOM.status = select("#register-status");
-}
+form.addEventListener("submit", async (e) => {
+	e.preventDefault();
 
-function validate(formData) {
-  const fullName = readValue(formData, "fullName");
-  const email = readValue(formData, "email");
-  const password = readValue(formData, "password");
-  const confirmPassword = readValue(formData, "confirmPassword");
+	errorBox.textContent = "";
 
-  if (!fullName || !email || !password || !confirmPassword)
-    return { ok: false, message: "Complete all required fields." };
-  if (password.length < 8)
-    return { ok: false, message: "Password must be at least 8 characters." };
-  if (password !== confirmPassword)
-    return { ok: false, message: "Passwords do not match." };
-  if (formData.get("terms") !== "on")
-    return { ok: false, message: "Accept Terms and Privacy Policy to continue." };
+	const name = form.fullName.value.trim();
+	const email = form.email.value.trim();
+	const password = form.password.value.trim();
+	const confirmPassword = form.confirmPassword.value.trim();
 
-  return { ok: true, fullName, email, password };
-}
+	if (!name || !email || !password || !confirmPassword) {
+		errorBox.textContent = "Please fill all fields";
+		return;
+	}
 
-async function handleSubmit(event) {
-  event.preventDefault();
-  if (!DOM.form || !DOM.form.reportValidity()) return;
+	if (password.length < 4) {
+		errorBox.textContent = "Password must be at least 4 characters";
+		return;
+	}
 
-  const formData = new FormData(DOM.form);
-  const validation = validate(formData);
+	if (password != confirmPassword) {
+		errorBox.textContent = "Passwords dont match";
+		return;
+	}
 
-  if (!validation.ok) {
-    setStatus(DOM.status, validation.message, true);
-    return;
-  }
+	try {
+		await signupUser(name, email, password);
 
-  DOM.submit.disabled = true;
-  setStatus(DOM.status, "Creating account...");
+		alert("Signup successful!");
 
-  try {
-    const result = await postJson(
-      DOM.form.dataset.endpoint || DEFAULT_ENDPOINT,
-      { fullName: validation.fullName, email: validation.email, password: validation.password }
-    );
-    setStatus(DOM.status, "Account created. Redirecting...");
-    window.location.assign(result?.redirectTo || DEFAULT_REDIRECT);
-  } catch (error) {
-    setStatus(DOM.status, error instanceof Error ? error.message : "Registration failed. Try again.", true);
-  } finally {
-    DOM.submit.disabled = false;
-  }
-}
-
-function init() {
-  cacheDom();
-  if (DOM.form) DOM.form.addEventListener("submit", handleSubmit);
-  preventDefaultForSelectors(".terms a");
-}
-
-document.addEventListener("DOMContentLoaded", init);
+		window.location.href = "/login.html";
+	} catch (err) {
+		errorBox.textContent = err.message;
+	}
+});
