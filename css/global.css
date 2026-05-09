@@ -1,5 +1,17 @@
+html,
 body {
+    height: 100%;
     margin: 0;
+}
+
+main {
+    flex: 1;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
     background: var(--bg);
     color: var(--text);
     font: 1rem/1.6 'Inter', system-ui, sans-serif;

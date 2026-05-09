@@ -52,7 +52,7 @@ function createCategoryCard(category) {
 
 		event.preventDefault();
 
-		navigateTo(`issues-feed.html?category=${category.id}`);
+		navigateTo(`issues_page.html?category=${category.id}`);
 	});
 
 	return article;

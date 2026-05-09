@@ -116,8 +116,8 @@ svg {
 
 .join-btn {
 	padding: 0.5rem 0.875rem;
-	background: var(--text);
-	color: #fff;
+	background: var();
+	color: var(--text);
 	border-radius: 0.5rem;
 }
 

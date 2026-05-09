@@ -13,9 +13,7 @@
 	<body>
 		<main class="create-page">
 			<header class="create-header">
-				<button class="icon-btn">
-					<span class="material-symbols-outlined">close</span>
-				</button>
+				<button class="icon-btn" onclick="history.back()">Close</button>
 
 				<h1 class="create-title">Create New Post</h1>
 
@@ -27,24 +25,18 @@
 
 				<div class="format-grid">
 					<button class="format-card active" data-type="discussion">
-						<span class="material-symbols-outlined">forum</span>
-
 						<h2>Discussion</h2>
 
 						<p>Start a community dialogue on civic matters.</p>
 					</button>
 
 					<button class="format-card" data-type="article">
-						<span class="material-symbols-outlined">article</span>
-
 						<h2>Article</h2>
 
 						<p>Publish a structured opinion or analysis.</p>
 					</button>
 
 					<button class="format-card" data-type="poll">
-						<span class="material-symbols-outlined">ballot</span>
-
 						<h2>Poll</h2>
 
 						<p>Gather structured votes on specific proposals.</p>
