@@ -1,0 +1,272 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --bg: #f6f4f4;
+    --surface: #ffffff;
+    --border: #ddd6d6;
+    --text: #151515;
+    --muted: #767676;
+    --hover: #f0ecec;
+}
+
+body {
+    background: var(--bg);
+    font-family: "Inter", sans-serif;
+    color: var(--text);
+}
+
+button,
+input,
+textarea,
+select {
+    font: inherit;
+}
+
+.create-page {
+    max-width: 72rem;
+    margin: 0 auto;
+    padding: 2rem;
+}
+
+.create-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 4rem;
+}
+
+.create-title {
+    font-family: "Playfair Display", serif;
+    font-size: 2.2rem;
+    font-weight: 700;
+}
+
+.icon-btn,
+.draft-btn {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+}
+
+.draft-btn {
+    text-transform: uppercase;
+    letter-spacing: 0.08rem;
+    font-size: 0.8rem;
+    font-weight: 600;
+}
+
+.section-block {
+    margin-bottom: 4rem;
+    border-top: 1px solid var(--border);
+    padding-top: 2rem;
+}
+
+.section-label {
+    text-transform: uppercase;
+    letter-spacing: 0.12rem;
+    font-size: 0.8rem;
+    font-weight: 700;
+    margin-bottom: 2rem;
+}
+
+.format-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+}
+
+.format-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 1rem;
+    padding: 2rem;
+    text-align: left;
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+
+.format-card:hover {
+    background: var(--hover);
+}
+
+.format-card.active {
+    border: 2px solid black;
+}
+
+.format-card .material-symbols-outlined {
+    margin-bottom: 1rem;
+}
+
+.format-card h2 {
+    font-family: "Playfair Display", serif;
+    font-size: 2rem;
+    margin-bottom: 1rem;
+}
+
+.format-card p {
+    color: var(--muted);
+    line-height: 1.7;
+}
+
+.editor-shell {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 1.25rem;
+    padding: 2rem;
+}
+
+.post-title {
+    width: 100%;
+    border: none;
+    background: transparent;
+    font-size: 3rem;
+    font-family: "Playfair Display", serif;
+    font-weight: 700;
+    margin-bottom: 2rem;
+    outline: none;
+}
+
+.post-title::placeholder {
+    color: #d2caca;
+}
+
+.editor-toolbar {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 1rem 0;
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 1.5rem;
+}
+
+.editor-toolbar button {
+    width: 2.5rem;
+    height: 2.5rem;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    border-radius: 0.5rem;
+}
+
+.editor-toolbar button:hover {
+    background: var(--hover);
+}
+
+.content-textarea {
+    width: 100%;
+    min-height: 24rem;
+    resize: vertical;
+    border: none;
+    outline: none;
+    background: transparent;
+    line-height: 1.8;
+    font-size: 1rem;
+}
+
+.poll-builder {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.poll-builder input {
+    width: 100%;
+    padding: 1rem;
+    border: 1px solid var(--border);
+    border-radius: 0.75rem;
+    background: #fafafa;
+}
+
+.add-option-btn {
+    width: fit-content;
+    border: none;
+    background: black;
+    color: white;
+    padding: 0.9rem 1.2rem;
+    border-radius: 0.75rem;
+    cursor: pointer;
+}
+
+.classification-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 1rem;
+    padding: 2rem;
+}
+
+.field-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.field-group label {
+    font-size: 0.85rem;
+    font-weight: 700;
+}
+
+.field-group input,
+.field-group select {
+    height: 3.5rem;
+    border: 1px solid var(--border);
+    padding: 0 1rem;
+    border-radius: 0.75rem;
+    background: #fafafa;
+}
+
+.field-group small {
+    color: var(--muted);
+}
+
+.actions-row {
+    display: flex;
+    justify-content: flex-end;
+    gap: 1rem;
+}
+
+.preview-btn,
+.publish-btn {
+    height: 3.5rem;
+    padding: 0 2rem;
+    border-radius: 0.75rem;
+    text-transform: uppercase;
+    font-weight: 700;
+    letter-spacing: 0.08rem;
+    cursor: pointer;
+}
+
+.preview-btn {
+    background: white;
+    border: 1px solid var(--border);
+}
+
+.publish-btn {
+    background: black;
+    color: white;
+    border: none;
+}
+
+@media (max-width: 768px) {
+
+    .format-grid,
+    .classification-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .post-title {
+        font-size: 2rem;
+    }
+
+    .create-header {
+        gap: 1rem;
+        flex-wrap: wrap;
+    }
+}

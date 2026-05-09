@@ -1,113 +1,121 @@
 "use strict";
 
 import {
-  navigateTo,
-  normalizeQuery,
-  preventDefaultForSelectors,
-  renderList,
-  select,
-  setupActiveClassToggle,
+	navigateTo,
+	normalizeQuery,
+	preventDefaultForSelectors,
+	renderList,
+	select,
+	setupActiveClassToggle,
 } from "../utils/shared.js";
 
 import { loadComponent } from "../utils/load.js";
-
-const categories = [
-  {
-    id: "governance",
-    title: "Governance",
-    icon: "account_balance",
-    description:
-      "Discussions on civic administration, structural reforms, and institutional transparency.",
-    threads: 248,
-    href: "issues-feed.html",
-    placeholder: false,
-  },
-];
+import { fetchCategories } from "../api/categories.js";
 
 const DOM = {
-  grid: null,
-  searchInput: null,
+	grid: null,
+	searchInput: null,
 };
 
-function createCategoryCard(category) {
-  const article = document.createElement("article");
-  article.className = `category-card${category.placeholder ? " placeholder" : ""}`;
-  article.dataset.href = category.href;
+let categories = [];
 
-  article.innerHTML = `
+function createCategoryCard(category) {
+	const article = document.createElement("article");
+
+	article.className = "category-card";
+
+	article.dataset.href = `issues-feed.html?category=${category.id}`;
+
+	article.innerHTML = `
     <div class="category-card__icon-wrap" aria-hidden="true">
-      <span class="material-symbols-outlined">${category.icon}</span>
+      <span class="material-symbols-outlined">forum</span>
     </div>
-    <h2 class="text-headline-sm category-card__title">${category.title}</h2>
-    <p class="text-body-md category-card__description">${category.description}</p>
-    <div class="category-card__footer">
-      <span class="text-label-caps category-card__threads">
-        ${category.threads} Active Threads
-      </span>
-      <a href="${category.href}" class="text-label-caps category-card__explore" aria-label="Explore ${category.title}">
-        Explore
-        <span class="material-symbols-outlined">arrow_forward</span>
-      </a>
-    </div>
+
+    <h2 class="text-headline-sm category-card__title">
+      ${category.name}
+    </h2>
+
+    <a
+      href="issues-feed.html?category=${category.id}"
+      class="text-label-caps category-card__explore"
+      aria-label="Explore ${category.name}"
+    >
+      Explore
+      <span class="material-symbols-outlined">arrow_forward</span>
+    </a>
   `;
 
-  article.addEventListener("click", (event) => {
-    if (event.target.closest(".category-card__explore")) {
-      return;
-    }
+	article.addEventListener("click", (event) => {
+		if (event.target.closest(".category-card__explore")) {
+			return;
+		}
 
-    event.preventDefault();
-    navigateTo(category.href);
-  });
+		event.preventDefault();
 
-  return article;
+		navigateTo(`issues-feed.html?category=${category.id}`);
+	});
+
+	return article;
 }
 
 function renderCards(categoryList) {
-  renderList(DOM.grid, categoryList, createCategoryCard, {
-    className: "no-results",
-    text: "No categories found.",
-  });
+	renderList(DOM.grid, categoryList, createCategoryCard, {
+		className: "no-results",
+		text: "No categories found.",
+	});
 }
 
 function filterCategories(query) {
-  if (!query) {
-    return categories;
-  }
+	if (!query) {
+		return categories;
+	}
 
-  return categories.filter((category) => normalizeQuery(category.title).includes(query));
+	return categories.filter((category) =>
+		normalizeQuery(category.name).includes(query),
+	);
 }
 
 function setupSearch() {
-  if (!DOM.searchInput) {
-    return;
-  }
+	if (!DOM.searchInput) {
+		return;
+	}
 
-  DOM.searchInput.addEventListener("input", () => {
-    const query = normalizeQuery(DOM.searchInput.value);
-    renderCards(filterCategories(query));
-  });
+	DOM.searchInput.addEventListener("input", () => {
+		const query = normalizeQuery(DOM.searchInput.value);
+
+		renderCards(filterCategories(query));
+	});
 }
 
 function cacheDom() {
-  DOM.grid = select("#js-categories-grid");
-  DOM.searchInput = select(".search input");
+	DOM.grid = select("#js-categories-grid");
+	DOM.searchInput = select("#js-search-input");
 }
 
-function init() {
-  cacheDom();
-  renderCards(categories);
-  setupSearch();
-  setupActiveClassToggle(".topnav__link", "topnav__link--active", {
-    preventDefault: false,
-  });
-  preventDefaultForSelectors(".footer-links a");
+async function loadCategories() {
+	try {
+		categories = await fetchCategories();
+
+		renderCards(categories);
+	} catch (err) {
+		console.error(err);
+
+		DOM.grid.innerHTML = `
+      <p class="no-results">
+        Failed to load categories.
+      </p>
+    `;
+	}
 }
 
-document.addEventListener("DOMContentLoaded", async () => {
-  await Promise.all([
-    loadComponent("header", "partials/header.html"),
-    loadComponent("footer", "partials/footer.html"),
-  ]);
-  init();
-});
+async function init() {
+	cacheDom();
+	setupSearch();
+	setupActiveClassToggle(".nav__link", "nav__link--active");
+	preventDefaultForSelectors(".nav__login, .nav__join, .footer__link");
+	loadComponent("footer", "/partials/footer.html");
+	loadComponent("header", "/partials/header.html");
+	await loadCategories();
+}
+
+document.addEventListener("DOMContentLoaded", init);

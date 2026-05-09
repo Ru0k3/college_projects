@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+		<title>Create Post | VoxGrid</title>
+
+		<link rel="stylesheet" href="./css/create.css" />
+
+		<script type="module" src="./js/pages/create.js" defer></script>
+	</head>
+	<body>
+		<main class="create-page">
+			<header class="create-header">
+				<button class="icon-btn">
+					<span class="material-symbols-outlined">close</span>
+				</button>
+
+				<h1 class="create-title">Create New Post</h1>
+
+				<button class="draft-btn">Save Draft</button>
+			</header>
+
+			<section class="section-block">
+				<p class="section-label">1. Format</p>
+
+				<div class="format-grid">
+					<button class="format-card active" data-type="discussion">
+						<span class="material-symbols-outlined">forum</span>
+
+						<h2>Discussion</h2>
+
+						<p>Start a community dialogue on civic matters.</p>
+					</button>
+
+					<button class="format-card" data-type="article">
+						<span class="material-symbols-outlined">article</span>
+
+						<h2>Article</h2>
+
+						<p>Publish a structured opinion or analysis.</p>
+					</button>
+
+					<button class="format-card" data-type="poll">
+						<span class="material-symbols-outlined">ballot</span>
+
+						<h2>Poll</h2>
+
+						<p>Gather structured votes on specific proposals.</p>
+					</button>
+				</div>
+			</section>
+
+			<section class="section-block">
+				<p class="section-label">2. Content</p>
+
+				<div class="editor-shell">
+					<input
+						type="text"
+						class="post-title"
+						placeholder="Enter a descriptive title..."
+					/>
+
+					<div id="dynamic-content-area">
+						<textarea
+							class="content-textarea"
+							placeholder="Detail your proposition, analysis, or inquiry..."
+						></textarea>
+					</div>
+				</div>
+			</section>
+
+			<section class="section-block">
+				<p class="section-label">3. Classification</p>
+
+				<div class="classification-grid">
+					<div class="field-group">
+						<label>Primary Category</label>
+
+						<select>
+							<option>Select a domain...</option>
+							<option>Governance</option>
+							<option>Education</option>
+							<option>Environment</option>
+							<option>Public Health</option>
+							<option>Economy</option>
+						</select>
+					</div>
+				</div>
+			</section>
+
+			<section class="actions-row">
+				<button class="preview-btn">Preview</button>
+
+				<button class="publish-btn">Publish Record</button>
+			</section>
+		</main>
+	</body>
+</html>
