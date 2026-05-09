@@ -1,7 +1,5 @@
 package online_examination_system.exams;
 
-package online_examination_system;
-
 // this is the result class - stores marks and grade for a student
 public class Result {
 
