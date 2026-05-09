@@ -27,7 +27,7 @@ function createIssueCard(issue) {
   `;
 
 	article.addEventListener("click", () => {
-		window.location.href = `/issue.html?id=${issue.id}`;
+		window.location.href = `/issues-feed.html?id=${issue.id}`;
 	});
 
 	return article;
