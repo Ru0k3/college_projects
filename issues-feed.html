@@ -4,28 +4,10 @@
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<title>VoxGrid - Governance</title>
-		<link rel="stylesheet" href="css/issues-feed.css" />
+		<link rel="stylesheet" href="css/variables.css" />
+		<link rel="stylesheet" href="css/global.css" />
 		<link rel="stylesheet" href="css/components.css" />
-		<style>
-			.poll-option-btn {
-				display: block;
-				width: 100%;
-				padding: 12px 16px;
-				margin-bottom: 8px;
-				border: 1px solid #d1d5db;
-				border-radius: 8px;
-				background: #ffffff;
-				color: #1b1c1c;
-				text-decoration: none;
-				font-size: 0.95rem;
-				cursor: pointer;
-				box-sizing: border-box;
-				transition: background 0.15s;
-			}
-			.poll-option-btn:hover {
-				background: #f3f4f6;
-			}
-		</style>
+		<link rel="stylesheet" href="css/issues-feed.css" />
 	</head>
 	<body>
 		<div id="header"></div>
@@ -34,37 +16,10 @@
 			<div class="container layout">
 				<section class="content">
 					<header class="hero">
-						<h1>Governance</h1>
-						<p>
-							A dedicated forum for structural policy, administrative reform,
-							and the foundational rules that guide civic processes. Discussions
-							here focus on long-term institutional health and procedural
-							integrity.
-						</p>
+						<h1></h1>
+						<p></p>
 					</header>
 					<div class="section-rule"></div>
-
-					<section class="toolbar" aria-label="Feed filters">
-						<div class="toolbar__tabs">
-							<button class="toolbar__tab toolbar__tab--active" type="button">
-								All Content
-							</button>
-							<a class="toolbar__tab" href="discussions.html">Discussion</a>
-					<a class="toolbar__tab" href="blog.html">Expert Blogs</a>
-							<a class="toolbar__tab" href="individual-poll.html">Active Polls</a>
-						</div>
-						<a class="toolbar__sort" href="index.html#trending-issues">
-							<svg viewBox="0 0 20 14" aria-hidden="true">
-								<path d="M1 1h18M4 7h12M7 13h6"></path>
-							</svg>
-							<span>Trending</span>
-							<svg viewBox="0 0 10 6" aria-hidden="true">
-								<path d="M1 1l4 4 4-4"></path>
-							</svg>
-						</a>
-					</section>
-
-					<div class="section-rule section-rule--tight"></div>
 
 					<article class="post post--discussion">
 						<div class="vote">
@@ -111,7 +66,9 @@
 							<span class="tag tag--dark">Expert Blog</span>
 						</div>
 						<div class="post__body">
-							<h2><a href="blog.html">The Ethics of Algorithmic Districting</a></h2>
+							<h2>
+								<a href="blog.html">The Ethics of Algorithmic Districting</a>
+							</h2>
 							<p>
 								As more municipalities look to computational models for
 								redrawing district lines, we must ask: whose data trains these
@@ -126,7 +83,6 @@
 										<span>Professor of Civic Data</span>
 									</div>
 								</div>
-								<span class="author-row__time">8 Min Read</span>
 							</div>
 						</div>
 					</article>
@@ -134,7 +90,6 @@
 					<article class="post post--poll">
 						<div class="poll-head">
 							<span class="poll-head__label">Active Poll</span>
-							<span class="tag tag--alert">Closes in 2 Days</span>
 						</div>
 						<h2>
 							Should City Council meetings enforce a strict 3-minute limit on
@@ -144,21 +99,23 @@
 							<button
 								type="button"
 								class="poll-option-btn"
-								onclick="window.location.href='individual-poll.html?vote=yes'"
+								onclick="window.location.href = 'individual-poll.html?vote=yes'"
 							>
 								Yes, prioritize volume of participants
 							</button>
 							<button
 								type="button"
 								class="poll-option-btn"
-								onclick="window.location.href='individual-poll.html?vote=no'"
+								onclick="window.location.href = 'individual-poll.html?vote=no'"
 							>
 								No, allow 5 minutes for deeper nuance
 							</button>
 							<button
 								type="button"
 								class="poll-option-btn"
-								onclick="window.location.href='individual-poll.html?vote=abstain'"
+								onclick="
+									window.location.href = 'individual-poll.html?vote=abstain'
+								"
 							>
 								Abstain / See Results
 							</button>
@@ -170,87 +127,7 @@
 					</article>
 
 					<div class="section-rule"></div>
-
-					<div class="load-more">
-						<button type="button">Load More Governance Items</button>
-					</div>
 				</section>
-
-				<aside class="sidebar">
-					<section class="panel">
-						<h3>Key Voices</h3>
-						<div class="panel-rule"></div>
-						<div class="voices">
-							<div class="voice">
-								<img
-									class="voice__avatar voice__avatar--photo voice__avatar--marcus"
-									src="assets/images/issues-feed-marcus.jpg"
-									alt="Marcus Chen"
-									loading="lazy"
-								/>
-								<div>
-									<strong>Marcus Chen</strong>
-									<span>Former City Clerk</span>
-								</div>
-							</div>
-							<div class="voice">
-								<img
-									class="voice__avatar voice__avatar--photo"
-									src="assets/images/issues-feed-sarah.jpg"
-									alt="Sarah Jenkins, Esq."
-									loading="lazy"
-								/>
-								<div>
-									<strong>Sarah Jenkins, Esq.</strong>
-									<span>Policy Analyst</span>
-								</div>
-							</div>
-							<div class="voice">
-								<img
-									class="voice__avatar voice__avatar--photo voice__avatar--david"
-									src="assets/images/issues-feed-david.jpg"
-									alt="David Alvey"
-									loading="lazy"
-								/>
-								<div>
-									<strong>David Alvey</strong>
-									<span>Structural Economist</span>
-								</div>
-							</div>
-						</div>
-						<a href="#" class="panel-link">View All Contributors</a>
-					</section>
-
-					<section class="panel panel--dotted">
-						<h3>October Impact</h3>
-						<p class="panel-copy">
-							Governance category metrics and resolved proposals.
-						</p>
-						<div class="stats">
-							<div class="stat">
-								<strong>12</strong>
-								<span>Proposals Drafted</span>
-							</div>
-							<div class="stat">
-								<strong>3</strong>
-								<span>Policies Adopted</span>
-							</div>
-						</div>
-						<a href="#" class="panel-link panel-link--spread"
-							>Read Full Report <span>&rarr;</span></a
-						>
-					</section>
-
-					<section class="note">
-						<p class="note__label">About This Category</p>
-						<p>
-							Governance rules dictate how decisions are made. Ensure your
-							contributions here are thoroughly researched and cite relevant
-							existing municipal codes where applicable.
-						</p>
-						<a href="blog.html">Review Community Guidelines</a>
-					</section>
-				</aside>
 			</div>
 		</main>
 
