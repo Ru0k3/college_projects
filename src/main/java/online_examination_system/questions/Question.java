@@ -1,3 +1,5 @@
+package online_examination_system.questions;
+
 package online_examination_system;
 
 public abstract class Question {
