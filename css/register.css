@@ -60,9 +60,19 @@ button {
 	width: 100%;
 	aspect-ratio: 16 / 10;
 	border-radius: 0.75rem;
-	background:
-		radial-gradient(circle at 72% 28%, rgba(255, 255, 255, 0.24), transparent 42%),
-		linear-gradient(135deg, #25211c 0%, #5a5248 45%, #91857a 100%);
+	overflow: hidden;
+	margin: 0;
+	border: 0.0625rem solid rgba(109, 96, 83, 0.3);
+	background: #e3ddd6;
+	box-shadow: 0 1rem 2rem rgba(19, 15, 10, 0.16);
+}
+
+.hero-visual__image {
+	width: 100%;
+	height: 100%;
+	display: block;
+	object-fit: cover;
+	object-position: center 42%;
 }
 
 .register-card {

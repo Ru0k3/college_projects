@@ -254,9 +254,34 @@ svg {
 .feature-art {
   min-height: 11.625rem;
   padding: 0.75rem;
-  background:
-    linear-gradient(135deg, rgba(0, 0, 0, 0.28), rgba(0, 0, 0, 0.08)),
-    linear-gradient(135deg, #103e46 0%, #1e6b77 34%, #3cc0d2 68%, #76dbe9 100%);
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: flex-start;
+  background: #153848;
+}
+
+.feature-art::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(140deg, rgba(7, 16, 24, 0.58), rgba(7, 16, 24, 0.22) 52%, rgba(7, 16, 24, 0.48));
+  z-index: 1;
+}
+
+.feature-art__image {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 38%;
+  z-index: 0;
+}
+
+.feature-art .tag {
+  position: relative;
+  z-index: 2;
 }
 
 .post--feature .post__body {
@@ -285,6 +310,22 @@ svg {
   width: 2.125rem;
   height: 2.125rem;
   border-radius: 50%;
+}
+
+.voice__avatar--photo {
+  object-fit: cover;
+  object-position: center 24%;
+  display: block;
+  border: 0.0625rem solid var(--soft-line);
+  background: #d8d2c8;
+}
+
+.voice__avatar--marcus {
+  object-position: center 30%;
+}
+
+.voice__avatar--david {
+  object-position: center 22%;
 }
 
 .author-row__avatar {
@@ -399,18 +440,6 @@ svg {
 .voices {
   display: grid;
   gap: 0.875rem;
-}
-
-.voice__avatar--one {
-  background: linear-gradient(135deg, #1f3446, #607f94);
-}
-
-.voice__avatar--two {
-  background: linear-gradient(135deg, #47392d, #9e846b);
-}
-
-.voice__avatar--three {
-  background: linear-gradient(135deg, #3b4657, #8998aa);
 }
 
 .panel-link {
