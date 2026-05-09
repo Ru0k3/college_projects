@@ -91,17 +91,23 @@ function setupSearch() {
 
 function cacheDom() {
   DOM.grid = select("#js-categories-grid");
-  DOM.searchInput = select("#js-search-input");
+  DOM.searchInput = select(".search input");
 }
 
 function init() {
   cacheDom();
   renderCards(categories);
   setupSearch();
-  setupActiveClassToggle(".nav__link", "nav__link--active");
-  preventDefaultForSelectors(".nav__login, .nav__join, .footer__link");
+  setupActiveClassToggle(".topnav__link", "topnav__link--active", {
+    preventDefault: false,
+  });
+  preventDefaultForSelectors(".footer-links a");
 }
 
-document.addEventListener("DOMContentLoaded", init);
-loadComponent("header", "/partials/header.html")
-loadComponent("footer", "/partials/footer.html")
+document.addEventListener("DOMContentLoaded", async () => {
+  await Promise.all([
+    loadComponent("header", "partials/header.html"),
+    loadComponent("footer", "partials/footer.html"),
+  ]);
+  init();
+});
