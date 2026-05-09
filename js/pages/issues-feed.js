@@ -1,8 +1,6 @@
 "use strict";
-
 import {
   ensureStateBlock,
-  navigateTo,
   preventDefaultForSelectors,
   removeBySelector,
   select,
@@ -10,7 +8,7 @@ import {
   setupActiveClassToggle,
   toDisplayLabel,
 } from "../utils/shared.js";
-import {loadComponent} from "../utils/load.js"
+import { loadComponent } from "../utils/load.js";
 
 const DOM = {
   feedContainer: null,
@@ -24,19 +22,6 @@ const paginationState = {
   page: 1,
   hasMore: true,
   sort: "trending",
-};
-
-const TAB_ROUTES = {
-  "all content": null,
-  discussion: "discussion.html",
-  "expert blogs": null,
-  "active polls": "individual-poll.html",
-};
-
-const POST_TYPE_CLASSES = {
-  discussion: "post--discussion",
-  "expert blogs": "post--feature",
-  "active polls": "post--poll",
 };
 
 function cacheDom() {
@@ -65,58 +50,11 @@ function removeEmptyState() {
   removeBySelector(".feed-empty-state", DOM.feedContainer);
 }
 
-function getPostsByType(type) {
-  if (type === "all content") {
-    return DOM.posts;
-  }
-
-  const postClass = POST_TYPE_CLASSES[type];
-  return DOM.posts.filter((post) => post.classList.contains(postClass));
-}
-
-function renderCurrentTab(type) {
-  const matchingPosts = getPostsByType(type);
-
-  DOM.posts.forEach((post) => {
-    post.hidden = !matchingPosts.includes(post);
-  });
-
-  if (matchingPosts.length === 0) {
-    renderEmptyState();
-    return;
-  }
-
-  removeEmptyState();
-}
-
-function handleTabChange(tabElement) {
-  const tabKey = tabElement.textContent.trim().toLowerCase();
-  const route = TAB_ROUTES[tabKey];
-
-  if (route) {
-    navigateTo(route);
-    return;
-  }
-
-  renderCurrentTab(tabKey);
-}
-
-function setupTabNavigation() {
-  setupActiveClassToggle(".toolbar__tab", "toolbar__tab--active", {
-    preventDefault: false,
-    onChange: handleTabChange,
-  });
-}
-
 function setupSortDropdown() {
-  if (!DOM.sortButton) {
-    return;
-  }
-
+  if (!DOM.sortButton) return;
   DOM.sortButton.addEventListener("click", () => {
     paginationState.sort =
       paginationState.sort === "trending" ? "latest" : "trending";
-
     const label = select("span", DOM.sortButton);
     if (label) {
       label.textContent = toDisplayLabel(paginationState.sort);
@@ -125,10 +63,7 @@ function setupSortDropdown() {
 }
 
 function setupLoadMore() {
-  if (!DOM.loadMoreBtn) {
-    return;
-  }
-
+  if (!DOM.loadMoreBtn) return;
   DOM.loadMoreBtn.addEventListener("click", () => {
     paginationState.page += 1;
     paginationState.hasMore = false;
@@ -145,16 +80,20 @@ function init() {
   setupActiveClassToggle(".topnav__link", "topnav__link--active", {
     preventDefault: false,
   });
-  setupTabNavigation();
   setupSortDropdown();
   setupLoadMore();
-  renderCurrentTab("all content");
+
+  // Show all posts by default, hide none
+  DOM.posts.forEach((post) => (post.hidden = false));
+
+  // If no posts at all, show empty state
+  if (DOM.posts.length === 0) {
+    renderEmptyState();
+  } else {
+    removeEmptyState();
+  }
 }
 
-document.addEventListener("DOMContentLoaded", async () => {
-  await Promise.all([
-    loadComponent("header", "partials/header.html"),
-    loadComponent("footer", "partials/footer.html"),
-  ]);
-  init();
-});
+document.addEventListener("DOMContentLoaded", init);
+loadComponent("header", "/partials/header.html");
+loadComponent("footer", "/partials/footer.html");
