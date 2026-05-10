@@ -25,6 +25,17 @@ export async function fetchPoll(pollId) {
 		return null;
 	}
 }
+export async function fetchPollByIssue(issueId) {
+	console.log("POLL ISSUE ID:", issueId);
+
+	const res = await fetch(`${BASE_URL}/polls?issue_id=${issueId}`);
+
+	if (!res.ok) {
+		throw new Error("Failed to fetch poll");
+	}
+
+	return await res.json();
+}
 
 // -------------------------
 // SUBMIT POLL VOTE

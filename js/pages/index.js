@@ -2,56 +2,232 @@
 
 import { loadComponent } from "../utils/load.js";
 
-window.onload = function () {
-	let pollButtons = document.querySelectorAll(".poll-options button");
-	let voteCount = document.querySelector(".vote-count");
+import { fetchIssues } from "../api/issues.js";
 
-	for (let i = 0; i < pollButtons.length; i++) {
-		pollButtons[i].addEventListener("click", function () {
-			for (let j = 0; j < pollButtons.length; j++) {
-				pollButtons[j].style.backgroundColor = "transparent";
-				pollButtons[j].style.color = "#1b1c1c";
-				pollButtons[j].querySelector("span").style.opacity = "0";
-			}
+import { fetchCategories } from "../api/categories.js";
 
-			this.style.backgroundColor = "#000000";
-			this.style.color = "#ffffff";
-			this.querySelector("span").style.opacity = "0.7";
+import { fetchPollByIssue } from "../api/polls.js";
 
-			voteCount.innerText = "Thank you for voting";
-		});
-	}
+import { fetchDiscussionsByIssue } from "../api/discussions.js";
 
-	let searchInput = document.querySelector(".search input");
-	let issueCards = document.querySelectorAll(".issue-card");
-	let feedItems = document.querySelectorAll(".feed-item");
+// -----------------------------------
+// DOM
+// -----------------------------------
+const DOM = {
+	issuesGrid: document.querySelector("#issues-grid"),
 
-	if (searchInput) {
-		searchInput.addEventListener("keyup", function () {
-			let searchText = searchInput.value.toLowerCase();
+	categoriesList: document.querySelector("#categories-list"),
 
-			for (let i = 0; i < issueCards.length; i++) {
-				let cardText = issueCards[i].innerText.toLowerCase();
+	quickPoll: document.querySelector("#quick-poll-card"),
 
-				if (cardText.indexOf(searchText) > -1) {
-					issueCards[i].style.display = "flex";
-				} else {
-					issueCards[i].style.display = "none";
-				}
-			}
-
-			for (let i = 0; i < feedItems.length; i++) {
-				let feedText = feedItems[i].innerText.toLowerCase();
-
-				if (feedText.indexOf(searchText) > -1) {
-					feedItems[i].style.display = "block";
-				} else {
-					feedItems[i].style.display = "none";
-				}
-			}
-		});
-	}
+	latestDiscussions: document.querySelector("#latest-discussions"),
 };
 
-await loadComponent("header", "/partials/header.html");
-await loadComponent("footer", "/partials/footer.html");
+// -----------------------------------
+// RENDER ISSUES
+// -----------------------------------
+function renderIssues(issues) {
+	DOM.issuesGrid.innerHTML = "";
+
+	issues.forEach((issue) => {
+		const article = document.createElement("article");
+
+		article.className = "issue-card";
+
+		article.innerHTML = `
+      <div class="card-top">
+        <span class="label">
+          ${issue.category_name}
+        </span>
+
+        <span class="material-symbols-outlined">
+          bookmark_border
+        </span>
+      </div>
+
+      <h3>
+        <a
+          href="issues-feed.html?issue_id=${issue.id}"
+          style="
+            text-decoration:none;
+            color:inherit;
+          "
+        >
+          ${issue.title}
+        </a>
+      </h3>
+
+      <p>
+        ${issue.summary}
+      </p>
+    `;
+
+		DOM.issuesGrid.appendChild(article);
+	});
+}
+
+// -----------------------------------
+// RENDER CATEGORIES
+// -----------------------------------
+function renderCategories(categories) {
+	DOM.categoriesList.innerHTML = "";
+
+	categories.forEach((category) => {
+		const li = document.createElement("li");
+
+		li.innerHTML = `
+        <a
+          href="issues.html?category=${category.id}"
+        >
+          <span class="material-symbols-outlined">
+            gavel
+          </span>
+
+          ${category.name}
+        </a>
+      `;
+
+		DOM.categoriesList.appendChild(li);
+	});
+}
+
+// -----------------------------------
+// RENDER QUICK POLL
+// -----------------------------------
+function renderPoll(poll) {
+	if (!poll) {
+		DOM.quickPoll.innerHTML = "<p>No active poll</p>";
+
+		return;
+	}
+
+	DOM.quickPoll.innerHTML = `
+    <div class="poll-heading">
+      <span class="material-symbols-outlined">
+        poll
+      </span>
+
+      <h2>Quick Poll</h2>
+    </div>
+
+    <p class="poll-question">
+      ${poll.question}
+    </p>
+
+    <div class="poll-options">
+      ${poll.options
+				.map(
+					(option) => `
+            <button
+              type="button"
+              data-option-id="${option.id}"
+            >
+              ${option.option_text}
+            </button>
+          `,
+				)
+				.join("")}
+    </div>
+  `;
+
+	const buttons = DOM.quickPoll.querySelectorAll("button");
+
+	buttons.forEach((btn) => {
+		btn.addEventListener("click", () => {
+			window.location.href = `individual-poll.html?poll_id=${poll.id}`;
+		});
+	});
+}
+
+// -----------------------------------
+// RENDER DISCUSSIONS
+// -----------------------------------
+function renderDiscussions(discussions) {
+	DOM.latestDiscussions.innerHTML = "";
+
+	discussions.forEach((discussion) => {
+		const article = document.createElement("article");
+
+		article.className = "feed-item";
+
+		article.innerHTML = `
+        <div class="meta">
+          <span>
+            Discussion
+          </span>
+
+          <span>
+            &middot;
+          </span>
+
+          <span>
+            Recent
+          </span>
+        </div>
+
+        <a
+          href="discussions.html?discussion_id=${discussion.id}"
+        >
+          ${discussion.title}
+        </a>
+
+        <p>
+          ${discussion.content.slice(0, 120)}...
+        </p>
+      `;
+
+		DOM.latestDiscussions.appendChild(article);
+	});
+}
+
+// -----------------------------------
+// LOAD PAGE DATA
+// -----------------------------------
+async function loadPageData() {
+	try {
+		// -------------------------
+		// ISSUES
+		// -------------------------
+		const issues = await fetchIssues();
+
+		renderIssues(issues.slice(0, 3));
+
+		// -------------------------
+		// CATEGORIES
+		// -------------------------
+		const categories = await fetchCategories();
+
+		renderCategories(categories);
+
+		// -------------------------
+		// QUICK POLL
+		// -------------------------
+		if (issues.length > 0) {
+			const poll = await fetchPollByIssue(1);
+
+			renderPoll(poll);
+
+			// ---------------------
+			// DISCUSSIONS
+			// ---------------------
+			const discussions = await fetchDiscussionsByIssue(3);
+
+			renderDiscussions(discussions.slice(0, 4));
+		}
+	} catch (err) {
+		console.error(err);
+	}
+}
+
+// -----------------------------------
+// INIT
+// -----------------------------------
+async function init() {
+	await loadComponent("header", "/partials/header.html");
+
+	await loadComponent("footer", "/partials/footer.html");
+
+	await loadPageData();
+}
+
+document.addEventListener("DOMContentLoaded", init);

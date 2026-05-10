@@ -2,147 +2,104 @@
 <html lang="en">
 	<head>
 		<meta charset="UTF-8" />
+
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
 		<title>VoxGrid - Home</title>
 
 		<link rel="preconnect" href="https://fonts.googleapis.com" />
+
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
 		<link
 			href="https://fonts.googleapis.com/css2?family=Newsreader:wght@400;600;700&family=Inter:wght@300..700&display=swap"
 			rel="stylesheet"
 		/>
+
 		<link
 			href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
 			rel="stylesheet"
 		/>
 
 		<link rel="stylesheet" href="css/variables.css" />
+
 		<link rel="stylesheet" href="css/components.css" />
+
 		<link rel="stylesheet" href="css/index.css" />
 	</head>
+
 	<body>
 		<div id="header"></div>
+
 		<main class="main container">
+			<!-- HERO -->
 			<section class="hero">
 				<div class="hero-content">
 					<div class="badge">
-						<span class="material-symbols-outlined">trending_up</span>
-						<span>Trending Governance Issue</span>
+						<span class="material-symbols-outlined"> trending_up </span>
+
+						<span> Trending Civic Discussions </span>
 					</div>
 
 					<h1>Strengthening Democratic Governance</h1>
 
 					<p>
-						A civic initiative to reinforce transparent, accountable, and
-						participatory local governance — from electoral reform and council
-						term limits to open-budget policies that put decision-making power
-						back in citizens' hands.
+						A collaborative civic platform for public discussions, expert
+						analysis, policy polls, and structured democratic participation.
 					</p>
 
 					<div class="hero-actions">
-						<a class="button button-primary" href="join-conversation.html"
-							>Join Conversation</a
-						>
-						<a class="button button-outline" href="poll-results.html"
-							>View Poll Results</a
-						>
+						<a class="button button-primary" href="create.html">
+							Create Discussion
+						</a>
+
+						<a class="button button-outline" href="#trending-issues">
+							Explore Issues
+						</a>
 					</div>
 				</div>
 
 				<div class="hero-image">
-					<img 
-						src="https://images.unsplash.com/photo-1517048676732-d65bc937f952?auto=format&fit=crop&q=80&w=1200&h=800" 
-						alt="A modern architectural view of a civic building representing transparent governance"
+					<img
+						src="https://images.unsplash.com/photo-1517048676732-d65bc937f952?auto=format&fit=crop&q=80&w=1200&h=800"
+						alt="Modern civic architecture"
 					/>
 				</div>
 			</section>
 
+			<!-- TRENDING ISSUES -->
 			<section class="section">
 				<h2 id="trending-issues" class="section-title">Trending Issues</h2>
 
-				<div class="card-grid">
-					<article class="issue-card">
-						<div class="card-top">
-							<span class="label">Governance</span>
-							<span class="material-symbols-outlined">bookmark_border</span>
-						</div>
-
-						<h3>
-							<a
-								href="issues-feed.html"
-								style="text-decoration: none; color: inherit"
-								>City Council Term Limits Proposal</a
-							>
-						</h3>
-						<p>
-							Debate regarding the implementation of consecutive term limits for
-							local council members to foster new leadership.
-						</p>
-
-						<div class="card-stats">
-							<span
-								><span class="material-symbols-outlined">forum</span>142</span
-							>
-							<span
-								><span class="material-symbols-outlined">how_to_vote</span
-								>890</span
-							>
-						</div>
-					</article>
-				</div>
+				<div class="card-grid" id="issues-grid"></div>
 			</section>
 
+			<!-- MAIN CONTENT -->
 			<div class="content-grid">
+				<!-- SIDEBAR -->
 				<aside class="side-column">
-					<section class="poll-card">
-						<div class="poll-heading">
-							<span class="material-symbols-outlined">poll</span>
-							<h2>Quick Poll</h2>
-						</div>
-
-						<p class="poll-question">
-							Should city centers be car-free by 2030?
-						</p>
-
-						<div class="poll-options">
-							<button type="button">Yes <span>65%</span></button>
-							<button type="button">No <span>25%</span></button>
-							<button type="button">Maybe <span>10%</span></button>
-						</div>
-
-						<p class="vote-count">2,451 votes cast</p>
+					<!-- QUICK POLL -->
+					<section class="poll-card" id="quick-poll-card">
+						<p>Loading poll...</p>
 					</section>
 
+					<!-- CATEGORIES -->
 					<section>
 						<h2 class="side-title">Explore Categories</h2>
 
-						<ul class="category-list">
-							<li>
-								<a href="issues-feed.html"
-									><span class="material-symbols-outlined">gavel</span
-									>Governance</a
-								>
-							</li>
-						</ul>
+						<ul class="category-list" id="categories-list"></ul>
 					</section>
 				</aside>
 
+				<!-- FEED -->
 				<section class="feed">
 					<div class="feed-header">
 						<h2>Latest Discussions</h2>
-						<a href="discussions.html">View All</a>
+
+						<a href="discussions.html"> View All </a>
 					</div>
 
-					<article class="feed-item">
-						<div class="meta">
-							<span>Governance</span><span>&middot;</span><span>Yesterday</span>
-						</div>
-						<a href="issues-feed.html">Ranked-Choice Voting Implementation</a>
-						<p>
-							Analyzing the logistical and educational requirements for rolling
-							out ranked-choice voting in the next municipal election cycle.
-						</p>
-					</article>
+					<div id="latest-discussions"></div>
 				</section>
 			</div>
 		</main>

@@ -98,3 +98,13 @@ export async function voteDiscussion(discussionId, voteType) {
 		return null;
 	}
 }
+
+export async function fetchDiscussionsByIssue(issueId) {
+	const res = await fetch(`${BASE_URL}/discussions?issue_id=${issueId}`);
+
+	if (!res.ok) {
+		throw new Error("Failed to fetch discussions");
+	}
+
+	return await res.json();
+}
