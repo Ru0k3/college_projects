@@ -1,93 +1,96 @@
 <!doctype html>
 <html lang="en">
-	<head>
-		<script>
-			(() => {
-				try {
-					const saved = localStorage.getItem("voxgrid-theme");
-					const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
-					document.documentElement.dataset.theme = saved || (prefersDark ? "dark" : "light");
-				} catch (error) {
-					document.documentElement.dataset.theme = "light";
-				}
-			})();
-		</script>
+  <head>
+    <script>
+      (() => {
+        try {
+          const saved = localStorage.getItem("voxgrid-theme");
+          const prefersDark = window.matchMedia(
+            "(prefers-color-scheme: dark)",
+          ).matches;
+          document.documentElement.dataset.theme =
+            saved || (prefersDark ? "dark" : "light");
+        } catch (error) {
+          document.documentElement.dataset.theme = "light";
+        }
+      })();
+    </script>
 
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<title>Login | VoxGrid</title>
-		<link rel="stylesheet" href="css/components.css" />
-		<link rel="stylesheet" href="css/login.css" />
-	</head>
-	<body>
-		
-		<div id="header"></div>
-<main class="login-page">
-			<section class="login-card" aria-labelledby="login-title">
-				<h1 id="login-title">Sign In</h1>
-				<p>Access your VoxGrid account.</p>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login | VoxGrid</title>
+    <link rel="stylesheet" href="css/components.css" />
+    <link rel="stylesheet" href="css/login.css" />
+  </head>
+  <body>
+    <main class="login-page">
+      <section class="login-card" aria-labelledby="login-title">
+        <h1 id="login-title">Sign In</h1>
+        <p>Access your VoxGrid account.</p>
 
-				<form
-					id="login-form"
-					data-endpoint="/api/login"
-					data-redirect="issue_categories.html"
-					novalidate
-				>
-					<label class="field" for="email">
-						<span>Email</span>
-						<input
-							id="email"
-							name="email"
-							type="email"
-							autocomplete="email"
-							placeholder="name@example.com"
-							required
-						/>
-					</label>
+        <form
+          id="login-form"
+          data-endpoint="/api/login"
+          data-redirect="issue_categories.html"
+          novalidate
+        >
+          <label class="field" for="email">
+            <span>Email</span>
+            <input
+              id="email"
+              name="email"
+              type="email"
+              autocomplete="email"
+              placeholder="name@example.com"
+              required
+            />
+          </label>
 
-					<label class="field" for="password">
-						<span>Password</span>
-						<input
-							id="password"
-							name="password"
-							type="password"
-							autocomplete="current-password"
-							placeholder="Enter your password"
-							required
-						/>
-					</label>
+          <label class="field" for="password">
+            <span>Password</span>
+            <input
+              id="password"
+              name="password"
+              type="password"
+              autocomplete="current-password"
+              placeholder="Enter your password"
+              required
+            />
+          </label>
 
-					<button id="login-submit" type="submit">Sign In</button>
-					<p
-						id="login-error"
-						class="status"
-						role="status"
-						aria-live="polite"
-					></p>
-					<p class="switch-auth">
-						New here? <a href="register.html">Create an account</a>
-					</p>
-				</form>
-			</section>
-		</main>
-		<script type="module" src="js/pages/login.js"></script>
-	
-		<script type="module">
-			import { loadComponent } from "./js/utils/load.js";
-			import { initTheme, bindToggle } from "./js/utils/theme.js";
+          <button id="login-submit" type="submit">Sign In</button>
+          <p
+            id="login-error"
+            class="status"
+            role="status"
+            aria-live="polite"
+          ></p>
+          <p class="switch-auth">
+            New here? <a href="register.html">Create an account</a>
+          </p>
+        </form>
+      </section>
+    </main>
+    <script type="module" src="js/pages/login.js"></script>
 
-			initTheme();
-			document.addEventListener("component:loaded", (event) => {
-				if (event.detail?.file?.includes("header.html")) {
-					bindToggle(".theme-toggle");
-				}
-			});
+    <script type="module">
+      import { loadComponent } from "./js/utils/load.js";
+      import { initTheme, bindToggle } from "./js/utils/theme.js";
 
-			const headerMount = document.getElementById("header") || document.getElementById("header-placeholder");
-			if (headerMount && !headerMount.hasChildNodes()) {
-				loadComponent(headerMount.id, "./partials/header.html");
-			}
-			bindToggle(".theme-toggle");
-		</script>
-	</body>
+      initTheme();
+      document.addEventListener("component:loaded", (event) => {
+        if (event.detail?.file?.includes("header.html")) {
+          bindToggle(".theme-toggle");
+        }
+      });
+
+      const headerMount =
+        document.getElementById("header") ||
+        document.getElementById("header-placeholder");
+      if (headerMount && !headerMount.hasChildNodes()) {
+        loadComponent(headerMount.id, "./partials/header.html");
+      }
+      bindToggle(".theme-toggle");
+    </script>
+  </body>
 </html>
