@@ -1,103 +1,96 @@
 "use strict";
 
-import {
-  POLL_OPTION_IDS,
-  getUserVote,
-  loadPollData,
-  registerVote,
-} from "../utils/poll-data.js";
+import { fetchPoll, submitVote } from "../api/polls.js";
 
+import { loadComponent } from "../utils/load.js";
+
+// -------------------------
+// DOM
+// -------------------------
 const DOM = {
-  voteButtons: [],
-  voteMessage: null,
-  totalVotesLabel: null,
+	title: document.querySelector(".poll-header h1"),
+	totalVotes: document.querySelector("#total-votes-label"),
+	voteOptions: document.querySelector("#vote-options"),
+	votedMsg: document.querySelector("#voted-msg"),
 };
 
-function getOptionLabelById(pollData, voteId) {
-  const selectedOption = pollData.options.find((option) => option.id === voteId);
-  return selectedOption ? selectedOption.name : "Unknown option";
+// -------------------------
+// URL PARAMS
+// -------------------------
+const params = new URLSearchParams(window.location.search);
+const pollId = params.get("id");
+
+// -------------------------
+// RENDER OPTIONS
+// -------------------------
+function renderOptions(options = []) {
+	DOM.voteOptions.innerHTML = "";
+
+	options.forEach((option) => {
+		const button = document.createElement("button");
+
+		button.className = "vote-btn";
+		button.type = "button";
+		button.textContent = option.option_text;
+
+		button.addEventListener("click", async () => {
+			// remove previous selection
+			document.querySelectorAll(".vote-btn").forEach((btn) => {
+				btn.classList.remove("vote-btn--selected");
+			});
+
+			// select current button
+			button.classList.add("vote-btn--selected");
+
+			// submit vote
+			const result = await submitVote(pollId, option.id);
+
+			if (result) {
+				DOM.votedMsg.textContent = "Your vote has been recorded.";
+
+				// disable buttons after vote
+				document.querySelectorAll(".vote-btn").forEach((btn) => {
+					btn.disabled = true;
+				});
+			}
+		});
+
+		DOM.voteOptions.appendChild(button);
+	});
 }
 
-function setSelectedButton(voteId) {
-  DOM.voteButtons.forEach((button) => {
-    const isSelected = button.dataset.vote === voteId;
-    button.classList.toggle("vote-btn--selected", isSelected);
-  });
+// -------------------------
+// LOAD POLL
+// -------------------------
+async function loadPoll() {
+	if (!pollId) return;
+
+	try {
+		// fetch poll + options together
+		const poll = await fetchPoll(pollId);
+
+		if (!poll) return;
+
+		// populate poll data
+		DOM.title.textContent = poll.question;
+
+		DOM.totalVotes.textContent = `${poll.total_votes || 0} total votes cast`;
+
+		// render options
+		renderOptions(poll.options);
+	} catch (err) {
+		console.error("Failed to load poll:", err);
+	}
 }
 
-function updateTotalVotesLabel(totalVotes) {
-  if (!DOM.totalVotesLabel) {
-    return;
-  }
+// -------------------------
+// INIT
+// -------------------------
+async function init() {
+	await loadComponent("header", "/partials/header.html");
+	await loadComponent("footer", "/partials/footer.html");
 
-  DOM.totalVotesLabel.textContent = `${totalVotes.toLocaleString()} total votes cast`;
-}
-
-function showVoteMessage(text) {
-  if (!DOM.voteMessage) {
-    return;
-  }
-
-  DOM.voteMessage.textContent = text;
-}
-
-function hydrateInitialState() {
-  const pollData = loadPollData();
-  const previousVote = getUserVote();
-
-  updateTotalVotesLabel(pollData.totalVotes);
-
-  if (previousVote) {
-    setSelectedButton(previousVote);
-    showVoteMessage(`Your current vote: ${getOptionLabelById(pollData, previousVote)}`);
-    return;
-  }
-
-  showVoteMessage("");
-}
-
-function handleVoteClick(event) {
-  const selectedVote = event.currentTarget.dataset.vote;
-
-  if (!POLL_OPTION_IDS.includes(selectedVote)) {
-    showVoteMessage("Please select a valid option.");
-    return;
-  }
-
-  const voteResult = registerVote(selectedVote);
-
-  if (!voteResult.isValidVote) {
-    showVoteMessage("Your vote could not be recorded. Please try again.");
-    return;
-  }
-
-  setSelectedButton(selectedVote);
-  updateTotalVotesLabel(voteResult.pollData.totalVotes);
-
-  if (!voteResult.changed) {
-    showVoteMessage(`Your current vote: ${getOptionLabelById(voteResult.pollData, selectedVote)}`);
-    return;
-  }
-
-  showVoteMessage(`Vote recorded: ${getOptionLabelById(voteResult.pollData, selectedVote)}`);
-}
-
-function setupVoteButtons() {
-  DOM.voteButtons.forEach((button) => {
-    button.addEventListener("click", handleVoteClick);
-  });
-}
-
-function cacheDom() {
-  DOM.voteButtons = Array.from(document.querySelectorAll("#vote-options .vote-btn"));
-  DOM.voteMessage = document.getElementById("voted-msg");
-  DOM.totalVotesLabel = document.getElementById("total-votes-label");
-}
-
-function init() {
-  cacheDom();
-  setupVoteButtons();
-  hydrateInitialState();
+	await loadPoll();
 }
 
 document.addEventListener("DOMContentLoaded", init);

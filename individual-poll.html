@@ -1,130 +1,94 @@
-﻿<!DOCTYPE html>
+﻿<!doctype html>
 <html class="light" lang="en">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Active Poll - Civic Authority</title>
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Active Poll - Civic Authority</title>
 
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Newsreader:opsz,wght@6..72,400;600;700&display=swap" rel="stylesheet" />
-  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 
-  <link rel="stylesheet" href="css/individual-poll.css" />
-  <style>
-    .vote-btn {
-      display: block;
-      width: 100%;
-      padding: 14px 18px;
-      margin-bottom: 10px;
-      border: 1px solid #d1d5db;
-      border-radius: 10px;
-      background: #ffffff;
-      color: #1b1c1c;
-      font-size: 1rem;
-      cursor: pointer;
-      text-align: left;
-      transition: background 0.15s, border-color 0.15s;
-    }
-    .vote-btn:hover {
-      background: #f3f4f6;
-      border-color: #9ca3af;
-    }
-    .vote-btn--selected {
-      border-color: #1b1c1c;
-      box-shadow: inset 0 0 0 1px #1b1c1c;
-      background: #f9fafb;
-    }
-  </style>
-</head>
-<body>
-  <main class="page">
-    <section class="poll-results">
-      <header class="poll-header">
-        <p class="eyebrow">Active Poll</p>
-        <h1>Should City Council meetings enforce a strict 3-minute limit on public comments to allow more speakers?</h1>
+		<link rel="stylesheet" href="css/components.css" />
+		<link rel="stylesheet" href="css/global.css" />
+		<link rel="stylesheet" href="css/variables.css" />
+		<link rel="stylesheet" href="css/individual-poll.css" />
+		<style>
+			.vote-btn {
+				display: block;
+				width: 100%;
+				padding: 14px 18px;
+				margin-bottom: 10px;
+				border: 1px solid #d1d5db;
+				border-radius: 10px;
+				background: #ffffff;
+				color: #1b1c1c;
+				font-size: 1rem;
+				cursor: pointer;
+				text-align: left;
+				transition:
+					background 0.15s,
+					border-color 0.15s;
+			}
+			.vote-btn:hover {
+				background: #f3f4f6;
+				border-color: #9ca3af;
+			}
+			.vote-btn--selected {
+				border-color: #1b1c1c;
+				box-shadow: inset 0 0 0 1px #1b1c1c;
+				background: #f9fafb;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="header"></div>
 
-        <div class="poll-meta">
-          <span class="material-symbols-outlined" aria-hidden="true">groups</span>
-          <span id="total-votes-label">1,204 total votes cast</span>
-          <span class="meta-divider" aria-hidden="true">&bull;</span>
-          <span>Closes in 2 days</span>
-        </div>
-      </header>
+		<main class="page">
+			<section class="poll-results">
+				<header class="poll-header">
+					<p class="eyebrow">Active Poll</p>
+					<h1>
+						Should City Council meetings enforce a strict 3-minute limit on
+						public comments to allow more speakers?
+					</h1>
 
-      <div id="poll-interactive">
+					<div class="poll-meta">
+						<span class="material-symbols-outlined" aria-hidden="true"
+							>groups</span
+						>
+						<span id="total-votes-label">1,204 total votes cast</span>
+						<span class="meta-divider" aria-hidden="true">&bull;</span>
+						<span>Closes in 2 days</span>
+					</div>
+				</header>
 
-        <!-- VOTING STATE (shown before vote) -->
-        <div id="vote-options">
-          <button class="vote-btn" data-vote="yes" type="button">
-            Yes, prioritize volume of participants
-          </button>
-          <button class="vote-btn" data-vote="no" type="button">
-            No, allow 5 minutes for deeper nuance
-          </button>
-          <button class="vote-btn" data-vote="abstain" type="button">
-            Abstain / See Results
-          </button>
-        </div>
+				<div id="poll-interactive">
+					<!-- VOTING STATE (shown before vote) -->
+					<div id="vote-options">
+						<button class="vote-btn" data-vote="yes" type="button">
+							Yes, prioritize volume of participants
+						</button>
+						<button class="vote-btn" data-vote="no" type="button">
+							No, allow 5 minutes for deeper nuance
+						</button>
+						<button class="vote-btn" data-vote="abstain" type="button">
+							Abstain / See Results
+						</button>
+					</div>
 
-        <p id="voted-msg" style="text-align:center; font-weight:600; margin-top:12px;"></p>
+					<p
+						id="voted-msg"
+						style="text-align: center; font-weight: 600; margin-top: 12px"
+					></p>
+				</div>
 
-      </div>
-
-      <p class="poll-note">
-        This poll was open to all registered residents of the district. The results will be presented at the upcoming procedural review meeting.
-      </p>
-    </section>
-
-    <section class="related-section">
-      <h2>Explore Further</h2>
-
-      <div class="related-grid">
-        <button class="related-card" type="button" onclick="window.location.href='join-conversation.html'">
-          <span class="material-symbols-outlined card-bg-icon" aria-hidden="true">forum</span>
-          <span class="eyebrow">Related Discussion</span>
-          <h3>Re-evaluating the Zoning Board Appointment Process</h3>
-          <p>
-            Join the debate on shifting from mayoral appointment to a staggered election model for greater transparency and community representation.
-          </p>
-          <span class="card-link">
-            Join the conversation
-            <span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span>
-          </span>
-        </button>
-
-        <button class="related-card" type="button" onclick="window.location.href='poll-results.html'">
-          <span class="material-symbols-outlined card-bg-icon" aria-hidden="true">poll</span>
-          <span class="eyebrow">Poll Results</span>
-          <h3>View the current vote breakdown</h3>
-          <p>
-            See how residents are split on the 3-minute public comment time limit and read the final civic judgement based on the results.
-          </p>
-          <span class="card-link">
-            View poll results
-            <span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span>
-          </span>
-        </button>
-      </div>
-    </section>
-  </main>
-
-  <footer class="site-footer">
-    <div class="footer-inner">
-      <div class="footer-brand">Civic Authority</div>
-
-      <div class="footer-links">
-        <a href="about-us.html">About</a>
-        <a href="#">Privacy Policy</a>
-        <a href="#">Terms of Service</a>
-        <a href="#">Civic Partners</a>
-        <a href="#">Research</a>
-      </div>
-
-      <p>&copy; 2024 Civic Authority. A Modern Record of Note.</p>
-    </div>
-  </footer>
-  <script type="module" src="js/pages/individual-poll.js"></script>
-</body>
+				<p class="poll-note">
+					This poll was open to all registered residents of the district. The
+					results will be presented at the upcoming procedural review meeting.
+				</p>
+			</section>
+		</main>
+		<div id="footer"></div>
+		<script type="module" src="js/pages/individual-poll.js"></script>
+	</body>
 </html>
-

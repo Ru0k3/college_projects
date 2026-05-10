@@ -32,9 +32,9 @@ function createDiscussionCard(disc) {
     <div class="post__body">
       <div class="post__meta">
         <span class="tag tag--muted">Discussion</span>
-        <span>${disc.created_at} by <a href="#">@${disc.author_name}</a></span>
+        <span>${disc.created_at} by @${disc.author_name}</span>
       </div>
-      <h2>${disc.title}</h2>
+      <h2><a href="discussions.html?id=${disc.id}">${disc.title}</a></h2>
       <p>${disc.content.substring(0, 120)}...</p>
       <div class="post__actions">
         <a href="discussion.html?id=${disc.id}">${disc.comment_count || 0} Comments</a>
@@ -83,7 +83,7 @@ function createPollCard(poll) {
       ${poll.options
 				.map(
 					(o) => `<button type="button" class="poll-option-btn"
-          onclick="window.location.href='individual-poll.html?id=${poll.id}&vote=${encodeURIComponent(o.option_text)}'">
+          onclick="window.location.href='individual-poll.html?id=${poll.id}'">
           ${o.option_text}
         </button>`,
 				)

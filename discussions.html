@@ -4,6 +4,7 @@
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<title>Discussions</title>
+		<link rel="stylesheet" href="css/variables.css" />
 		<link rel="stylesheet" href="css/global.css" />
 		<link rel="stylesheet" href="css/discussions.css" />
 		<link rel="stylesheet" href="css/components.css" />
@@ -26,12 +27,6 @@
 				</p>
 			</div>
 
-			<!-- OPINION BAR -->
-			<div class="opinion-header">
-				<span>Opinion Distribution</span>
-				<span>Based on 142 responses</span>
-			</div>
-
 			<div class="progress-bar">
 				<div class="agree"></div>
 			</div>
@@ -51,7 +46,7 @@
 
 			<!-- DISCUSSION -->
 			<div class="discussion-header">
-				<h2>Discussion (34)</h2>
+				<h2>Discussion</h2>
 				<div class="tabs">
 					<span class="active">Top</span>
 					<span>Latest</span>
@@ -60,45 +55,46 @@
 			</div>
 
 			<!-- COMMENT 1 -->
-			<div class="comment">
-				<div class="avatar"></div>
-				<div class="comment-body">
-					<div class="comment-meta">
-						<strong>Marcus R.</strong>
-						<span>2 hours ago</span>
-						<span class="tag">Constructive</span>
+			<div id="comments-container">
+				<div class="comment">
+					<div class="avatar"></div>
+					<div class="comment-body">
+						<div class="comment-meta">
+							<strong>Marcus R.</strong>
+							<span>2 hours ago</span>
+							<span class="tag">Constructive</span>
+						</div>
+						<p>
+							While I support greater transparency, moving to a city council
+							election process risks politicizing appointments that should
+							strictly rely on technical urban planning expertise.
+						</p>
+						<div class="comment-actions">
+							<!-- Add Button tp up or down vote -->
+							Up 18 &nbsp;&nbsp; Down 0 &nbsp;&nbsp; Reply
+						</div>
 					</div>
-					<p>
-						While I support greater transparency, moving to a city council
-						election process risks politicizing appointments that should
-						strictly rely on technical urban planning expertise.
-					</p>
-					<div class="comment-actions">
-						<!-- Add Button tp up or down vote -->
-						Up 18 &nbsp;&nbsp; Down 0 &nbsp;&nbsp; Reply
+				</div>
+
+				<!-- COMMENT 2 -->
+				<div class="comment">
+					<div class="avatar light">EL</div>
+					<div class="comment-body">
+						<div class="comment-meta">
+							<strong>Elena L.</strong>
+							<span>4 hours ago</span>
+						</div>
+						<p>
+							The current mayoral appointment system has favored developers over
+							local community concerns. A staggered election process ensures
+							balance.
+						</p>
+						<div class="comment-actions">
+							Up 45 &nbsp;&nbsp; Down 8 &nbsp;&nbsp; Reply
+						</div>
 					</div>
 				</div>
 			</div>
-
-			<!-- COMMENT 2 -->
-			<div class="comment">
-				<div class="avatar light">EL</div>
-				<div class="comment-body">
-					<div class="comment-meta">
-						<strong>Elena L.</strong>
-						<span>4 hours ago</span>
-					</div>
-					<p>
-						The current mayoral appointment system has favored developers over
-						local community concerns. A staggered election process ensures
-						balance.
-					</p>
-					<div class="comment-actions">
-						Up 45 &nbsp;&nbsp; Down 8 &nbsp;&nbsp; Reply
-					</div>
-				</div>
-			</div>
-
 			<!-- POST INPUT (BOTTOM) -->
 			<div class="post-box">
 				<div class="avatar small"></div>
