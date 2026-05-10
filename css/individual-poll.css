@@ -188,6 +188,33 @@ h3 {
   text-align: center;
 }
 
+.poll-results-link {
+  width: fit-content;
+  margin: -32px auto 0;
+  padding: 12px 18px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  background: var(--primary);
+  color: var(--on-primary);
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  transition: opacity 150ms ease, transform 150ms ease;
+}
+
+.poll-results-link:hover {
+  opacity: 0.9;
+  transform: translateY(-1px);
+}
+
+.poll-results-link:focus-visible {
+  outline: 2px solid var(--focus-border);
+  outline-offset: 3px;
+}
+
 .related-section {
   display: flex;
   flex-direction: column;
