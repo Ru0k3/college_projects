@@ -47,7 +47,7 @@ function renderIssues(issues) {
 
       <h3>
         <a
-          href="issues-feed.html?issue_id=${issue.id}"
+          href="issues-feed.html?id=${issue.id}"
           style="
             text-decoration:none;
             color:inherit;
@@ -166,7 +166,7 @@ function renderDiscussions(discussions) {
         </div>
 
         <a
-          href="discussions.html?discussion_id=${discussion.id}"
+          href="discussions.html?id=${discussion.id}"
         >
           ${discussion.title}
         </a>

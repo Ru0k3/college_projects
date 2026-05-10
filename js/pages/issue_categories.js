@@ -35,8 +35,7 @@ function createCategoryCard(category) {
       ${category.name}
     </h2>
 
-    <a
-      href="issues-feed.html?category=${category.id}"
+    <a	
       class="text-label-caps category-card__explore"
       aria-label="Explore ${category.name}"
     >
