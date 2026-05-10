@@ -1,17 +1,11 @@
+@import url("variables.css");
+
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
-:root {
-    --bg: #f6f4f4;
-    --surface: #ffffff;
-    --border: #ddd6d6;
-    --text: #151515;
-    --muted: #767676;
-    --hover: #f0ecec;
-}
 
 body {
     background: var(--bg);
@@ -94,7 +88,7 @@ select {
 }
 
 .format-card.active {
-    border: 2px solid black;
+    border: 2px solid var(--primary);
 }
 
 .format-card .material-symbols-outlined {
@@ -131,7 +125,7 @@ select {
 }
 
 .post-title::placeholder {
-    color: #d2caca;
+    color: var(--placeholder);
 }
 
 .editor-toolbar {
@@ -179,14 +173,14 @@ select {
     padding: 1rem;
     border: 1px solid var(--border);
     border-radius: 0.75rem;
-    background: #fafafa;
+    background: var(--surface-soft);
 }
 
 .add-option-btn {
     width: fit-content;
     border: none;
-    background: black;
-    color: white;
+    background: var(--primary);
+    color: var(--on-primary);
     padding: 0.9rem 1.2rem;
     border-radius: 0.75rem;
     cursor: pointer;
@@ -219,7 +213,7 @@ select {
     border: 1px solid var(--border);
     padding: 0 1rem;
     border-radius: 0.75rem;
-    background: #fafafa;
+    background: var(--surface-soft);
 }
 
 .field-group small {
@@ -244,13 +238,13 @@ select {
 }
 
 .preview-btn {
-    background: white;
+    background: var(--surface);
     border: 1px solid var(--border);
 }
 
 .publish-btn {
-    background: black;
-    color: white;
+    background: var(--primary);
+    color: var(--on-primary);
     border: none;
 }
 

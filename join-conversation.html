@@ -1,6 +1,18 @@
 <!DOCTYPE html>
 <html class="light" lang="en">
 <head>
+		<script>
+			(() => {
+				try {
+					const saved = localStorage.getItem("voxgrid-theme");
+					const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+					document.documentElement.dataset.theme = saved || (prefersDark ? "dark" : "light");
+				} catch (error) {
+					document.documentElement.dataset.theme = "light";
+				}
+			})();
+		</script>
+
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Join Conversation - Civic Authority</title>
@@ -10,10 +22,13 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Newsreader:opsz,wght@6..72,400;600;700&display=swap" rel="stylesheet" />
   <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
 
+  <link rel="stylesheet" href="css/components.css" />
   <link rel="stylesheet" href="css/individual-poll.css" />
 </head>
 <body>
-  <main class="page">
+  
+		<div id="header"></div>
+<main class="page">
     <section class="poll-results">
       <header class="poll-header">
         <p class="eyebrow">Join Conversation</p>
@@ -106,5 +121,23 @@
       <p>&copy; 2024 Civic Authority. A Modern Record of Note.</p>
     </div>
   </footer>
-</body>
+
+		<script type="module">
+			import { loadComponent } from "./js/utils/load.js";
+			import { initTheme, bindToggle } from "./js/utils/theme.js";
+
+			initTheme();
+			document.addEventListener("component:loaded", (event) => {
+				if (event.detail?.file?.includes("header.html")) {
+					bindToggle(".theme-toggle");
+				}
+			});
+
+			const headerMount = document.getElementById("header") || document.getElementById("header-placeholder");
+			if (headerMount && !headerMount.hasChildNodes()) {
+				loadComponent(headerMount.id, "./partials/header.html");
+			}
+			bindToggle(".theme-toggle");
+		</script>
+	</body>
 </html>

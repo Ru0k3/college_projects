@@ -1,18 +1,6 @@
   @import url('https://fonts.googleapis.com/css2?family=Newsreader:wght@600;700&family=Inter:wght@400;500;600;700&display=swap');
 
-  :root {
-    --bg: #fbf9f7;
-    --surface: #ffffff;
-    --text: #171513;
-    --muted: #6f6a63;
-    --line: #c9c1b8;
-    --soft-line: #ddd6ce;
-    --chip: #efebe6;
-    --alert-bg: #ffe8e4;
-    --alert-text: #b84a39;
-    --max-width: 66.25rem;
-  }
-
+  
   *,
   *::before,
   *::after {
@@ -75,7 +63,7 @@
   .hero p {
     max-width: 40rem;
     margin: 0;
-    color: #403b35;
+    color: var(--muted);
     font-size: 1.0625rem;
     line-height: 1.7;
   }
@@ -142,7 +130,7 @@
     padding: 0;
     border: 0.0625rem solid var(--line);
     border-radius: 0.25rem;
-    color: #3a342e;
+    color: var(--text);
   }
 
   .vote span {
@@ -192,7 +180,7 @@
   }
 
   .tag--dark {
-    background: rgba(255, 255, 255, 0.95);
+    background: var(--surface-container-lowest);
   }
 
   .tag--alert {
@@ -209,7 +197,7 @@
 
   .post p {
     margin: 0;
-    color: #4a453f;
+    color: var(--muted);
     font-size: 0.9375rem;
   }
 
@@ -231,8 +219,8 @@
     min-height: 11.625rem;
     padding: 0.75rem;
     background:
-      linear-gradient(135deg, rgba(0, 0, 0, 0.28), rgba(0, 0, 0, 0.08)),
-      linear-gradient(135deg, #103e46 0%, #1e6b77 34%, #3cc0d2 68%, #76dbe9 100%);
+      linear-gradient(135deg, var(--feature-overlay-strong), var(--feature-overlay-soft)),
+      var(--feature-gradient);
   }
 
   .post--feature .post__body {
@@ -264,7 +252,7 @@
   }
 
   .author-row__avatar {
-    background: linear-gradient(135deg, #0c5d61, #3cb1b7);
+    background: var(--author-avatar-gradient);
   }
 
   .author-row strong,
@@ -307,7 +295,7 @@
     border: 0.0625rem solid var(--line);
     border-radius: 0.1875rem;
     text-align: left;
-    color: #38332d;
+    color: var(--text);
   }
 
   .poll-footer {
@@ -378,15 +366,15 @@
   }
 
   .voice__avatar--one {
-    background: linear-gradient(135deg, #1f3446, #607f94);
+    background: var(--voice-one-gradient);
   }
 
   .voice__avatar--two {
-    background: linear-gradient(135deg, #47392d, #9e846b);
+    background: var(--voice-two-gradient);
   }
 
   .voice__avatar--three {
-    background: linear-gradient(135deg, #3b4657, #8998aa);
+    background: var(--voice-three-gradient);
   }
 
   .panel-link {
@@ -396,7 +384,7 @@
 
   .panel--dotted {
     background:
-      radial-gradient(circle at 0.0625rem 0.0625rem, #ddd6ce 0.0625rem, transparent 0) 0 0 / 0.75rem 0.75rem,
+      radial-gradient(circle at 0.0625rem 0.0625rem, var(--dotted-color) 0.0625rem, transparent 0) 0 0 / 0.75rem 0.75rem,
       var(--surface);
   }
 
@@ -415,7 +403,7 @@
   .stat {
     padding: 0.875rem 0.625rem;
     border: 0.0625rem solid var(--line);
-    background: rgba(255, 255, 255, 0.96);
+    background: var(--surface-container-lowest);
   }
 
   .stat strong {

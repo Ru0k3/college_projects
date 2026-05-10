@@ -1,6 +1,18 @@
 ﻿<!doctype html>
 <html class="light" lang="en">
 	<head>
+		<script>
+			(() => {
+				try {
+					const saved = localStorage.getItem("voxgrid-theme");
+					const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+					document.documentElement.dataset.theme = saved || (prefersDark ? "dark" : "light");
+				} catch (error) {
+					document.documentElement.dataset.theme = "light";
+				}
+			})();
+		</script>
+
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<title>Active Poll - Civic Authority</title>
@@ -18,10 +30,10 @@
 				width: 100%;
 				padding: 14px 18px;
 				margin-bottom: 10px;
-				border: 1px solid #d1d5db;
+				border: 1px solid var(--line);
 				border-radius: 10px;
-				background: #ffffff;
-				color: #1b1c1c;
+				background: var(--surface);
+				color: var(--text);
 				font-size: 1rem;
 				cursor: pointer;
 				text-align: left;
@@ -30,13 +42,13 @@
 					border-color 0.15s;
 			}
 			.vote-btn:hover {
-				background: #f3f4f6;
-				border-color: #9ca3af;
+				background: var(--surface-muted);
+				border-color: var(--search-border);
 			}
 			.vote-btn--selected {
-				border-color: #1b1c1c;
-				box-shadow: inset 0 0 0 1px #1b1c1c;
-				background: #f9fafb;
+				border-color: var(--text);
+				box-shadow: inset 0 0 0 1px var(--text);
+				background: var(--surface-soft);
 			}
 		</style>
 	</head>
@@ -90,5 +102,23 @@
 		</main>
 		<div id="footer"></div>
 		<script type="module" src="js/pages/individual-poll.js"></script>
+	
+		<script type="module">
+			import { loadComponent } from "./js/utils/load.js";
+			import { initTheme, bindToggle } from "./js/utils/theme.js";
+
+			initTheme();
+			document.addEventListener("component:loaded", (event) => {
+				if (event.detail?.file?.includes("header.html")) {
+					bindToggle(".theme-toggle");
+				}
+			});
+
+			const headerMount = document.getElementById("header") || document.getElementById("header-placeholder");
+			if (headerMount && !headerMount.hasChildNodes()) {
+				loadComponent(headerMount.id, "./partials/header.html");
+			}
+			bindToggle(".theme-toggle");
+		</script>
 	</body>
 </html>

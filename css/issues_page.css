@@ -1,3 +1,5 @@
+@import url("variables.css");
+
 /* Reset / Base */
 * {
     box-sizing: border-box;
@@ -7,8 +9,8 @@
 }
 
 body {
-    background-color: #fdfdfd;
-    color: #1a1a1a;
+    background-color: var(--bg);
+    color: var(--text);
     line-height: 1.6;
 }
 
@@ -34,15 +36,15 @@ body {
 #search-input {
     padding: 0.5rem 1rem;
     font-size: 1rem;
-    border: 1px solid #ccc;
+    border: 1px solid var(--line);
     border-radius: 6px;
     outline: none;
 }
 
 #search-input:focus {
-    border-color: #2563eb;
+    border-color: var(--focus-border);
     /* deep blue highlight */
-    box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.2);
+    box-shadow: 0 0 0 2px var(--focus-shadow);
 }
 
 /* Issues grid */
@@ -54,8 +56,8 @@ body {
 
 /* Issue card */
 .issue-card {
-    background-color: #fff;
-    border: 1px solid #e5e7eb;
+    background-color: var(--surface);
+    border: 1px solid var(--soft-line);
     border-radius: 10px;
     padding: 1.5rem;
     cursor: pointer;
@@ -66,7 +68,7 @@ body {
 }
 
 .issue-card:hover {
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    box-shadow: 0 4px 20px var(--card-shadow);
     transform: translateY(-2px);
 }
 
@@ -78,7 +80,7 @@ body {
 
 .issue-card p {
     font-size: 0.95rem;
-    color: #4b5563;
+    color: var(--muted);
     flex-grow: 1;
 }
 
@@ -87,7 +89,7 @@ body {
     justify-content: space-between;
     margin-top: 1rem;
     font-size: 0.85rem;
-    color: #6b7280;
+    color: var(--muted);
 }
 
 .issue-card-footer span {

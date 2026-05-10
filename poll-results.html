@@ -1,6 +1,18 @@
 <!DOCTYPE html>
 <html class="light" lang="en">
 <head>
+		<script>
+			(() => {
+				try {
+					const saved = localStorage.getItem("voxgrid-theme");
+					const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+					document.documentElement.dataset.theme = saved || (prefersDark ? "dark" : "light");
+				} catch (error) {
+					document.documentElement.dataset.theme = "light";
+				}
+			})();
+		</script>
+
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Poll Results - Civic Authority</title>
@@ -10,10 +22,13 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Newsreader:opsz,wght@6..72,400;600;700&display=swap" rel="stylesheet" />
   <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
 
+  <link rel="stylesheet" href="css/components.css" />
   <link rel="stylesheet" href="css/individual-poll.css" />
 </head>
 <body>
-  <main class="page">
+  
+		<div id="header"></div>
+<main class="page">
     <section class="poll-results">
       <header class="poll-header">
         <p class="eyebrow">Poll Results</p>
@@ -64,7 +79,7 @@
         This poll was open to all registered residents of the district. The results will be presented at the upcoming procedural review meeting.
       </p>
 
-      <div id="civic-judgement" style="margin-top:24px; padding:20px 24px; border-left:4px solid #1b1c1c; background:#f9fafb; border-radius:4px;">
+      <div id="civic-judgement" style="margin-top:24px; padding:20px 24px; border-left:4px solid var(--text); background:var(--surface-soft); border-radius:4px;">
         <p style="font-size:0.8rem; font-weight:700; text-transform:uppercase; letter-spacing:0.05em; margin:0 0 8px;">Civic Judgement</p>
         <p id="judgement-text" style="margin:0; font-size:1rem; line-height:1.6;"></p>
       </div>
@@ -119,6 +134,24 @@
     </div>
   </footer>
   <script type="module" src="js/pages/poll-results.js"></script>
-</body>
+
+		<script type="module">
+			import { loadComponent } from "./js/utils/load.js";
+			import { initTheme, bindToggle } from "./js/utils/theme.js";
+
+			initTheme();
+			document.addEventListener("component:loaded", (event) => {
+				if (event.detail?.file?.includes("header.html")) {
+					bindToggle(".theme-toggle");
+				}
+			});
+
+			const headerMount = document.getElementById("header") || document.getElementById("header-placeholder");
+			if (headerMount && !headerMount.hasChildNodes()) {
+				loadComponent(headerMount.id, "./partials/header.html");
+			}
+			bindToggle(".theme-toggle");
+		</script>
+	</body>
 </html>
 

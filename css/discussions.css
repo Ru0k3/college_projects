@@ -25,10 +25,10 @@ h1 {
 
 /* DESCRIPTION */
 .description-box {
-    border: 0.0625rem solid #ddd;
+    border: 0.0625rem solid var(--line);
     padding: 1.25rem;
     border-radius: 0.5rem;
-    background: #fafafa;
+    background: var(--surface-soft);
     margin-bottom: 2rem;
 }
 
@@ -42,7 +42,7 @@ h1 {
 
 .progress-bar {
     height: 0.5rem;
-    background: #ddd;
+    background: var(--line);
     border-radius: 1rem;
     overflow: hidden;
 }
@@ -50,7 +50,7 @@ h1 {
 .progress-bar .agree {
     width: 65%;
     height: 100%;
-    background: #000;
+    background: var(--primary);
 }
 
 .opinion-stats {
@@ -70,8 +70,8 @@ h1 {
 
 .btn {
     padding: 0.5rem 1rem;
-    border: 0.0625rem solid #ccc;
-    background: #fff;
+    border: 0.0625rem solid var(--line);
+    background: var(--surface);
     cursor: pointer;
 }
 
@@ -89,11 +89,11 @@ h1 {
 .tabs span {
     margin-left: 1rem;
     font-size: 0.9rem;
-    color: #777;
+    color: var(--muted);
 }
 
 .tabs .active {
-    color: #000;
+    color: var(--primary);
     font-weight: bold;
 }
 
@@ -107,7 +107,7 @@ h1 {
 .avatar {
     width: 2.5rem;
     height: 2.5rem;
-    background: #ccc;
+    background: var(--secondary-container);
     border-radius: 50%;
 }
 
@@ -116,7 +116,7 @@ h1 {
     align-items: center;
     justify-content: center;
     font-size: 0.8rem;
-    background: #ddd;
+    background: var(--line);
 }
 
 .comment-body {
@@ -130,18 +130,18 @@ h1 {
 
 .comment-meta span {
     margin-left: 0.5rem;
-    color: #777;
+    color: var(--muted);
 }
 
 .tag {
-    background: #eee;
+    background: var(--chip);
     padding: 0.1rem 0.4rem;
     border-radius: 0.3rem;
 }
 
 .comment-actions {
     font-size: 0.8rem;
-    color: #555;
+    color: var(--muted);
     margin-top: 0.5rem;
 }
 
@@ -156,13 +156,13 @@ h1 {
 .post-box input {
     flex: 1;
     padding: 0.6rem;
-    border: 0.0625rem solid #ccc;
+    border: 0.0625rem solid var(--line);
     border-radius: 0.3rem;
 }
 
 .post-box button {
     padding: 0.6rem 1rem;
-    background: #000;
-    color: #fff;
+    background: var(--primary);
+    color: var(--on-primary);
     border: none;
 }

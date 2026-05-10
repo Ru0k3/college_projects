@@ -1,5 +1,5 @@
 /* ── HERO ── */
-.page-hero { border-bottom: 1px solid var(--soft-line); padding: 3.5rem 0 3rem; background: linear-gradient(to bottom, #fff 0%, var(--bg) 100%); }
+.page-hero { border-bottom: 1px solid var(--soft-line); padding: 3.5rem 0 3rem; background: linear-gradient(to bottom, var(--surface) 0%, var(--bg) 100%); }
 .eyebrow { font-size: .75rem; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); margin: 0 0 .75rem; }
 .page-hero h1 { font-family: 'Newsreader', Georgia, serif; font-size: clamp(2rem, 5vw, 2.875rem); font-weight: 700; line-height: 1.15; margin: 0 0 1rem; }
 .page-hero p { font-size: 1.0625rem; color: var(--muted); max-width: 44rem; margin: 0; line-height: 1.75; }
@@ -37,7 +37,7 @@
 /* ── GUIDELINES ── */
 .guideline-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.25rem; }
 .guideline-card { border-left: 3px solid var(--text); padding: 1.25rem 1.25rem 1.25rem 1.25rem; background: var(--surface); border-top: 1px solid var(--soft-line); border-right: 1px solid var(--soft-line); border-bottom: 1px solid var(--soft-line); }
-.guideline-card.warn { border-left-color: #b84a39; }
+.guideline-card.warn { border-left-color: var(--alert-text); }
 .guideline-card h4 { margin: 0 0 .375rem; font-size: .9375rem; font-weight: 600; }
 .guideline-card p { margin: 0; font-size: .875rem; color: var(--muted); line-height: 1.6; }
 

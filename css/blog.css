@@ -27,7 +27,7 @@ html {
 }
 
 .meta span {
-    background-color: #202020b1;
+    background-color: var(--meta-bg);
     border-radius: 2px;
     padding: 0.15rem;
 }
@@ -57,7 +57,7 @@ h1 {
 
 .author p {
     font-size: 0.75rem;
-    color: #777;
+    color: var(--muted);
     margin: 0;
 }
 
@@ -66,9 +66,9 @@ h1 {
     margin: 1.875rem 0 2.125rem;
     border-radius: 0.5rem;
     overflow: hidden;
-    border: 1px solid #d8dadd;
-    background: #dfe5ea;
-    box-shadow: 0 0.75rem 1.875rem rgba(9, 17, 28, 0.16);
+    border: 1px solid var(--line);
+    background: var(--media-bg);
+    box-shadow: 0 0.75rem 1.875rem var(--shadow);
 }
 
 .hero-image img {
@@ -95,11 +95,11 @@ h2 {
 }
 
 blockquote {
-    border-left: 0.1875rem solid #ccc;
+    border-left: 0.1875rem solid var(--line);
     padding-left: 1rem;
     margin: 1.25rem 0;
     font-style: italic;
-    color: #333;
+    color: var(--text);
 }
 
 @media (max-width: 768px) {
