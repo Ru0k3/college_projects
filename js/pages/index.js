@@ -77,7 +77,7 @@ function renderCategories(categories) {
 
 		li.innerHTML = `
         <a
-          href="issues.html?category=${category.id}"
+          href="issues-feed.html?category=${category.id}"
         >
           <span class="material-symbols-outlined">
             gavel
