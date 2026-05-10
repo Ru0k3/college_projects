@@ -134,7 +134,7 @@ function renderPoll(poll) {
 
 	buttons.forEach((btn) => {
 		btn.addEventListener("click", () => {
-			window.location.href = `individual-poll.html?poll_id=${poll.id}`;
+			window.location.href = `individual-poll.html?id=${poll.id}`;
 		});
 	});
 }
