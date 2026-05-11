@@ -47,74 +47,87 @@ public class DescriptiveScreen extends JFrame implements ActionListener {
         this.submitted = new boolean[questions.size()];
         this.currentIndex = 0;
 
-        setTitle("Descriptive Exam : " + exam.getTitle());
-        setSize(560, 440);
-        setLayout(new FlowLayout(FlowLayout.CENTER, 10, 8));
-        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        getContentPane().setBackground(new Color(210, 208, 200));
+        GuiStyle.prepareFrame(this, "Descriptive Exam : " + exam.getTitle(), 660, 620, JFrame.DISPOSE_ON_CLOSE);
 
-        examTitleLabel = new JLabel("Exam : " + exam.getTitle());
-        examTitleLabel.setFont(new Font("SansSerif", Font.BOLD, 14));
-        add(examTitleLabel);
+        JPanel contentPanel = GuiStyle.surfacePanel();
+        GridBagConstraints gbc = GuiStyle.constraints();
+        int row = 0;
 
-        JPanel infoRow = new JPanel(new FlowLayout(FlowLayout.LEFT, 16, 0));
-        infoRow.setBackground(new Color(210, 208, 200));
-        infoRow.setPreferredSize(new Dimension(520, 24));
+        examTitleLabel = new JLabel("Exam : " + exam.getTitle(), SwingConstants.CENTER);
+        examTitleLabel.setFont(GuiStyle.TITLE_FONT);
+        examTitleLabel.setForeground(GuiStyle.TEXT);
+        GuiStyle.addFullWidth(contentPanel, examTitleLabel, gbc, row++);
+
+        JPanel infoRow = new JPanel(new GridLayout(1, 3, 12, 0));
+        infoRow.setBackground(GuiStyle.SURFACE);
 
         questionCounterLabel = new JLabel();
         marksLabel = new JLabel();
         statusLabel = new JLabel(" ");
-        statusLabel.setForeground(new Color(180, 60, 0));
+        statusLabel.setForeground(GuiStyle.WARNING);
+
+        questionCounterLabel.setFont(GuiStyle.BODY_FONT);
+        marksLabel.setFont(GuiStyle.BODY_FONT);
+        statusLabel.setFont(GuiStyle.BODY_FONT);
+        marksLabel.setHorizontalAlignment(SwingConstants.CENTER);
+        statusLabel.setHorizontalAlignment(SwingConstants.RIGHT);
 
         infoRow.add(questionCounterLabel);
         infoRow.add(marksLabel);
         infoRow.add(statusLabel);
-        add(infoRow);
+        GuiStyle.addFullWidth(contentPanel, infoRow, gbc, row++);
 
         questionTextLabel = new JLabel(" ");
-        questionTextLabel.setPreferredSize(new Dimension(520, 56));
+        questionTextLabel.setFont(GuiStyle.BODY_FONT);
+        questionTextLabel.setForeground(GuiStyle.TEXT);
+        questionTextLabel.setOpaque(false);
+        questionTextLabel.setBorder(BorderFactory.createCompoundBorder(
+            BorderFactory.createLineBorder(GuiStyle.BORDER, 1),
+            BorderFactory.createEmptyBorder(10, 12, 10, 12)
+        ));
+        questionTextLabel.setPreferredSize(new Dimension(560, 76));
         questionTextLabel.setVerticalAlignment(SwingConstants.TOP);
-        add(questionTextLabel);
+        GuiStyle.addFullWidth(contentPanel, questionTextLabel, gbc, row++);
 
         JPanel answerPanel = new JPanel(new BorderLayout(0, 6));
-        answerPanel.setBackground(Color.WHITE);
+        answerPanel.setBackground(GuiStyle.SURFACE);
         answerPanel.setBorder(BorderFactory.createCompoundBorder(
-            BorderFactory.createLineBorder(new Color(180, 180, 180), 1),
+            BorderFactory.createLineBorder(GuiStyle.BORDER, 1),
             BorderFactory.createEmptyBorder(8, 12, 8, 12)
         ));
-        answerPanel.setPreferredSize(new Dimension(520, 150));
+        answerPanel.setPreferredSize(new Dimension(560, 170));
 
         JLabel answerLabel = new JLabel("Your Answer :");
-        answerLabel.setFont(new Font("SansSerif", Font.PLAIN, 12));
-        answerLabel.setForeground(new Color(100, 100, 100));
+        answerLabel.setFont(GuiStyle.LABEL_FONT);
+        answerLabel.setForeground(GuiStyle.MUTED);
         answerPanel.add(answerLabel, BorderLayout.NORTH);
 
         answerArea = new JTextArea();
-        answerArea.setFont(new Font("SansSerif", Font.PLAIN, 13));
+        answerArea.setFont(GuiStyle.BODY_FONT);
         answerArea.setLineWrap(true);
         answerArea.setWrapStyleWord(true);
         answerArea.setBorder(BorderFactory.createEmptyBorder(4, 4, 4, 4));
 
         answerScroll = new JScrollPane(answerArea);
-        answerScroll.setBorder(BorderFactory.createLineBorder(new Color(210, 210, 210), 1));
+        answerScroll.setBorder(BorderFactory.createLineBorder(GuiStyle.BORDER, 1));
         answerPanel.add(answerScroll, BorderLayout.CENTER);
 
-        add(answerPanel);
+        GuiStyle.addFullWidth(contentPanel, answerPanel, gbc, row++);
 
-        prevButton = new JButton("< Previous");
+        prevButton = new JButton("Previous");
         submitButton = new JButton("Submit Answer");
-        nextButton = new JButton("Next >");
+        nextButton = new JButton("Next");
         finishButton = new JButton("Finish Exam");
 
-        add(prevButton);
-        add(submitButton);
-        add(nextButton);
-        add(finishButton);
+        GuiStyle.addFullWidth(contentPanel,
+            GuiStyle.buttonStack(prevButton, submitButton, nextButton, finishButton), gbc, row++);
 
         prevButton.addActionListener(this);
         submitButton.addActionListener(this);
         nextButton.addActionListener(this);
         finishButton.addActionListener(this);
+
+        add(contentPanel, BorderLayout.CENTER);
 
         if (questions.isEmpty()) {
             JOptionPane.showMessageDialog(null, "This exam has no questions.");

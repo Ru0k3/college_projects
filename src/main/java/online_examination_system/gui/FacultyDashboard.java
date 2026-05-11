@@ -39,77 +39,71 @@ public class FacultyDashboard extends JFrame implements ActionListener {
         this.faculty = faculty;
         this.createdExams = new ArrayList<>();
 
-        setTitle("Faculty Dashboard");
-        setSize(450, 560);
-        setLayout(new FlowLayout(FlowLayout.LEFT, 10, 6));
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        GuiStyle.prepareFrame(this, "Faculty Dashboard", 660, 760, JFrame.EXIT_ON_CLOSE);
 
-        add(new JLabel("=== Faculty Dashboard ==="));
-        add(new JLabel("Name       : " + faculty.getName()));
-        add(new JLabel("Faculty ID : " + faculty.getFacultyID()));
-        add(new JLabel("Subject    : " + faculty.getSubject()));
-        add(new JLabel("Email      : " + faculty.getEmail()));
+        JPanel contentPanel = GuiStyle.surfacePanel();
+        GridBagConstraints gbc = GuiStyle.constraints();
+        int row = 0;
 
-        add(new JLabel("--- Add a Question to Question Bank ---"));
+        GuiStyle.addTitle(contentPanel, "Faculty Dashboard", gbc, row++);
+        GuiStyle.addInfoRow(contentPanel, row++, faculty.getName(), "Name :", gbc);
+        GuiStyle.addInfoRow(contentPanel, row++, faculty.getFacultyID(), "Faculty ID :", gbc);
+        GuiStyle.addInfoRow(contentPanel, row++, faculty.getSubject(), "Subject :", gbc);
+        GuiStyle.addInfoRow(contentPanel, row++, faculty.getEmail(), "Email :", gbc);
 
-        add(new JLabel("Question ID :"));
+        GuiStyle.addSection(contentPanel, "Add a Question to Question Bank", gbc, row++);
+
         questionIdField = new JTextField(30);
-        add(questionIdField);
+        GuiStyle.addFormRow(contentPanel, row++, questionIdField, "Question ID :", gbc);
 
-        add(new JLabel("Type (mcq / descriptive) :"));
         questionTypeField = new JTextField(30);
-        add(questionTypeField);
+        GuiStyle.addFormRow(contentPanel, row++, questionTypeField, "Type (mcq / descriptive) :", gbc);
 
-        add(new JLabel("Question Text :"));
         questionTextField = new JTextField(30);
-        add(questionTextField);
+        GuiStyle.addFormRow(contentPanel, row++, questionTextField, "Question Text :", gbc);
 
-        add(new JLabel("Marks :"));
         marksField = new JTextField(30);
-        add(marksField);
+        GuiStyle.addFormRow(contentPanel, row++, marksField, "Marks :", gbc);
 
-        add(new JLabel("MCQ Options (A|B|C|D) :"));
         optionsField = new JTextField(30);
-        add(optionsField);
+        GuiStyle.addFormRow(contentPanel, row++, optionsField, "MCQ Options (A|B|C|D) :", gbc);
 
-        add(new JLabel("Correct option or descriptive keywords :"));
         answerField = new JTextField(30);
-        add(answerField);
+        GuiStyle.addFormRow(contentPanel, row++, answerField, "Correct option or descriptive keywords :", gbc);
 
         addQuestionButton = new JButton("Add Question");
-        add(addQuestionButton);
-
         viewQuestionsButton = new JButton("View My Questions");
-        add(viewQuestionsButton);
+        GuiStyle.addFullWidth(contentPanel, GuiStyle.buttonStack(addQuestionButton, viewQuestionsButton), gbc, row++);
 
-        add(new JLabel("--- Create an Exam ---"));
+        GuiStyle.addSection(contentPanel, "Create an Exam", gbc, row++);
 
-        add(new JLabel("Exam ID :"));
         examIdField = new JTextField(30);
-        add(examIdField);
+        GuiStyle.addFormRow(contentPanel, row++, examIdField, "Exam ID :", gbc);
 
-        add(new JLabel("Exam Title :"));
         examTitleField = new JTextField(30);
-        add(examTitleField);
+        GuiStyle.addFormRow(contentPanel, row++, examTitleField, "Exam Title :", gbc);
 
-        add(new JLabel("Duration (mins) :"));
         examDurationField = new JTextField(30);
-        add(examDurationField);
+        GuiStyle.addFormRow(contentPanel, row++, examDurationField, "Duration (mins) :", gbc);
 
-        add(new JLabel("Scheduled Time (e.g. 10:00 AM) :"));
         examTimeField = new JTextField(30);
-        add(examTimeField);
+        GuiStyle.addFormRow(contentPanel, row++, examTimeField, "Scheduled Time (e.g. 10:00 AM) :", gbc);
 
         createExamButton = new JButton("Create Exam");
-        add(createExamButton);
+        GuiStyle.addFullWidth(contentPanel, GuiStyle.buttonStack(createExamButton), gbc, row++);
 
         logoutButton = new JButton("Logout");
-        add(logoutButton);
+        GuiStyle.addFullWidth(contentPanel, GuiStyle.buttonStack(logoutButton), gbc, row++);
 
         addQuestionButton.addActionListener(this);
         viewQuestionsButton.addActionListener(this);
         createExamButton.addActionListener(this);
         logoutButton.addActionListener(this);
+
+        JScrollPane scrollPane = new JScrollPane(contentPanel);
+        scrollPane.setBorder(BorderFactory.createEmptyBorder(16, 16, 16, 16));
+        scrollPane.getViewport().setBackground(GuiStyle.BACKGROUND);
+        add(scrollPane, BorderLayout.CENTER);
 
         setLocationRelativeTo(null);
         setVisible(true);

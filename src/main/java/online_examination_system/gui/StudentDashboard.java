@@ -22,52 +22,80 @@ public class StudentDashboard extends JFrame implements ActionListener {
     public StudentDashboard(Student student) {
         this.student = student;
 
-        setTitle("Student Dashboard");
-        setSize(420, 400);
-        setLayout(new FlowLayout());
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        GuiStyle.prepareFrame(this, "Student Dashboard", 560, 580, JFrame.EXIT_ON_CLOSE);
 
-        add(new JLabel("=== Student Dashboard ==="));
-        add(new JLabel("Name       : " + student.getName()));
-        add(new JLabel("Student ID : " + student.getStudentId()));
-        add(new JLabel("Email      : " + student.getEmail()));
+        JPanel contentPanel = GuiStyle.surfacePanel();
+        GridBagConstraints gbc = GuiStyle.constraints();
+        int row = 0;
 
-        add(new JLabel("--- Your Enrolled Exams ---"));
+        GuiStyle.addTitle(contentPanel, "Student Dashboard", gbc, row++);
+        GuiStyle.addInfoRow(contentPanel, row++, student.getName(), "Name :", gbc);
+        GuiStyle.addInfoRow(contentPanel, row++, student.getStudentId(), "Student ID :", gbc);
+        GuiStyle.addInfoRow(contentPanel, row++, student.getEmail(), "Email :", gbc);
+
+        GuiStyle.addSection(contentPanel, "Your Enrolled Exams", gbc, row++);
+        JPanel examsPanel = createListPanel();
         List<String> exams = student.getEnrolledExams();
         if (exams.isEmpty()) {
-            add(new JLabel("No exams enrolled yet."));
+            addListItem(examsPanel, "No exams enrolled yet.");
         } else {
             for (String examId : exams) {
-                add(new JLabel(examId));
+                addListItem(examsPanel, examId);
             }
         }
+        GuiStyle.addFullWidth(contentPanel, examsPanel, gbc, row++);
 
-        add(new JLabel("--- Your Results ---"));
+        GuiStyle.addSection(contentPanel, "Your Results", gbc, row++);
+        JPanel resultsPanel = createListPanel();
         List<Result> results = student.getResults();
         if (results.isEmpty()) {
-            add(new JLabel("No results yet."));
+            addListItem(resultsPanel, "No results yet.");
         } else {
             for (Result result : results) {
-                add(new JLabel("Result: " + result.getGrade() + " | Score: " + result.getScore()));
+                addListItem(resultsPanel, "Result: " + result.getGrade() + " | Score: " + result.getScore());
             }
         }
+        GuiStyle.addFullWidth(contentPanel, resultsPanel, gbc, row++);
 
         enrollButton      = new JButton("Enroll in Exam");
         startExamButton   = new JButton("Start Exam");
         viewResultsButton = new JButton("View Results");
         logoutButton      = new JButton("Logout");
 
-        add(enrollButton);
-        add(startExamButton);
-        add(viewResultsButton);
-        add(logoutButton);
+        GuiStyle.addFullWidth(contentPanel,
+            GuiStyle.buttonStack(enrollButton, startExamButton, viewResultsButton, logoutButton), gbc, row++);
 
         enrollButton.addActionListener(this);
         startExamButton.addActionListener(this);
         viewResultsButton.addActionListener(this);
         logoutButton.addActionListener(this);
 
+        JScrollPane scrollPane = new JScrollPane(contentPanel);
+        scrollPane.setBorder(BorderFactory.createEmptyBorder(16, 16, 16, 16));
+        scrollPane.getViewport().setBackground(GuiStyle.BACKGROUND);
+        add(scrollPane, BorderLayout.CENTER);
+
+        setLocationRelativeTo(null);
         setVisible(true);
+    }
+
+    private JPanel createListPanel() {
+        JPanel panel = new JPanel();
+        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+        panel.setBackground(GuiStyle.SURFACE);
+        panel.setBorder(BorderFactory.createCompoundBorder(
+            BorderFactory.createLineBorder(GuiStyle.BORDER, 1),
+            BorderFactory.createEmptyBorder(8, 10, 8, 10)
+        ));
+        return panel;
+    }
+
+    private void addListItem(JPanel panel, String text) {
+        JLabel label = new JLabel(text);
+        label.setFont(GuiStyle.BODY_FONT);
+        label.setForeground(GuiStyle.TEXT);
+        label.setAlignmentX(Component.LEFT_ALIGNMENT);
+        panel.add(label);
     }
 
     public void actionPerformed(ActionEvent e) {

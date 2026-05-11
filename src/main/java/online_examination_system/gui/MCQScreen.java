@@ -55,58 +55,76 @@ public class MCQScreen extends JFrame implements ActionListener {
         this.submitted = new boolean[questions.size()];
         this.currentIndex = 0;
 
-        setTitle("Exam : " + exam.getTitle());
-        setSize(560, 520);
-        setLayout(new FlowLayout(FlowLayout.CENTER, 10, 8));
-        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        getContentPane().setBackground(new Color(210, 208, 200));
+        GuiStyle.prepareFrame(this, "Exam : " + exam.getTitle(), 660, 700, JFrame.DISPOSE_ON_CLOSE);
 
-        examTitleLabel = new JLabel("Exam : " + exam.getTitle());
-        examTitleLabel.setFont(new Font("SansSerif", Font.BOLD, 14));
-        add(examTitleLabel);
+        JPanel contentPanel = GuiStyle.surfacePanel();
+        GridBagConstraints gbc = GuiStyle.constraints();
+        int row = 0;
 
-        JPanel infoRow = new JPanel(new FlowLayout(FlowLayout.LEFT, 16, 0));
-        infoRow.setBackground(new Color(210, 208, 200));
-        infoRow.setPreferredSize(new Dimension(500, 24));
+        examTitleLabel = new JLabel("Exam : " + exam.getTitle(), SwingConstants.CENTER);
+        examTitleLabel.setFont(GuiStyle.TITLE_FONT);
+        examTitleLabel.setForeground(GuiStyle.TEXT);
+        GuiStyle.addFullWidth(contentPanel, examTitleLabel, gbc, row++);
+
+        JPanel infoRow = new JPanel(new GridLayout(1, 3, 12, 0));
+        infoRow.setBackground(GuiStyle.SURFACE);
 
         questionCounterLabel = new JLabel();
         marksLabel = new JLabel();
         statusLabel = new JLabel(" ");
-        statusLabel.setForeground(new Color(180, 60, 0));
+        statusLabel.setForeground(GuiStyle.WARNING);
+
+        questionCounterLabel.setFont(GuiStyle.BODY_FONT);
+        marksLabel.setFont(GuiStyle.BODY_FONT);
+        statusLabel.setFont(GuiStyle.BODY_FONT);
+        marksLabel.setHorizontalAlignment(SwingConstants.CENTER);
+        statusLabel.setHorizontalAlignment(SwingConstants.RIGHT);
 
         infoRow.add(questionCounterLabel);
         infoRow.add(marksLabel);
         infoRow.add(statusLabel);
-        add(infoRow);
+        GuiStyle.addFullWidth(contentPanel, infoRow, gbc, row++);
 
         questionTextLabel = new JLabel(" ");
-        questionTextLabel.setPreferredSize(new Dimension(500, 56));
+        questionTextLabel.setFont(GuiStyle.BODY_FONT);
+        questionTextLabel.setForeground(GuiStyle.TEXT);
+        questionTextLabel.setOpaque(false);
+        questionTextLabel.setBorder(BorderFactory.createCompoundBorder(
+            BorderFactory.createLineBorder(GuiStyle.BORDER, 1),
+            BorderFactory.createEmptyBorder(10, 12, 10, 12)
+        ));
+        questionTextLabel.setPreferredSize(new Dimension(560, 76));
         questionTextLabel.setVerticalAlignment(SwingConstants.TOP);
-        add(questionTextLabel);
+        GuiStyle.addFullWidth(contentPanel, questionTextLabel, gbc, row++);
 
         optionsPanel = new JPanel();
         optionsPanel.setLayout(new BoxLayout(optionsPanel, BoxLayout.Y_AXIS));
-        optionsPanel.setBackground(Color.WHITE);
+        optionsPanel.setBackground(GuiStyle.SURFACE);
         optionsPanel.setBorder(BorderFactory.createCompoundBorder(
-            BorderFactory.createLineBorder(new Color(180, 180, 180), 1),
+            BorderFactory.createLineBorder(GuiStyle.BORDER, 1),
             BorderFactory.createEmptyBorder(10, 16, 10, 16)
         ));
-        optionsPanel.setPreferredSize(new Dimension(500, 130));
+        optionsPanel.setPreferredSize(new Dimension(560, 140));
 
         optionA = new JRadioButton();
         optionB = new JRadioButton();
         optionC = new JRadioButton();
         optionD = new JRadioButton();
 
-        optionA.setBackground(Color.WHITE);
-        optionB.setBackground(Color.WHITE);
-        optionC.setBackground(Color.WHITE);
-        optionD.setBackground(Color.WHITE);
+        optionA.setBackground(GuiStyle.SURFACE);
+        optionB.setBackground(GuiStyle.SURFACE);
+        optionC.setBackground(GuiStyle.SURFACE);
+        optionD.setBackground(GuiStyle.SURFACE);
 
-        optionA.setFont(new Font("SansSerif", Font.PLAIN, 13));
-        optionB.setFont(new Font("SansSerif", Font.PLAIN, 13));
-        optionC.setFont(new Font("SansSerif", Font.PLAIN, 13));
-        optionD.setFont(new Font("SansSerif", Font.PLAIN, 13));
+        optionA.setFont(GuiStyle.BODY_FONT);
+        optionB.setFont(GuiStyle.BODY_FONT);
+        optionC.setFont(GuiStyle.BODY_FONT);
+        optionD.setFont(GuiStyle.BODY_FONT);
+
+        optionA.setAlignmentX(Component.LEFT_ALIGNMENT);
+        optionB.setAlignmentX(Component.LEFT_ALIGNMENT);
+        optionC.setAlignmentX(Component.LEFT_ALIGNMENT);
+        optionD.setAlignmentX(Component.LEFT_ALIGNMENT);
 
         optionsPanel.add(optionA);
         optionsPanel.add(optionB);
@@ -119,29 +137,32 @@ public class MCQScreen extends JFrame implements ActionListener {
         mcqGroup.add(optionC);
         mcqGroup.add(optionD);
 
-        add(optionsPanel);
+        GuiStyle.addFullWidth(contentPanel, optionsPanel, gbc, row++);
 
         descriptiveArea = new JTextArea();
+        descriptiveArea.setFont(GuiStyle.BODY_FONT);
         descriptiveArea.setLineWrap(true);
         descriptiveArea.setWrapStyleWord(true);
+        descriptiveArea.setBorder(BorderFactory.createEmptyBorder(8, 8, 8, 8));
         descriptiveScroll = new JScrollPane(descriptiveArea);
-        descriptiveScroll.setPreferredSize(new Dimension(500, 110));
-        add(descriptiveScroll);
+        descriptiveScroll.setBorder(BorderFactory.createLineBorder(GuiStyle.BORDER, 1));
+        descriptiveScroll.setPreferredSize(new Dimension(560, 130));
+        GuiStyle.addFullWidth(contentPanel, descriptiveScroll, gbc, row++);
 
-        prevButton = new JButton("< Previous");
+        prevButton = new JButton("Previous");
         submitButton = new JButton("Submit Answer");
-        nextButton = new JButton("Next >");
+        nextButton = new JButton("Next");
         finishButton = new JButton("Finish Exam");
 
-        add(prevButton);
-        add(submitButton);
-        add(nextButton);
-        add(finishButton);
+        GuiStyle.addFullWidth(contentPanel,
+            GuiStyle.buttonStack(prevButton, submitButton, nextButton, finishButton), gbc, row++);
 
         prevButton.addActionListener(this);
         submitButton.addActionListener(this);
         nextButton.addActionListener(this);
         finishButton.addActionListener(this);
+
+        add(contentPanel, BorderLayout.CENTER);
 
         if (questions.isEmpty()) {
             JOptionPane.showMessageDialog(null, "This exam has no questions.");
@@ -207,6 +228,9 @@ public class MCQScreen extends JFrame implements ActionListener {
 
         prevButton.setEnabled(index > 0);
         nextButton.setEnabled(index < questions.size() - 1);
+
+        revalidate();
+        repaint();
     }
 
     void saveCurrentAnswer() {

@@ -20,30 +20,15 @@ public class ExamResultDashboard extends JFrame implements ActionListener {
 
     public ExamResultDashboard(Result result, Student student) {
         this.student = student;
-        setTitle("Exam Result");
-        setSize(400, 320);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setLayout(new FlowLayout(FlowLayout.CENTER, 10, 10));
-        getContentPane().setBackground(new Color(210, 208, 200));
+        GuiStyle.prepareFrame(this, "Exam Result", 500, 430, JFrame.EXIT_ON_CLOSE);
 
         double percent = result.getTotalMarks() == 0 ? 0 : (double) result.getScore() / result.getTotalMarks() * 100;
         String grade = result.getGrade();
         String remark = calculateRemark(percent);
 
-        JLabel titleLabel = new JLabel("====== Exam Result ======");
-        titleLabel.setFont(new Font("SansSerif", Font.BOLD, 14));
-        add(titleLabel);
-
-        JPanel panel = new JPanel(new GridLayout(6, 2, 0, 6));
-        panel.setBackground(Color.WHITE);
-        panel.setBorder(BorderFactory.createCompoundBorder(
-            BorderFactory.createLineBorder(new Color(180, 180, 180), 1),
-            BorderFactory.createEmptyBorder(12, 16, 12, 16)
-        ));
-        panel.setPreferredSize(new Dimension(340, 210));
-
-        Font labelFont = new Font("SansSerif", Font.PLAIN, 13);
-        Color labelColor = new Color(100, 100, 100);
+        JPanel contentPanel = GuiStyle.surfacePanel();
+        GridBagConstraints gbc = GuiStyle.constraints();
+        int row = 0;
 
         String[] labels = {"Student", "Exam", "Score", "Percent", "Grade", "Remark"};
         String[] values = {
@@ -55,40 +40,44 @@ public class ExamResultDashboard extends JFrame implements ActionListener {
             remark
         };
 
+        GuiStyle.addTitle(contentPanel, "Exam Result", gbc, row++);
+
         for (int i = 0; i < labels.length; i++) {
-            JLabel label = new JLabel(labels[i]);
-            label.setFont(labelFont);
-            label.setForeground(labelColor);
-
-            JLabel value = new JLabel(values[i]);
-            value.setFont(labelFont);
-            value.setForeground(Color.BLACK);
-
-            if (labels[i].equals("Grade")) {
-                value.setForeground(new Color(20, 110, 20));
-                value.setFont(new Font("SansSerif", Font.BOLD, 13));
-            }
-
-            panel.add(label);
-            panel.add(value);
+            addResultRow(contentPanel, row++, values[i], labels[i] + " :", labels[i].equals("Grade"), gbc);
         }
-
-        add(panel);
 
         backButton = new JButton("Back to Dashboard");
         logoutButton = new JButton("Logout");
 
-        backButton.setFont(labelFont);
-        logoutButton.setFont(labelFont);
-
-        add(backButton);
-        add(logoutButton);
+        GuiStyle.addFullWidth(contentPanel, GuiStyle.buttonStack(backButton, logoutButton), gbc, row++);
 
         backButton.addActionListener(this);
         logoutButton.addActionListener(this);
 
+        add(contentPanel, BorderLayout.CENTER);
         setLocationRelativeTo(null);
         setVisible(true);
+    }
+
+    private void addResultRow(JPanel panel, int row, String valueText, String labelText,
+                              boolean highlight, GridBagConstraints gbc) {
+        JLabel label = new JLabel(labelText);
+        label.setFont(GuiStyle.LABEL_FONT);
+        label.setForeground(GuiStyle.MUTED);
+
+        gbc.gridx = 0;
+        gbc.gridy = row;
+        gbc.gridwidth = 1;
+        gbc.weightx = 0.0;
+        panel.add(label, gbc);
+
+        JLabel value = new JLabel(valueText);
+        value.setFont(highlight ? GuiStyle.SECTION_FONT : GuiStyle.BODY_FONT);
+        value.setForeground(GuiStyle.TEXT);
+
+        gbc.gridx = 1;
+        gbc.weightx = 1.0;
+        panel.add(value, gbc);
     }
 
     String calculateRemark(double percent) {
