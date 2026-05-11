@@ -1,8 +1,8 @@
 package online_examination_system.gui;
 
-import online_examination_system.*;
+import online_examination_system.exams.Result;
+
 import javax.swing.*;
-import javax.swing.border.*;
 import java.awt.*;
 import java.awt.event.*;
 
@@ -18,18 +18,15 @@ public class ExamResultDashboard extends JFrame implements ActionListener {
         setLayout(new FlowLayout(FlowLayout.CENTER, 10, 10));
         getContentPane().setBackground(new Color(210, 208, 200));
 
-        double percent = (double) result.getMarksScored() / result.getTotalMarks() * 100;
-        String grade  = result.calculateGrade();
+        double percent = (double) result.getScore() / result.getTotalMarks() * 100;
+        String grade = result.getGrade();
         String remark = calculateRemark(percent);
 
-        // ── Title label ──────────────────────────────────────────────────────
         JLabel titleLabel = new JLabel("====== Exam Result ======");
         titleLabel.setFont(new Font("SansSerif", Font.BOLD, 14));
         add(titleLabel);
 
-        // ── White result panel ───────────────────────────────────────────────
-        JPanel panel = new JPanel();
-        panel.setLayout(new GridLayout(6, 2, 0, 6));
+        JPanel panel = new JPanel(new GridLayout(6, 2, 0, 6));
         panel.setBackground(Color.WHITE);
         panel.setBorder(BorderFactory.createCompoundBorder(
             BorderFactory.createLineBorder(new Color(180, 180, 180), 1),
@@ -38,43 +35,39 @@ public class ExamResultDashboard extends JFrame implements ActionListener {
         panel.setPreferredSize(new Dimension(340, 210));
 
         Font labelFont = new Font("SansSerif", Font.PLAIN, 13);
-        Font valueFont = new Font("SansSerif", Font.PLAIN, 13);
         Color labelColor = new Color(100, 100, 100);
 
-        // Row helper
         String[] labels = {"Student", "Exam", "Score", "Percent", "Grade", "Remark"};
         String[] values = {
-            result.getStudentName(),
-            result.getExamTitle(),
-            result.getMarksScored() + " / " + result.getTotalMarks(),
+            result.getStudentId(),
+            result.getResultId(),
+            result.getScore() + " / " + result.getTotalMarks(),
             String.format("%.1f%%", percent),
             grade,
             remark
         };
 
         for (int i = 0; i < labels.length; i++) {
-            JLabel lbl = new JLabel(labels[i]);
-            lbl.setFont(labelFont);
-            lbl.setForeground(labelColor);
+            JLabel label = new JLabel(labels[i]);
+            label.setFont(labelFont);
+            label.setForeground(labelColor);
 
-            JLabel val = new JLabel(values[i]);
-            val.setFont(valueFont);
+            JLabel value = new JLabel(values[i]);
+            value.setFont(labelFont);
+            value.setForeground(Color.BLACK);
 
-            if (i == 4) {
-                val.setForeground(new Color(20, 110, 20));
-                val.setFont(new Font("SansSerif", Font.BOLD, 13));
-            } else {
-                val.setForeground(Color.BLACK);
+            if (labels[i].equals("Grade")) {
+                value.setForeground(new Color(20, 110, 20));
+                value.setFont(new Font("SansSerif", Font.BOLD, 13));
             }
 
-            panel.add(lbl);
-            panel.add(val);
+            panel.add(label);
+            panel.add(value);
         }
 
         add(panel);
 
-        // Buttons
-        backButton   = new JButton("Back to Dashboard");
+        backButton = new JButton("Back to Dashboard");
         logoutButton = new JButton("Logout");
 
         backButton.setFont(labelFont);
@@ -102,11 +95,9 @@ public class ExamResultDashboard extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == backButton) {
             dispose();
-            new StudentDashboard("student@example.com");
         } else if (e.getSource() == logoutButton) {
             JOptionPane.showMessageDialog(null, "Logged out successfully!");
             dispose();
-            new LoginScreen();
         }
     }
 }
