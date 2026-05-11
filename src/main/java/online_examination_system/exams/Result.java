@@ -45,5 +45,6 @@ public class Result {
     public String getResultId() { return resultId; }
     public String getStudentId(){ return studentId; }
     public int getScore()       { return score; }
+    public int getTotalMarks()  { return totalMarks; }
     public String getGrade()    { return grade; }
 }

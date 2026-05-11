@@ -1,7 +1,9 @@
 package online_examination_system.users;
 
-package online_examination_system;
 import java.util.*;
+
+import online_examination_system.exams.Exam;
+import online_examination_system.exams.Result;
 
 // Student extends Users - a student is a type of user
 public class Student extends Users {
@@ -10,7 +12,7 @@ public class Student extends Users {
     private List<String> enrolledExams;
     private List<Result> results;
 
-    public Student(String userId, String name, String email, String password, String studentId) {
+    public Student(String userId, String name, String email, int password, String studentId) {
         super(userId, name, email, password);
         this.studentId = studentId;
         this.enrolledExams = new ArrayList<>();
