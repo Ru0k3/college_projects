@@ -99,5 +99,14 @@
         "sampleAnswer": "container"
       }
     ]
+  },
+  {
+    "examId": 106,
+    "title": "JAVA",
+    "subject": "General",
+    "durationMinutes": 20,
+    "scheduledTime": "10",
+    "createdByFacultyId": 1,
+    "questions": []
   }
 ]

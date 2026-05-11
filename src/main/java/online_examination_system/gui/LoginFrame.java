@@ -22,30 +22,29 @@ public class LoginFrame extends JFrame implements ActionListener {
 
     public LoginFrame(Authentication authentication) {
         this.authentication = authentication;
-        setTitle("Online Examination System - Login");
-        setSize(400, 280);
-        setLayout(new FlowLayout(FlowLayout.LEFT, 14, 8));
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        GuiStyle.prepareFrame(this, "Online Examination System - Login", 520, 360, JFrame.EXIT_ON_CLOSE);
 
-        add(new JLabel("=== Online Examination System ==="));
-        add(new JLabel("             Please Log In             "));
+        JPanel contentPanel = GuiStyle.surfacePanel();
+        GridBagConstraints gbc = GuiStyle.constraints();
+        int row = 0;
 
-        add(new JLabel("Email :"));
+        GuiStyle.addTitle(contentPanel, "Online Examination System", gbc, row++);
+        GuiStyle.addSubtitle(contentPanel, "Please log in to continue", gbc, row++);
+
         emailField = new JTextField(28);
-        add(emailField);
+        GuiStyle.addFormRow(contentPanel, row++, emailField, "Email :", gbc);
 
-        add(new JLabel("Password :"));
         passwordField = new JPasswordField(28);
-        add(passwordField);
+        GuiStyle.addFormRow(contentPanel, row++, passwordField, "Password :", gbc);
 
-        add(new JLabel("Role (student / faculty / admin) :"));
         roleField = new JTextField(28);
-        add(roleField);
+        GuiStyle.addFormRow(contentPanel, row++, roleField, "Role (student / faculty / admin) :", gbc);
 
         loginButton = new JButton("Login");
         clearButton = new JButton("Clear");
-        add(loginButton);
-        add(clearButton);
+
+        GuiStyle.addFullWidth(contentPanel, GuiStyle.buttonStack(loginButton, clearButton), gbc, row++);
+        add(contentPanel, BorderLayout.CENTER);
 
         loginButton.addActionListener(this);
         clearButton.addActionListener(this);

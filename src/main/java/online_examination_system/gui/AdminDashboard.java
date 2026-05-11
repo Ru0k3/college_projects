@@ -1,7 +1,6 @@
 package online_examination_system.gui;
 
 import online_examination_system.Data.DataStore;
-import online_examination_system.exams.Exam;
 import online_examination_system.main.AppNavigator;
 import online_examination_system.users.Admin;
 import online_examination_system.users.Users;
@@ -15,12 +14,8 @@ public class AdminDashboard extends JFrame implements ActionListener {
     JTextField emailField;
     JTextField passwordField;
     JTextField roleField;
-    JTextField examTitleField;
-    JTextField examDurationField;
-    JTextField examTimeField;
 
     JButton registerButton;
-    JButton scheduleButton;
     JButton logoutButton;
 
     Admin admin;
@@ -28,58 +23,44 @@ public class AdminDashboard extends JFrame implements ActionListener {
     public AdminDashboard(Admin admin) {
         this.admin = admin;
 
-        setTitle("Admin Dashboard");
-        setSize(430, 480);
-        setLayout(new FlowLayout());
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        GuiStyle.prepareFrame(this, "Admin Dashboard", 560, 430, JFrame.EXIT_ON_CLOSE);
 
-        add(new JLabel("=== Admin Dashboard ==="));
-        add(new JLabel("Logged in as : " + admin.getName()));
-        add(new JLabel("Admin ID     : " + admin.getAdminId()));
+        JPanel contentPanel = GuiStyle.surfacePanel();
+        GridBagConstraints gbc = GuiStyle.constraints();
+        int row = 0;
 
-        add(new JLabel("--- Register a New User ---"));
-        add(new JLabel("Name :"));
+        GuiStyle.addTitle(contentPanel, "Admin Dashboard", gbc, row++);
+        GuiStyle.addInfoRow(contentPanel, row++, admin.getName(), "Logged in as :", gbc);
+        GuiStyle.addInfoRow(contentPanel, row++, admin.getAdminId(), "Admin ID :", gbc);
+
+        GuiStyle.addSection(contentPanel, "Register a New User", gbc, row++);
         nameField = new JTextField(25);
-        add(nameField);
+        GuiStyle.addFormRow(contentPanel, row++, nameField, "Name :", gbc);
 
-        add(new JLabel("Email :"));
         emailField = new JTextField(25);
-        add(emailField);
+        GuiStyle.addFormRow(contentPanel, row++, emailField, "Email :", gbc);
 
-        add(new JLabel("Password :"));
         passwordField = new JTextField(25);
-        add(passwordField);
+        GuiStyle.addFormRow(contentPanel, row++, passwordField, "Password :", gbc);
 
-        add(new JLabel("Role (student / faculty) :"));
         roleField = new JTextField(25);
-        add(roleField);
+        GuiStyle.addFormRow(contentPanel, row++, roleField, "Role (student / faculty) :", gbc);
 
         registerButton = new JButton("Register User");
-        add(registerButton);
-
-        add(new JLabel("--- Schedule an Exam ---"));
-        add(new JLabel("Exam Title :"));
-        examTitleField = new JTextField(25);
-        add(examTitleField);
-
-        add(new JLabel("Duration (mins) :"));
-        examDurationField = new JTextField(25);
-        add(examDurationField);
-
-        add(new JLabel("Scheduled Time :"));
-        examTimeField = new JTextField(25);
-        add(examTimeField);
-
-        scheduleButton = new JButton("Schedule Exam");
-        add(scheduleButton);
+        GuiStyle.addFullWidth(contentPanel, GuiStyle.buttonStack(registerButton), gbc, row++);
 
         logoutButton = new JButton("Logout");
-        add(logoutButton);
+        GuiStyle.addFullWidth(contentPanel, GuiStyle.buttonStack(logoutButton), gbc, row++);
 
         registerButton.addActionListener(this);
-        scheduleButton.addActionListener(this);
         logoutButton.addActionListener(this);
 
+        JScrollPane scrollPane = new JScrollPane(contentPanel);
+        scrollPane.setBorder(BorderFactory.createEmptyBorder(16, 16, 16, 16));
+        scrollPane.getViewport().setBackground(GuiStyle.BACKGROUND);
+        add(scrollPane, BorderLayout.CENTER);
+
+        setLocationRelativeTo(null);
         setVisible(true);
     }
 
@@ -109,32 +90,6 @@ public class AdminDashboard extends JFrame implements ActionListener {
             emailField.setText("");
             passwordField.setText("");
             roleField.setText("");
-
-        } else if (e.getSource() == scheduleButton) {   
-            String examTitle    = examTitleField.getText().trim();
-            String examDuration = examDurationField.getText().trim();
-            String examTime     = examTimeField.getText().trim();
-
-            if (examTitle.isEmpty() || examDuration.isEmpty() || examTime.isEmpty()) {
-                JOptionPane.showMessageDialog(null, "Please fill in all exam fields!");
-                return;
-            }
-            int duration;
-            try {
-                duration = Integer.parseInt(examDuration);
-            } catch (NumberFormatException ex) {
-                JOptionPane.showMessageDialog(null, "Duration must be a whole number!");
-                return;
-            }
-
-            Exam exam = DataStore.addExam(examTitle, duration, examTime, admin.getAdminId());
-            admin.scheduleExam(exam);
-            JOptionPane.showMessageDialog(null,
-                "[ADMIN] Exam Scheduled!\nID : " + exam.getExamId() + "\nTitle : " + examTitle + "\nDuration : " + examDuration + " minutes");
-
-            examTitleField.setText("");
-            examDurationField.setText("");
-            examTimeField.setText("");
 
         } else if (e.getSource() == logoutButton) {
             admin.logout();
