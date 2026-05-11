@@ -55,15 +55,8 @@ public class MCQScreen extends JFrame implements ActionListener {
         setTitle("MCQ Exam : " + exam.getTitle());
         setSize(540, 420);
         setLayout(new FlowLayout(FlowLayout.CENTER, 10, 8));
-        setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         getContentPane().setBackground(new Color(210, 208, 200));
-
-        addWindowListener(new WindowAdapter() {
-            @Override
-            public void windowClosing(WindowEvent e) {
-                confirmExit();
-            }
-        });
 
         examTitleLabel = new JLabel("Exam : " + exam.getTitle());
         examTitleLabel.setFont(new Font("SansSerif", Font.BOLD, 14));
@@ -102,11 +95,20 @@ public class MCQScreen extends JFrame implements ActionListener {
         optionC = new JRadioButton();
         optionD = new JRadioButton();
 
-        for (JRadioButton rb : new JRadioButton[]{optionA, optionB, optionC, optionD}) {
-            rb.setBackground(Color.WHITE);
-            rb.setFont(new Font("SansSerif", Font.PLAIN, 13));
-            optionsPanel.add(rb);
-        }
+        optionA.setBackground(Color.WHITE);
+        optionB.setBackground(Color.WHITE);
+        optionC.setBackground(Color.WHITE);
+        optionD.setBackground(Color.WHITE);
+
+        optionA.setFont(new Font("SansSerif", Font.PLAIN, 13));
+        optionB.setFont(new Font("SansSerif", Font.PLAIN, 13));
+        optionC.setFont(new Font("SansSerif", Font.PLAIN, 13));
+        optionD.setFont(new Font("SansSerif", Font.PLAIN, 13));
+
+        optionsPanel.add(optionA);
+        optionsPanel.add(optionB);
+        optionsPanel.add(optionC);
+        optionsPanel.add(optionD);
 
         mcqGroup = new ButtonGroup();
         mcqGroup.add(optionA);
@@ -148,7 +150,7 @@ public class MCQScreen extends JFrame implements ActionListener {
         questionCounterLabel.setText("Question " + (index + 1) + " of " + questions.size());
         marksLabel.setText("Marks : " + q.getMarks());
         questionTextLabel.setText("<html><b>Q" + (index + 1) + ".</b> "
-            + escapeHtml(q.getQuestion()) + "</html>");
+            + q.getQuestion() + "</html>");
 
         if (q instanceof MCQQuestion) {
             MCQQuestion mcq = (MCQQuestion) q;
@@ -243,33 +245,6 @@ public class MCQScreen extends JFrame implements ActionListener {
         }
     }
 
-    void confirmExit() {
-        int confirm = JOptionPane.showConfirmDialog(null,
-            "Exit without finishing the exam?",
-            "Exit Exam", JOptionPane.YES_NO_OPTION);
-        if (confirm == JOptionPane.YES_OPTION) {
-            dispose();
-        }
-    }
-
-    boolean allQuestionsSubmitted() {
-        for (boolean isSubmitted : submitted) {
-            if (!isSubmitted) {
-                return false;
-            }
-        }
-        return true;
-    }
-
-    String escapeHtml(String text) {
-        if (text == null) {
-            return "";
-        }
-        return text.replace("&", "&amp;")
-            .replace("<", "&lt;")
-            .replace(">", "&gt;");
-    }
-
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == submitButton) {
             if (!optionA.isSelected() && !optionB.isSelected()
@@ -281,7 +256,15 @@ public class MCQScreen extends JFrame implements ActionListener {
             saveCurrentAnswer();
             submitted[currentIndex] = true;
 
-            if (allQuestionsSubmitted()) {
+            boolean allDone = true;
+            for (boolean answerSubmitted : submitted) {
+                if (!answerSubmitted) {
+                    allDone = false;
+                    break;
+                }
+            }
+
+            if (allDone) {
                 handleFinalSubmit();
             } else {
                 loadQuestion(currentIndex);

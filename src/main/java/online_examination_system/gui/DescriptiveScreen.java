@@ -50,15 +50,8 @@ public class DescriptiveScreen extends JFrame implements ActionListener {
         setTitle("Descriptive Exam : " + exam.getTitle());
         setSize(560, 440);
         setLayout(new FlowLayout(FlowLayout.CENTER, 10, 8));
-        setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         getContentPane().setBackground(new Color(210, 208, 200));
-
-        addWindowListener(new WindowAdapter() {
-            @Override
-            public void windowClosing(WindowEvent e) {
-                confirmExit();
-            }
-        });
 
         examTitleLabel = new JLabel("Exam : " + exam.getTitle());
         examTitleLabel.setFont(new Font("SansSerif", Font.BOLD, 14));
@@ -140,7 +133,7 @@ public class DescriptiveScreen extends JFrame implements ActionListener {
         questionCounterLabel.setText("Question " + (index + 1) + " of " + questions.size());
         marksLabel.setText("Marks : " + q.getMarks());
         questionTextLabel.setText("<html><b>Q" + (index + 1) + ".</b> "
-            + escapeHtml(q.getQuestion()) + "</html>");
+            + q.getQuestion() + "</html>");
 
         answerArea.setText(savedAnswers[index] != null ? savedAnswers[index] : "");
 
@@ -205,33 +198,6 @@ public class DescriptiveScreen extends JFrame implements ActionListener {
         }
     }
 
-    void confirmExit() {
-        int confirm = JOptionPane.showConfirmDialog(null,
-            "Exit without finishing the exam?",
-            "Exit Exam", JOptionPane.YES_NO_OPTION);
-        if (confirm == JOptionPane.YES_OPTION) {
-            dispose();
-        }
-    }
-
-    boolean allQuestionsSubmitted() {
-        for (boolean isSubmitted : submitted) {
-            if (!isSubmitted) {
-                return false;
-            }
-        }
-        return true;
-    }
-
-    String escapeHtml(String text) {
-        if (text == null) {
-            return "";
-        }
-        return text.replace("&", "&amp;")
-            .replace("<", "&lt;")
-            .replace(">", "&gt;");
-    }
-
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == submitButton) {
             if (answerArea.getText().trim().isEmpty()) {
@@ -242,7 +208,15 @@ public class DescriptiveScreen extends JFrame implements ActionListener {
             saveCurrentAnswer();
             submitted[currentIndex] = true;
 
-            if (allQuestionsSubmitted()) {
+            boolean allDone = true;
+            for (boolean answerSubmitted : submitted) {
+                if (!answerSubmitted) {
+                    allDone = false;
+                    break;
+                }
+            }
+
+            if (allDone) {
                 handleFinalSubmit();
             } else {
                 loadQuestion(currentIndex);
