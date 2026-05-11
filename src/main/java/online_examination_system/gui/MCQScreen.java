@@ -4,6 +4,7 @@ import online_examination_system.exams.Answer;
 import online_examination_system.exams.Exam;
 import online_examination_system.exams.EvaluationSystem;
 import online_examination_system.exams.Result;
+import online_examination_system.questions.DescriptiveQuestion;
 import online_examination_system.questions.MCQQuestion;
 import online_examination_system.questions.Question;
 import online_examination_system.users.Student;
@@ -15,7 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Exam screen for exams that contain only MCQ questions.
+ * Exam screen for exams that contain MCQ and descriptive questions.
  */
 public class MCQScreen extends JFrame implements ActionListener {
 
@@ -36,6 +37,8 @@ public class MCQScreen extends JFrame implements ActionListener {
     JRadioButton optionD;
     ButtonGroup mcqGroup;
     JPanel optionsPanel;
+    JTextArea descriptiveArea;
+    JScrollPane descriptiveScroll;
 
     Student student;
     Exam exam;
@@ -52,8 +55,8 @@ public class MCQScreen extends JFrame implements ActionListener {
         this.submitted = new boolean[questions.size()];
         this.currentIndex = 0;
 
-        setTitle("MCQ Exam : " + exam.getTitle());
-        setSize(540, 420);
+        setTitle("Exam : " + exam.getTitle());
+        setSize(560, 520);
         setLayout(new FlowLayout(FlowLayout.CENTER, 10, 8));
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         getContentPane().setBackground(new Color(210, 208, 200));
@@ -118,6 +121,13 @@ public class MCQScreen extends JFrame implements ActionListener {
 
         add(optionsPanel);
 
+        descriptiveArea = new JTextArea();
+        descriptiveArea.setLineWrap(true);
+        descriptiveArea.setWrapStyleWord(true);
+        descriptiveScroll = new JScrollPane(descriptiveArea);
+        descriptiveScroll.setPreferredSize(new Dimension(500, 110));
+        add(descriptiveScroll);
+
         prevButton = new JButton("< Previous");
         submitButton = new JButton("Submit Answer");
         nextButton = new JButton("Next >");
@@ -166,6 +176,7 @@ public class MCQScreen extends JFrame implements ActionListener {
         }
 
         mcqGroup.clearSelection();
+        descriptiveArea.setText(savedAnswers[index] != null ? savedAnswers[index] : "");
         if (savedAnswers[index] != null) {
             switch (savedAnswers[index]) {
                 case "A": optionA.setSelected(true); break;
@@ -181,6 +192,15 @@ public class MCQScreen extends JFrame implements ActionListener {
         optionB.setEnabled(!locked);
         optionC.setEnabled(!locked);
         optionD.setEnabled(!locked);
+        boolean mcqMode = q instanceof MCQQuestion;
+        optionsPanel.setVisible(mcqMode);
+        optionA.setVisible(mcqMode);
+        optionB.setVisible(mcqMode);
+        optionC.setVisible(mcqMode);
+        optionD.setVisible(mcqMode);
+        descriptiveScroll.setVisible(q instanceof DescriptiveQuestion);
+        descriptiveArea.setEnabled(!locked);
+        descriptiveArea.setBackground(locked ? new Color(240, 240, 240) : Color.WHITE);
 
         submitButton.setEnabled(!locked);
         statusLabel.setText(locked ? "Submitted - you cannot change this answer." : " ");
@@ -191,6 +211,11 @@ public class MCQScreen extends JFrame implements ActionListener {
 
     void saveCurrentAnswer() {
         if (submitted[currentIndex]) {
+            return;
+        }
+        if (questions.get(currentIndex) instanceof DescriptiveQuestion) {
+            String text = descriptiveArea.getText().trim();
+            savedAnswers[currentIndex] = text.isEmpty() ? null : text;
             return;
         }
         if (optionA.isSelected()) {
@@ -233,12 +258,12 @@ public class MCQScreen extends JFrame implements ActionListener {
         }
 
         EvaluationSystem evaluator = new EvaluationSystem("EVAL001");
-        Result result = evaluator.evaluateExam("RES001", student, exam, answers);
+        Result result = evaluator.evaluateExam(null, student, exam, answers);
 
         dispose();
 
         if (result != null) {
-            new ExamResultDashboard(result);
+            new ExamResultDashboard(result, student);
         } else {
             JOptionPane.showMessageDialog(null,
                 "Evaluation failed. Please contact your faculty.");
@@ -247,9 +272,14 @@ public class MCQScreen extends JFrame implements ActionListener {
 
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == submitButton) {
-            if (!optionA.isSelected() && !optionB.isSelected()
+            Question q = questions.get(currentIndex);
+            if (q instanceof MCQQuestion && !optionA.isSelected() && !optionB.isSelected()
                     && !optionC.isSelected() && !optionD.isSelected()) {
                 JOptionPane.showMessageDialog(null, "Please select an option before submitting!");
+                return;
+            }
+            if (q instanceof DescriptiveQuestion && descriptiveArea.getText().trim().isEmpty()) {
+                JOptionPane.showMessageDialog(null, "Please enter an answer before submitting!");
                 return;
             }
 

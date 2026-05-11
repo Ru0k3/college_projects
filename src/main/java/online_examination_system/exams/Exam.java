@@ -67,6 +67,10 @@ public class Exam {
         return duration;
     }
 
+    public String getScheduledTime() {
+        return scheduledTime;
+    }
+
     public int getTotalMarks() {
         return totalMarks;
     }

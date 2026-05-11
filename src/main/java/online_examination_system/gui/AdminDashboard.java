@@ -1,6 +1,10 @@
 package online_examination_system.gui;
 
+import online_examination_system.Data.DataStore;
+import online_examination_system.exams.Exam;
+import online_examination_system.main.AppNavigator;
 import online_examination_system.users.Admin;
+import online_examination_system.users.Users;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -9,9 +13,11 @@ public class AdminDashboard extends JFrame implements ActionListener {
 
     JTextField nameField;
     JTextField emailField;
+    JTextField passwordField;
     JTextField roleField;
     JTextField examTitleField;
     JTextField examDurationField;
+    JTextField examTimeField;
 
     JButton registerButton;
     JButton scheduleButton;
@@ -19,7 +25,7 @@ public class AdminDashboard extends JFrame implements ActionListener {
 
     Admin admin;
 
-    AdminDashboard(Admin admin) {
+    public AdminDashboard(Admin admin) {
         this.admin = admin;
 
         setTitle("Admin Dashboard");
@@ -40,6 +46,10 @@ public class AdminDashboard extends JFrame implements ActionListener {
         emailField = new JTextField(25);
         add(emailField);
 
+        add(new JLabel("Password :"));
+        passwordField = new JTextField(25);
+        add(passwordField);
+
         add(new JLabel("Role (student / faculty) :"));
         roleField = new JTextField(25);
         add(roleField);
@@ -55,6 +65,10 @@ public class AdminDashboard extends JFrame implements ActionListener {
         add(new JLabel("Duration (mins) :"));
         examDurationField = new JTextField(25);
         add(examDurationField);
+
+        add(new JLabel("Scheduled Time :"));
+        examTimeField = new JTextField(25);
+        add(examTimeField);
 
         scheduleButton = new JButton("Schedule Exam");
         add(scheduleButton);
@@ -73,51 +87,60 @@ public class AdminDashboard extends JFrame implements ActionListener {
         if (e.getSource() == registerButton) {
             String name  = nameField.getText().trim();
             String email = emailField.getText().trim();
+            String password = passwordField.getText().trim();
             String role  = roleField.getText().trim().toLowerCase();
 
-            if (name.isEmpty() || email.isEmpty() || role.isEmpty()) {
+            if (name.isEmpty() || email.isEmpty() || password.isEmpty() || role.isEmpty()) {
                 JOptionPane.showMessageDialog(null, "Please fill in all fields!");
                 return;
             }
 
-            if (role.equals("student")) {
-                JOptionPane.showMessageDialog(null,
-                    "[ADMIN] User Registered!\nName : " + name + "\nEmail : " + email + "\nRole : Student");
-                // TODO: admin.manageUsers(user) once constructors are finalised
-            } else if (role.equals("faculty")) {
-                JOptionPane.showMessageDialog(null,
-                    "[ADMIN] User Registered!\nName : " + name + "\nEmail : " + email + "\nRole : Faculty");
-                // TODO: admin.manageUsers(user) once constructors are finalised
-            } else {
+            if (!role.equals("student") && !role.equals("faculty")) {
                 JOptionPane.showMessageDialog(null, "Invalid role! Enter: student or faculty");
                 return;
             }
 
+            Users user = DataStore.addUser(name, email, password, role);
+            admin.manageUsers(user);
+            JOptionPane.showMessageDialog(null,
+                "[ADMIN] User Registered!\nName : " + name + "\nEmail : " + email + "\nRole : " + role);
+
             nameField.setText("");
             emailField.setText("");
+            passwordField.setText("");
             roleField.setText("");
 
-        } else if (e.getSource() == scheduleButton) {
+        } else if (e.getSource() == scheduleButton) {   
             String examTitle    = examTitleField.getText().trim();
             String examDuration = examDurationField.getText().trim();
+            String examTime     = examTimeField.getText().trim();
 
-            if (examTitle.isEmpty() || examDuration.isEmpty()) {
+            if (examTitle.isEmpty() || examDuration.isEmpty() || examTime.isEmpty()) {
                 JOptionPane.showMessageDialog(null, "Please fill in all exam fields!");
                 return;
             }
+            int duration;
+            try {
+                duration = Integer.parseInt(examDuration);
+            } catch (NumberFormatException ex) {
+                JOptionPane.showMessageDialog(null, "Duration must be a whole number!");
+                return;
+            }
 
+            Exam exam = DataStore.addExam(examTitle, duration, examTime, admin.getAdminId());
+            admin.scheduleExam(exam);
             JOptionPane.showMessageDialog(null,
-                "[ADMIN] Exam Scheduled!\nTitle : " + examTitle + "\nDuration : " + examDuration + " minutes");
-            // TODO: admin.scheduleExam(new Exam(examTitle, duration)) once Exam.java is implemented
+                "[ADMIN] Exam Scheduled!\nID : " + exam.getExamId() + "\nTitle : " + examTitle + "\nDuration : " + examDuration + " minutes");
 
             examTitleField.setText("");
             examDurationField.setText("");
+            examTimeField.setText("");
 
         } else if (e.getSource() == logoutButton) {
             admin.logout();
             JOptionPane.showMessageDialog(null, "Logged out successfully!");
             dispose();
-            // TODO: new LoginFrame();
+            AppNavigator.logout();
         }
     }
 }

@@ -1,0 +1,87 @@
+[
+  {
+    "resultId": 1,
+    "studentId": 2,
+    "studentName": "Alice Johnson",
+    "examId": 101,
+    "examTitle": "Java Basics",
+    "score": 8,
+    "totalMarks": 10,
+    "percentage": 80,
+    "submittedAt": "2026-05-10T14:30:00",
+    "answers": [
+      {
+        "questionId": 201,
+        "selectedAnswer": 1,
+        "isCorrect": true,
+        "marksAwarded": 2
+      },
+      {
+        "questionId": 202,
+        "selectedAnswer": 2,
+        "isCorrect": true,
+        "marksAwarded": 2
+      },
+      {
+        "questionId": 203,
+        "descriptiveAnswer": "OOP is based on classes and objects.",
+        "marksAwarded": 4
+      }
+    ]
+  },
+  {
+    "resultId": 2,
+    "studentId": 3,
+    "studentName": "Bob Smith",
+    "examId": 102,
+    "examTitle": "Database Fundamentals",
+    "score": 6,
+    "totalMarks": 10,
+    "percentage": 60,
+    "submittedAt": "2026-05-10T15:10:00",
+    "answers": [
+      {
+        "questionId": 204,
+        "selectedAnswer": 2,
+        "isCorrect": true,
+        "marksAwarded": 2
+      },
+      {
+        "questionId": 205,
+        "selectedAnswer": 0,
+        "isCorrect": false,
+        "marksAwarded": 0
+      },
+      {
+        "questionId": 206,
+        "descriptiveAnswer": "Normalization removes duplicate data.",
+        "marksAwarded": 4
+      }
+    ]
+  },
+  {
+    "resultId": 3,
+    "studentId": 2,
+    "studentName": "Alice Johnson",
+    "examId": 102,
+    "examTitle": "Database Fundamentals",
+    "score": 4,
+    "totalMarks": 10,
+    "percentage": 40.0,
+    "submittedAt": "2026-05-12T00:51:16.786075680",
+    "answers": [
+      {
+        "questionId": 204,
+        "studentResponse": "C"
+      },
+      {
+        "questionId": 205,
+        "studentResponse": "B"
+      },
+      {
+        "questionId": 206,
+        "studentResponse": "No idea"
+      }
+    ]
+  }
+]

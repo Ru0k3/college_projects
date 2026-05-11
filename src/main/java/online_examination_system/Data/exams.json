@@ -1,0 +1,103 @@
+[
+  {
+    "examId": 101,
+    "title": "Java Basics",
+    "subject": "Programming",
+    "durationMinutes": 30,
+    "createdByFacultyId": 4,
+    "questions": [
+      {
+        "questionId": 201,
+        "type": "mcq",
+        "question": "What does JVM stand for?",
+        "options": [
+          "Java Variable Method",
+          "Java Virtual Machine",
+          "Joint Virtual Manager",
+          "Java Verified Machine"
+        ],
+        "correctAnswer": 1,
+        "marks": 2
+      },
+      {
+        "questionId": 202,
+        "type": "mcq",
+        "question": "Which keyword is used for inheritance in Java?",
+        "options": [
+          "implement",
+          "inherits",
+          "extends",
+          "super"
+        ],
+        "correctAnswer": 2,
+        "marks": 2
+      },
+      {
+        "questionId": 203,
+        "type": "descriptive",
+        "question": "Explain the concept of Object-Oriented Programming.",
+        "sampleAnswer": "OOP is a programming paradigm based on objects and classes.",
+        "marks": 6
+      }
+    ]
+  },
+  {
+    "examId": 102,
+    "title": "Database Fundamentals",
+    "subject": "DBMS",
+    "durationMinutes": 25,
+    "createdByFacultyId": 5,
+    "questions": [
+      {
+        "questionId": 204,
+        "type": "mcq",
+        "question": "Which SQL command is used to retrieve data?",
+        "options": [
+          "GET",
+          "FETCH",
+          "SELECT",
+          "RETRIEVE"
+        ],
+        "correctAnswer": 2,
+        "marks": 2
+      },
+      {
+        "questionId": 205,
+        "type": "mcq",
+        "question": "Which key uniquely identifies a row in a table?",
+        "options": [
+          "Foreign Key",
+          "Primary Key",
+          "Composite Key",
+          "Secondary Key"
+        ],
+        "correctAnswer": 1,
+        "marks": 2
+      },
+      {
+        "questionId": 206,
+        "type": "descriptive",
+        "question": "Explain normalization in DBMS.",
+        "sampleAnswer": "Normalization reduces redundancy and improves data organization.",
+        "marks": 6
+      }
+    ]
+  },
+  {
+    "examId": 105,
+    "title": "Variables",
+    "subject": "General",
+    "durationMinutes": 10,
+    "scheduledTime": "10:00",
+    "createdByFacultyId": 4,
+    "questions": [
+      {
+        "questionId": 1,
+        "question": "What is a variable?",
+        "marks": 5,
+        "type": "descriptive",
+        "sampleAnswer": "container"
+      }
+    ]
+  }
+]

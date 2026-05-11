@@ -3,6 +3,7 @@ package online_examination_system.users;
 import java.util.ArrayList;
 import java.util.List;
 
+import online_examination_system.exams.Exam;
 import online_examination_system.questions.Question;
 
 public class Faculty extends Users{
@@ -13,6 +14,10 @@ public class Faculty extends Users{
 
     //Constructor
     public Faculty(String userId, String name, String email, int password, String facultyId, String subject ){
+        this(userId, name, email, String.valueOf(password), facultyId, subject);
+    }
+
+    public Faculty(String userId, String name, String email, String password, String facultyId, String subject ){
         super(userId, name, email, password);
         this.facultyId=facultyId;
         this.subject=subject;
@@ -27,6 +32,9 @@ public class Faculty extends Users{
     }
     public String getSubject(){
         return subject;
+    }
+    public List<Question> getQuestionBank() {
+        return questionBank;
     }
 
     //createQuestion method
@@ -45,5 +53,10 @@ public class Faculty extends Users{
     }
 
     //manageExam method
+    public void manageExam(Exam exam, Question question) {
+        if (exam != null && question != null) {
+            exam.addQuestion(question);
+        }
+    }
     
 }

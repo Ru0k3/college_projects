@@ -1,6 +1,8 @@
 package online_examination_system.gui;
 
 import online_examination_system.exams.Result;
+import online_examination_system.main.AppNavigator;
+import online_examination_system.users.Student;
 
 import javax.swing.*;
 import java.awt.*;
@@ -10,15 +12,21 @@ public class ExamResultDashboard extends JFrame implements ActionListener {
 
     JButton backButton;
     JButton logoutButton;
+    Student student;
 
-    ExamResultDashboard(Result result) {
+    public ExamResultDashboard(Result result) {
+        this(result, null);
+    }
+
+    public ExamResultDashboard(Result result, Student student) {
+        this.student = student;
         setTitle("Exam Result");
         setSize(400, 320);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(new FlowLayout(FlowLayout.CENTER, 10, 10));
         getContentPane().setBackground(new Color(210, 208, 200));
 
-        double percent = (double) result.getScore() / result.getTotalMarks() * 100;
+        double percent = result.getTotalMarks() == 0 ? 0 : (double) result.getScore() / result.getTotalMarks() * 100;
         String grade = result.getGrade();
         String remark = calculateRemark(percent);
 
@@ -95,9 +103,13 @@ public class ExamResultDashboard extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == backButton) {
             dispose();
+            if (student != null) {
+                AppNavigator.showStudentDashboard(student);
+            }
         } else if (e.getSource() == logoutButton) {
             JOptionPane.showMessageDialog(null, "Logged out successfully!");
             dispose();
+            AppNavigator.logout();
         }
     }
 }

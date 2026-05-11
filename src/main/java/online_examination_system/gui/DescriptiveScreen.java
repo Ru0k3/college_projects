@@ -186,12 +186,12 @@ public class DescriptiveScreen extends JFrame implements ActionListener {
         }
 
         EvaluationSystem evaluator = new EvaluationSystem("EVAL001");
-        Result result = evaluator.evaluateExam("RES001", student, exam, answers);
+        Result result = evaluator.evaluateExam(null, student, exam, answers);
 
         dispose();
 
         if (result != null) {
-            new ExamResultDashboard(result);
+            new ExamResultDashboard(result, student);
         } else {
             JOptionPane.showMessageDialog(null,
                 "Evaluation failed. Please contact your faculty.");

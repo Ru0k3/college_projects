@@ -12,6 +12,10 @@ public class Admin extends Users {
     private List<Exam> scheduledExams;
     private List<Users> managedUsers;  
     public Admin(String userId, String name, String email, int password, String adminId) {
+        this(userId, name, email, String.valueOf(password), adminId);
+    }
+
+    public Admin(String userId, String name, String email, String password, String adminId) {
         super(userId, name, email, password);
         this.adminId = adminId;
         this.scheduledExams = new ArrayList<>();
@@ -38,4 +42,6 @@ public class Admin extends Users {
     }
 
     public String getAdminId() { return adminId; }
+    public List<Exam> getScheduledExams() { return scheduledExams; }
+    public List<Users> getManagedUsers() { return managedUsers; }
 }

@@ -6,20 +6,28 @@ public abstract class Users {
     protected String userId;
     protected String name;
     protected String email;
-    protected int password;
+    protected String password;
+    protected String role;
 
     //Constructor
     public Users(String userid, String username, String email, int password) {
+        this(userid, username, email, String.valueOf(password));
+    }
+
+    public Users(String userid, String username, String email, String password) {
         this.userId=userid;
         this.name=username;
         this.email=email;
         this.password=password;
+        this.role = getClass().getSimpleName().toLowerCase();
     }
 
     //Getter functions
     public String getUserId() { return this.userId; }
     public String getName()   { return this.name; }
     public String getEmail()  { return this.email; }
+    public String getPassword() { return this.password; }
+    public String getRole() { return this.role; }
 
     //methods 
 
@@ -45,8 +53,12 @@ public abstract class Users {
 
     //LOGIN
     public boolean login(String email, int enteredPassword){
+        return login(email, String.valueOf(enteredPassword));
+    }
+
+    public boolean login(String email, String enteredPassword){
         if(emailvalidator(email)){
-            if(this.email.equals(email) && this.password==enteredPassword){
+            if(this.email.equalsIgnoreCase(email) && this.password.equals(enteredPassword)){
                 System.out.println("User Logged in successfully");
                 return true;
             }

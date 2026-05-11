@@ -20,6 +20,9 @@ public class Result {
 
     // figures out grade based on percentage
     public String calculateGrade() {
+        if (totalMarks <= 0) {
+            return "F  (Fail)";
+        }
         double percent = (double) score / totalMarks * 100;
         if (percent >= 90) return "O  (Outstanding)";
         if (percent >= 75) return "A+ (Excellent)";
@@ -31,6 +34,10 @@ public class Result {
 
     // prints result in a nice box format
     public void displayResult() {
+        if (totalMarks <= 0) {
+            System.out.println("  Result unavailable: total marks are zero.");
+            return;
+        }
         double percent = (double) score / totalMarks * 100;
         System.out.println("  +-----------------------------------------+");
         System.out.printf("  | Result ID   : %-26s|%n", resultId);

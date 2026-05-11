@@ -1,7 +1,10 @@
 package online_examination_system.gui;
 
+import online_examination_system.Data.DataStore;
+import online_examination_system.exams.Exam;
 import online_examination_system.users.Student;
 import online_examination_system.exams.Result;
+import online_examination_system.main.AppNavigator;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -10,12 +13,13 @@ import java.util.List;
 public class StudentDashboard extends JFrame implements ActionListener {
 
     JButton enrollButton;
+    JButton startExamButton;
     JButton viewResultsButton;
     JButton logoutButton;
 
     Student student;
 
-    StudentDashboard(Student student) {
+    public StudentDashboard(Student student) {
         this.student = student;
 
         setTitle("Student Dashboard");
@@ -49,14 +53,17 @@ public class StudentDashboard extends JFrame implements ActionListener {
         }
 
         enrollButton      = new JButton("Enroll in Exam");
+        startExamButton   = new JButton("Start Exam");
         viewResultsButton = new JButton("View Results");
         logoutButton      = new JButton("Logout");
 
         add(enrollButton);
+        add(startExamButton);
         add(viewResultsButton);
         add(logoutButton);
 
         enrollButton.addActionListener(this);
+        startExamButton.addActionListener(this);
         viewResultsButton.addActionListener(this);
         logoutButton.addActionListener(this);
 
@@ -68,24 +75,41 @@ public class StudentDashboard extends JFrame implements ActionListener {
             String examId = JOptionPane.showInputDialog(null, "Enter Exam ID to enroll:");
             if (examId == null || examId.trim().isEmpty()) {
                 JOptionPane.showMessageDialog(null, "Please enter a valid Exam ID!");
+            } else if (DataStore.findExam(examId.trim()) == null) {
+                JOptionPane.showMessageDialog(null, "Exam ID not found.");
             } else {
-                student.enrollInExam(examId);
+                student.enrollExam(examId.trim());
+                DataStore.enrollStudent(student.getStudentId(), examId.trim());
                 JOptionPane.showMessageDialog(null, "Enrolled in exam: " + examId);
             }
+
+        } else if (e.getSource() == startExamButton) {
+            String examId = JOptionPane.showInputDialog(null, "Enter enrolled Exam ID to start:");
+            if (examId == null || examId.trim().isEmpty()) {
+                JOptionPane.showMessageDialog(null, "Please enter a valid Exam ID!");
+                return;
+            }
+            Exam exam = DataStore.findExam(examId.trim());
+            if (exam == null) {
+                JOptionPane.showMessageDialog(null, "Exam ID not found.");
+                return;
+            }
+            dispose();
+            AppNavigator.startExam(student, exam);
 
         } else if (e.getSource() == viewResultsButton) {
             if (student.getResults().isEmpty()) {
                 JOptionPane.showMessageDialog(null, "No results available yet!");
             } else {
                 dispose();
-                // TODO: new ExamResultDashboard(student);
+                new ExamResultDashboard(student.getResults().get(student.getResults().size() - 1), student);
             }
 
         } else if (e.getSource() == logoutButton) {
             student.logout();
             JOptionPane.showMessageDialog(null, "Logged out successfully!");
             dispose();
-            // TODO: new LoginFrame();
+            AppNavigator.logout();
         }
     }
 }

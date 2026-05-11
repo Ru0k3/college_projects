@@ -2,6 +2,7 @@ package online_examination_system.exams;
 
 import java.util.List;
 
+import online_examination_system.Data.DataStore;
 import online_examination_system.questions.Question;
 import online_examination_system.users.Student;
 
@@ -44,9 +45,11 @@ public class EvaluationSystem {
             }
 
             int score = calculateScore(exam.getQuestions(), answers);
-            Result result = new Result(resultId, student.getStudentId(), score, exam.getTotalMarks());
+            String safeResultId = (resultId == null || resultId.isBlank()) ? DataStore.nextResultId() : resultId;
+            Result result = new Result(safeResultId, student.getStudentId(), score, exam.getTotalMarks());
 
             student.addResult(result);
+            DataStore.saveResult(result, student, exam, answers);
             exam.endExam();
 
             System.out.println("  [EVAL]   Result saved for: " + student.getName());
