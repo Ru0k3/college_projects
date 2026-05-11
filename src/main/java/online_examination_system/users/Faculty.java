@@ -1,10 +1,9 @@
 package online_examination_system.users;
 
-package online_examination_system;
-
-import java.rmi.UnexpectedException;
 import java.util.ArrayList;
 import java.util.List;
+
+import online_examination_system.questions.Question;
 
 public class Faculty extends Users{
     //variables
@@ -37,7 +36,7 @@ public class Faculty extends Users{
                 throw new IllegalArgumentException("Question cannot be null");
             }
             questionBank.add(q);
-            System.out.println("Question Id: "+q.questionId+" Question added to the List by "+this.facultyId);
+            System.out.println("Question Id: "+q.getQuestionID()+" Question added to the List by "+this.facultyId);
 
         }
         catch(Exception e){

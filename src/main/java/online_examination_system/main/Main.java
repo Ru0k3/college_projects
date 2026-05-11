@@ -1,8 +1,8 @@
 package online_examination_system.main;
 
-package online_examination_system;
+import online_examination_system.users.Faculty;
 
-public class UsersMain {
+public class Main {
     public static void main(String[] args){
         
         Faculty f1=new Faculty("aj_7@7", "Ajul T.M", "ajultm@gmail.com", 777, "F101-firstUser", "Mathematics");

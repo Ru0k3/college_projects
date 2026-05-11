@@ -1,8 +1,9 @@
 package online_examination_system.users;
 
-package online_examination_system;
 import java.util.ArrayList;
 import java.util.List;
+
+import online_examination_system.exams.Exam;
 
 // Admin extends Users - an admin is a special type of user
 public class Admin extends Users {
@@ -10,7 +11,7 @@ public class Admin extends Users {
     private String adminId;
     private List<Exam> scheduledExams;
     private List<Users> managedUsers;  
-    public Admin(String userId, String name, String email, String password, String adminId) {
+    public Admin(String userId, String name, String email, int password, String adminId) {
         super(userId, name, email, password);
         this.adminId = adminId;
         this.scheduledExams = new ArrayList<>();

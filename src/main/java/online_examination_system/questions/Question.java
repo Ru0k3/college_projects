@@ -1,7 +1,5 @@
 package online_examination_system.questions;
 
-package online_examination_system;
-
 public abstract class Question {
     //variables
     protected String questionId;
@@ -32,4 +30,5 @@ public abstract class Question {
     }
 
     //check Answer method
+    public abstract int checkAnswer(String response);
 }
