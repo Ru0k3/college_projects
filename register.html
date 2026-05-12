@@ -31,12 +31,15 @@
           transparent participation.
         </p>
         <figure class="hero-visual">
-          <img
+          <video
             class="hero-visual__image"
-            src="assets/images/register.png"
-            alt="People collaborating in a civic community setting"
-            loading="lazy"
-          />
+            src="assets/video/video.mp4"
+            aria-label="People collaborating in a civic community setting"
+            autoplay
+            loop
+            muted
+            playsinline
+          ></video>
         </figure>
       </section>
 
@@ -134,5 +137,6 @@
       }
       bindToggle(".theme-toggle");
     </script>
+    <script type="module" src="js/utils/background-audio.js"></script>
   </body>
 </html>
