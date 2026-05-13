@@ -2,12 +2,15 @@
 
 const AUDIO_ENABLED_KEY = "voxgrid-background-audio-enabled";
 const AUDIO_STATE_KEY = "voxgrid-background-audio-time";
+const AUDIO_TOGGLE_SELECTOR = ".audio-toggle";
 const audioUrl = new URL("../../assets/audio/audio.mpeg", import.meta.url);
 
 const backgroundAudio = new Audio(audioUrl);
 backgroundAudio.loop = true;
 backgroundAudio.preload = "auto";
 backgroundAudio.volume = 0.5;
+
+let isWaitingForInteraction = false;
 
 function isAudioEnabled() {
 	return localStorage.getItem(AUDIO_ENABLED_KEY) !== "false";
@@ -21,6 +24,11 @@ if (Number.isFinite(savedTime) && savedTime > 0) {
 async function playBackgroundAudio() {
 	if (!isAudioEnabled()) {
 		pauseBackgroundAudio();
+		return;
+	}
+
+	if (!hasAudioToggle()) {
+		updateAudioToggle();
 		return;
 	}
 
@@ -51,6 +59,11 @@ function setAudioEnabled(enabled) {
 }
 
 function addInteractionListeners() {
+	if (isWaitingForInteraction) {
+		return;
+	}
+
+	isWaitingForInteraction = true;
 	document.addEventListener("click", playBackgroundAudio, { once: true });
 	document.addEventListener("keydown", playBackgroundAudio, { once: true });
 	document.addEventListener("touchstart", playBackgroundAudio, { once: true });
@@ -58,40 +71,57 @@ function addInteractionListeners() {
 }
 
 function removeInteractionListeners() {
+	isWaitingForInteraction = false;
 	document.removeEventListener("click", playBackgroundAudio);
 	document.removeEventListener("keydown", playBackgroundAudio);
 	document.removeEventListener("touchstart", playBackgroundAudio);
 	document.removeEventListener("pointerdown", playBackgroundAudio);
 }
 
-function bindAudioToggle() {
-	const toggle = document.querySelector(".audio-toggle");
-	if (!toggle || toggle.dataset.audioBound === "true") {
-		return;
-	}
+function getAudioToggles() {
+	return Array.from(document.querySelectorAll(AUDIO_TOGGLE_SELECTOR));
+}
 
-	toggle.dataset.audioBound = "true";
-	toggle.addEventListener("click", () => {
-		setAudioEnabled(backgroundAudio.paused);
+function hasAudioToggle() {
+	return getAudioToggles().length > 0;
+}
+
+function bindAudioToggle() {
+	getAudioToggles().forEach((toggle) => {
+		if (toggle.dataset.audioBound === "true") {
+			return;
+		}
+
+		toggle.dataset.audioBound = "true";
+		toggle.addEventListener("click", () => {
+			setAudioEnabled(backgroundAudio.paused);
+		});
 	});
+
 	updateAudioToggle();
 }
 
 function updateAudioToggle() {
-	const toggle = document.querySelector(".audio-toggle");
-	if (!toggle) {
+	const toggles = getAudioToggles();
+	if (!toggles.length) {
 		return;
 	}
 
-	const icon = toggle.querySelector(".audio-toggle__icon");
 	const isPlaying = !backgroundAudio.paused && isAudioEnabled();
+	const label = isPlaying ? "Pause background audio" : "Play background audio";
+	const iconName = isPlaying ? "volume_up" : "volume_off";
 
-	toggle.setAttribute("aria-pressed", String(isPlaying));
-	toggle.setAttribute("aria-label", isPlaying ? "Pause background audio" : "Play background audio");
+	toggles.forEach((toggle) => {
+		const icon = toggle.querySelector(".audio-toggle__icon");
 
-	if (icon) {
-		icon.textContent = isPlaying ? "volume_up" : "volume_off";
-	}
+		toggle.setAttribute("aria-pressed", String(isPlaying));
+		toggle.setAttribute("aria-label", label);
+		toggle.setAttribute("title", label);
+
+		if (icon) {
+			icon.textContent = iconName;
+		}
+	});
 }
 
 window.addEventListener("beforeunload", () => {
@@ -101,6 +131,7 @@ window.addEventListener("beforeunload", () => {
 document.addEventListener("component:loaded", (event) => {
 	if (event.detail?.file?.includes("header.html")) {
 		bindAudioToggle();
+		playBackgroundAudio();
 	}
 });
 
@@ -108,3 +139,6 @@ document.addEventListener("DOMContentLoaded", () => {
 	bindAudioToggle();
 	playBackgroundAudio();
 });
+
+backgroundAudio.addEventListener("play", updateAudioToggle);
+backgroundAudio.addEventListener("pause", updateAudioToggle);
