@@ -89,7 +89,7 @@
       <h2>Explore Further</h2>
 
       <div class="related-grid">
-        <a class="related-card" href="join-conversation.html">
+        <a class="related-card" href="discussions.html">
           <span class="material-symbols-outlined card-bg-icon" aria-hidden="true">forum</span>
           <span class="eyebrow">Related Discussion</span>
           <h3>Procedural Efficiency vs. Public Input</h3>
@@ -118,39 +118,24 @@
     </section>
   </main>
 
-  <footer class="site-footer">
-    <div class="footer-inner">
-      <div class="footer-brand">Civic Authority</div>
-
-      <div class="footer-links">
-        <a href="about-us.html">About</a>
-        <a href="#">Privacy Policy</a>
-        <a href="#">Terms of Service</a>
-        <a href="#">Civic Partners</a>
-        <a href="#">Research</a>
-      </div>
-
-      <p>&copy; 2024 Civic Authority. A Modern Record of Note.</p>
-    </div>
-  </footer>
+  <div id="footer"></div>
   <script type="module" src="js/pages/poll-results.js"></script>
 
 		<script type="module">
 			import { loadComponent } from "./js/utils/load.js";
-			import { initTheme, bindToggle } from "./js/utils/theme.js";
-
-			initTheme();
-			document.addEventListener("component:loaded", (event) => {
-				if (event.detail?.file?.includes("header.html")) {
-					bindToggle(".theme-toggle");
-				}
-			});
+			import { bindToggle } from "./js/utils/theme.js";
 
 			const headerMount = document.getElementById("header") || document.getElementById("header-placeholder");
 			if (headerMount && !headerMount.hasChildNodes()) {
 				loadComponent(headerMount.id, "./partials/header.html");
 			}
-			bindToggle(".theme-toggle");
+			loadComponent("footer", "./partials/footer.html");
+
+			document.addEventListener("component:loaded", (event) => {
+				if (event.detail?.file?.includes("header.html")) {
+					bindToggle(".theme-toggle");
+				}
+			});
 		</script>
 		<script type="module" src="js/utils/background-audio.js"></script>
 	</body>

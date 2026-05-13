@@ -122,20 +122,18 @@
 	
 		<script type="module">
 			import { loadComponent } from "./js/utils/load.js";
-			import { initTheme, bindToggle } from "./js/utils/theme.js";
-
-			initTheme();
-			document.addEventListener("component:loaded", (event) => {
-				if (event.detail?.file?.includes("header.html")) {
-					bindToggle(".theme-toggle");
-				}
-			});
+			import { bindToggle } from "./js/utils/theme.js";
 
 			const headerMount = document.getElementById("header") || document.getElementById("header-placeholder");
 			if (headerMount && !headerMount.hasChildNodes()) {
 				loadComponent(headerMount.id, "./partials/header.html");
 			}
-			bindToggle(".theme-toggle");
+
+			document.addEventListener("component:loaded", (event) => {
+				if (event.detail?.file?.includes("header.html")) {
+					bindToggle(".theme-toggle");
+				}
+			});
 		</script>
 		<script type="module" src="js/utils/background-audio.js"></script>
 	</body>
