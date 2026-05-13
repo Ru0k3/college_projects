@@ -435,3 +435,32 @@ main {
     gap: 1rem;
   }
 }
+
+@media (max-width: 64rem) {
+  .nav__search-wrap {
+    width: min(100%, 18rem);
+  }
+}
+
+@media (max-width: 40rem) {
+  main {
+    padding: 3rem 0;
+  }
+
+  .container {
+    padding-inline: 1rem;
+  }
+
+  .category-card {
+    padding: 1.25rem;
+  }
+
+  .category-card__footer {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .footer__inner {
+    flex-direction: column;
+  }
+}

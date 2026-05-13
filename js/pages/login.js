@@ -1,6 +1,4 @@
 "use strict";
-import { preventDefaultForSelectors, select } from "../utils/shared.js";
-import { postJson, readValue, setStatus } from "../utils/auth.js";
 
 import { loginUser } from "../api/auth.js";
 import { saveUser } from "../states/authState.js";
@@ -25,7 +23,6 @@ form.addEventListener("submit", async (e) => {
     const data = await loginUser(email, password);
     saveUser(data.user);
     window.location.href = "/index.html";
-
   } catch (err) {
     errorBox.textContent = err.message;
   }

@@ -101,3 +101,36 @@ body {
 .issue-card-footer .material-symbols-outlined {
     font-size: 1rem;
 }
+@media (max-width: 48rem) {
+    .container {
+        padding-inline: 1rem;
+    }
+
+    .issues-header {
+        margin-bottom: 1.5rem;
+    }
+
+    .issues-header h1 {
+        font-size: clamp(1.75rem, 9vw, 2rem);
+    }
+
+    #search-input {
+        width: 100%;
+    }
+
+    .issues-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+
+    .issue-card {
+        padding: 1.125rem;
+    }
+}
+
+@media (max-width: 30rem) {
+    .issue-card-footer {
+        gap: 0.5rem;
+        flex-direction: column;
+    }
+}

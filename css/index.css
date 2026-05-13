@@ -437,3 +437,56 @@ h3 {
     text-align: center;
   }
 }
+
+@media (max-width: 64rem) {
+  .main {
+    padding-block: 48px 88px;
+    gap: 88px;
+  }
+
+  .hero {
+    gap: 24px;
+  }
+
+  .hero h1 {
+    font-size: clamp(44px, 8vw, 64px);
+  }
+
+  .card-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 640px) {
+  .container {
+    width: min(100% - 24px, var(--max-width));
+  }
+
+  .main {
+    padding-block: 28px 56px;
+    gap: 56px;
+  }
+
+  .hero h1 {
+    font-size: clamp(36px, 12vw, 44px);
+  }
+
+  .hero p {
+    font-size: 16px;
+  }
+
+  .hero-actions,
+  .button {
+    width: 100%;
+  }
+
+  .card-grid,
+  .content-grid {
+    gap: 20px;
+  }
+
+  .poll-card,
+  .issue-card {
+    padding: 18px;
+  }
+}

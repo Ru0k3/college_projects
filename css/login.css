@@ -168,3 +168,34 @@ button {
 		flex-wrap: wrap;
 	}
 }
+
+@media (max-width: 48rem) {
+	.login-page {
+		align-items: start;
+		padding: 2.5rem 1.25rem 3rem;
+	}
+
+	.login-card {
+		width: 100%;
+	}
+}
+
+@media (max-width: 28rem) {
+	.login-page {
+		padding-inline: 1rem;
+	}
+
+	.login-card {
+		padding: 1.25rem;
+	}
+
+	.field input,
+	#login-submit {
+		height: 3rem;
+	}
+
+	.row {
+		align-items: flex-start;
+		flex-direction: column;
+	}
+}

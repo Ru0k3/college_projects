@@ -376,3 +376,59 @@ h3 {
     text-align: center;
   }
 }
+
+@media (max-width: 64rem) {
+  .page {
+    gap: 96px;
+    padding-inline: 24px;
+  }
+
+  .poll-header h1 {
+    font-size: clamp(38px, 7vw, 48px);
+  }
+}
+
+@media (max-width: 640px) {
+  .page {
+    padding: 40px 16px 56px;
+    gap: 56px;
+  }
+
+  .poll-header {
+    gap: 18px;
+  }
+
+  .poll-header h1 {
+    font-size: clamp(30px, 10vw, 38px);
+  }
+
+  .poll-meta,
+  .result-label,
+  .footer-inner {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .results-card,
+  .related-card {
+    padding: 20px;
+  }
+
+  .result-row p {
+    text-align: left;
+  }
+
+  .card-bg-icon {
+    font-size: 56px;
+  }
+}
+
+@media (max-width: 30rem) {
+  .result-label strong {
+    font-size: 20px;
+  }
+
+  .related-section h2 {
+    font-size: 26px;
+  }
+}

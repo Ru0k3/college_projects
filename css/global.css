@@ -38,3 +38,27 @@ svg {
     stroke-linejoin: round;
     stroke-width: 1.5;
 }
+@media (max-width: 48rem) {
+    html,
+    body {
+        min-width: 0;
+    }
+
+    main {
+        width: 100%;
+    }
+
+    img,
+    svg,
+    video,
+    canvas {
+        max-width: 100%;
+    }
+
+    input,
+    textarea,
+    select,
+    button {
+        max-width: 100%;
+    }
+}

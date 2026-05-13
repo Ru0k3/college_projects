@@ -44,3 +44,17 @@
 @media (max-width: 52rem) {
   .about-grid, .team-grid, .guideline-grid { grid-template-columns: 1fr; }
 }
+
+@media (max-width: 48rem) {
+  .page-hero { padding: 2.5rem 0 2rem; }
+  .section { padding: 2rem 0; }
+  .team-card, .guideline-card { padding: 1.25rem; }
+  .section-label { align-items: flex-start; flex-direction: column; gap: .5rem; }
+  .section-label::after { width: 100%; flex: none; }
+}
+
+@media (max-width: 30rem) {
+  .feature-list li { gap: .625rem; }
+  .tc-tags { gap: .3rem; }
+  .tc-tag { width: 100%; text-align: center; }
+}

@@ -264,3 +264,66 @@ select {
         flex-wrap: wrap;
     }
 }
+@media (max-width: 64rem) {
+    .create-page {
+        padding: 1.5rem;
+    }
+
+    .create-header {
+        margin-bottom: 2.5rem;
+        gap: 1rem;
+    }
+
+    .section-block {
+        margin-bottom: 3rem;
+    }
+}
+
+@media (max-width: 48rem) {
+    .create-header {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .create-title {
+        font-size: clamp(1.75rem, 9vw, 2.2rem);
+    }
+
+    .format-card,
+    .editor-shell,
+    .classification-grid {
+        padding: 1.25rem;
+        border-radius: 0.75rem;
+    }
+
+    .post-title {
+        font-size: clamp(2rem, 11vw, 2.75rem);
+    }
+
+    .content-textarea {
+        min-height: 18rem;
+    }
+
+    .actions-row {
+        flex-direction: column-reverse;
+    }
+
+    .preview-btn,
+    .publish-btn {
+        width: 100%;
+    }
+}
+
+@media (max-width: 30rem) {
+    .create-page {
+        padding-inline: 1rem;
+    }
+
+    .editor-toolbar {
+        flex-wrap: wrap;
+    }
+
+    .add-option-btn {
+        width: 100%;
+    }
+}

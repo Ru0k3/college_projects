@@ -107,3 +107,29 @@ blockquote {
         font-size: 90%;
     }
 }
+
+@media (max-width: 48rem) {
+    .container {
+        margin-block: 2rem;
+        padding-inline: 1rem;
+    }
+
+    h1 {
+        font-size: clamp(2rem, 10vw, 2.625rem);
+        line-height: 1.1;
+    }
+
+    .meta {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.35rem;
+    }
+
+    .author {
+        align-items: flex-start;
+    }
+
+    blockquote {
+        margin-inline: 0;
+    }
+}

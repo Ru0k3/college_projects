@@ -1,195 +1,239 @@
 @import url("variables.css");
 
-@import url('https://fonts.googleapis.com/css2?family=Newsreader:wght@700&family=Inter:wght@400;500;600&display=swap');
-
+@import url("https://fonts.googleapis.com/css2?family=Newsreader:wght@700&family=Inter:wght@400;500;600&display=swap");
 
 *,
 *::before,
 *::after {
-	box-sizing: border-box;
+  box-sizing: border-box;
 }
 
 body {
-	margin: 0;
-	min-height: 100vh;
-	display: flex;
-	flex-direction: column;
-	background: var(--bg);
-	color: var(--text);
-	font: 1rem/1.5 'Inter', system-ui, sans-serif;
+  margin: 0;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: var(--bg);
+  color: var(--text);
+  font:
+    1rem/1.5 "Inter",
+    system-ui,
+    sans-serif;
+  justify-content: center;
+  align-items: center;
 }
 
 a {
-	color: inherit;
-	text-decoration: none;
+  color: inherit;
+  text-decoration: none;
 }
 
 input,
 button {
-	font: inherit;
+  font: inherit;
 }
 
 .register-page {
-	flex: 1;
-	width: min(100%, 66.25rem);
-	margin: 0 auto;
-	padding: 3.5rem 1.5rem;
-	display: grid;
-	grid-template-columns: minmax(0, 1fr) minmax(0, 27rem);
-	gap: 2rem;
-	align-items: start;
+  flex: 1;
+  width: min(100%, 66.25rem);
+  margin: 0 auto;
+  padding: 3.5rem 1.5rem;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 27rem);
+  gap: 2rem;
+  align-items: center;
 }
 
 .register-hero h1 {
-	margin: 0 0 0.75rem;
-	font: 700 3rem/1.06 'Newsreader', Georgia, serif;
+  margin: 0 0 0.75rem;
+  font:
+    700 3rem/1.06 "Newsreader",
+    Georgia,
+    serif;
 }
 
 .register-hero p {
-	margin: 0 0 1.5rem;
-	max-width: 32rem;
-	color: var(--muted);
+  margin: 0 0 1.5rem;
+  max-width: 32rem;
+  color: var(--muted);
 }
 
 .hero-visual {
-	width: 100%;
-	aspect-ratio: 16 / 10;
-	border-radius: 0.75rem;
-	overflow: hidden;
-	margin: 0;
-	border: 0.0625rem solid var(--hero-visual-line);
-	background: var(--hero-visual-bg);
-	box-shadow: 0 1rem 2rem var(--shadow);
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  border-radius: 0.75rem;
+  overflow: hidden;
+  margin: 0;
+  border: 0.0625rem solid var(--hero-visual-line);
+  background: var(--hero-visual-bg);
+  box-shadow: 0 1rem 2rem var(--shadow);
 }
 
 .hero-visual__image {
-	width: 100%;
-	height: 100%;
-	display: block;
-	object-fit: cover;
-	object-position: center 42%;
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+  object-position: center 42%;
 }
 
 .register-card {
-	background: var(--surface);
-	border: 0.0625rem solid var(--line);
-	border-radius: 0.75rem;
-	padding: 2rem;
+  background: var(--surface);
+  border: 0.0625rem solid var(--line);
+  border-radius: 0.75rem;
+  padding: 2rem;
 }
 
 .register-card h2 {
-	margin: 0 0 0.5rem;
-	font: 700 2rem/1.1 'Newsreader', Georgia, serif;
+  margin: 0 0 0.5rem;
+  font:
+    700 2rem/1.1 "Newsreader",
+    Georgia,
+    serif;
 }
 
 .register-card > p {
-	margin: 0 0 1.25rem;
-	color: var(--muted);
+  margin: 0 0 1.25rem;
+  color: var(--muted);
 }
 
 #register-form {
-	display: grid;
-	gap: 1rem;
+  display: grid;
+  gap: 1rem;
 }
 
 .field {
-	display: grid;
-	gap: 0.5rem;
+  display: grid;
+  gap: 0.5rem;
 }
 
 .field span {
-	font-size: 0.75rem;
-	font-weight: 600;
-	letter-spacing: 0.12em;
-	text-transform: uppercase;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
 }
 
 .field input {
-	height: 2.75rem;
-	padding: 0 0.875rem;
-	border: 0.0625rem solid var(--line);
-	border-radius: 0.5rem;
-	background: var(--surface);
-	color: var(--text);
+  height: 2.75rem;
+  padding: 0 0.875rem;
+  border: 0.0625rem solid var(--line);
+  border-radius: 0.5rem;
+  background: var(--surface);
+  color: var(--text);
 }
 
 .field input:focus {
-	outline: 0.125rem solid var(--focus-shadow);
-	outline-offset: 0;
-	border-color: var(--text);
+  outline: 0.125rem solid var(--focus-shadow);
+  outline-offset: 0;
+  border-color: var(--text);
 }
 
 .terms {
-	display: inline-flex;
-	align-items: flex-start;
-	gap: 0.5rem;
-	color: var(--muted);
-	font-size: 0.875rem;
+  display: inline-flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+  color: var(--muted);
+  font-size: 0.875rem;
 }
 
 .terms a {
-	text-decoration: underline;
-	text-underline-offset: 0.1875rem;
+  text-decoration: underline;
+  text-underline-offset: 0.1875rem;
 }
 
 #register-submit {
-	height: 2.75rem;
-	border: 0;
-	border-radius: 0.5rem;
-	background: var(--text);
-	color: var(--on-primary);
-	font-size: 0.75rem;
-	font-weight: 600;
-	letter-spacing: 0.14em;
-	text-transform: uppercase;
-	cursor: pointer;
+  height: 2.75rem;
+  border: 0;
+  border-radius: 0.5rem;
+  background: var(--text);
+  color: var(--on-primary);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  cursor: pointer;
 }
 
 #register-submit:disabled {
-	opacity: 0.7;
-	cursor: not-allowed;
+  opacity: 0.7;
+  cursor: not-allowed;
 }
 
 .status {
-	min-height: 1.25rem;
-	margin: 0;
-	font-size: 0.875rem;
-	color: var(--muted);
+  min-height: 1.25rem;
+  margin: 0;
+  font-size: 0.875rem;
+  color: var(--muted);
 }
 
 .status.error {
-	color: var(--alert-text);
+  color: var(--alert-text);
 }
 
 .switch-auth {
-	margin: 0;
-	color: var(--muted);
-	font-size: 0.875rem;
-	text-align: center;
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.875rem;
+  text-align: center;
 }
 
 .switch-auth a {
-	font-weight: 600;
-	text-decoration: underline;
-	text-underline-offset: 0.1875rem;
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 0.1875rem;
 }
 
 @media (max-width: 54rem) {
-	.register-page {
-		grid-template-columns: 1fr;
-	}
+  .register-page {
+    grid-template-columns: 1fr;
+  }
 
-	.register-hero h1 {
-		font-size: 2.25rem;
-	}
+  .register-hero h1 {
+    font-size: 2.25rem;
+  }
 }
 
 @media (max-width: 34rem) {
-	.register-card {
-		padding: 1.5rem;
-	}
+  .register-card {
+    padding: 1.5rem;
+  }
 
-	.register-card h2 {
-		font-size: 1.75rem;
-	}
+  .register-card h2 {
+    font-size: 1.75rem;
+  }
+}
+
+@media (max-width: 48rem) {
+  .register-page {
+    padding: 2.25rem 1.25rem 3rem;
+    gap: 1.5rem;
+  }
+
+  .register-hero h1 {
+    font-size: clamp(2rem, 10vw, 2.5rem);
+  }
+
+  .hero-visual {
+    aspect-ratio: 4 / 3;
+  }
+}
+
+@media (max-width: 28rem) {
+  .register-page {
+    padding-inline: 1rem;
+  }
+
+  .register-card {
+    padding: 1.25rem;
+  }
+
+  .field input,
+  #register-submit {
+    height: 3rem;
+  }
+
+  .terms {
+    align-items: flex-start;
+  }
 }

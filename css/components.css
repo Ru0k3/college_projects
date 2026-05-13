@@ -277,3 +277,78 @@ svg {
 [data-theme="dark"] .theme-toggle__thumb {
 	transform: translateX(1.5rem);
 }
+
+@media (max-width: 64rem) {
+	.container {
+		width: min(100%, var(--max-width));
+		padding-inline: 1.25rem;
+	}
+
+	.topbar {
+		align-items: flex-start;
+		padding-block: 0.875rem;
+	}
+
+	.topbar__left,
+	.topbar__right {
+		width: 100%;
+		justify-content: space-between;
+	}
+
+	.search {
+		flex: 1 1 14rem;
+		width: auto;
+		min-width: 10rem;
+	}
+}
+
+@media (max-width: 40rem) {
+	.container {
+		padding-inline: 1rem;
+	}
+
+	.topbar {
+		gap: 1rem;
+	}
+
+	.topbar__left,
+	.topbar__right,
+	.topnav {
+		gap: 0.75rem;
+	}
+
+	.brand {
+		font-size: 1.45rem;
+	}
+
+	.topbar__right {
+		display: grid;
+		grid-template-columns: 1fr auto auto;
+		align-items: center;
+	}
+
+	.search {
+		grid-column: 1 / -1;
+		width: 100%;
+		min-width: 0;
+		order: -1;
+	}
+
+	.join-btn {
+		padding-inline: 0.75rem;
+	}
+
+	.avatar {
+		display: none;
+	}
+
+	.site-footer,
+	.footer-row {
+		text-align: center;
+	}
+
+	.footer-row,
+	.footer-links {
+		justify-content: center;
+	}
+}
