@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<script>
+			(() => {
+				try {
+					const saved = localStorage.getItem("voxgrid-theme");
+					const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+					document.documentElement.dataset.theme = saved || (prefersDark ? "dark" : "light");
+				} catch (error) {
+					document.documentElement.dataset.theme = "light";
+				}
+			})();
+		</script>
+
+		<meta charset="UTF-8" />
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+		<title>VoxGrid - Home</title>
+
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+		<link
+			href="https://fonts.googleapis.com/css2?family=Newsreader:wght@400;600;700&family=Inter:wght@300..700&display=swap"
+			rel="stylesheet"
+		/>
+
+		<link
+			href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+			rel="stylesheet"
+		/>
+
+		<link rel="stylesheet" href="css/variables.css" />
+
+		<link rel="stylesheet" href="css/components.css" />
+
+		<link rel="stylesheet" href="css/index.css" />
+	</head>
+
+	<body>
+		<div id="header"></div>
+
+		<main class="main container">
+			<!-- HERO -->
+			<section class="hero">
+				<div class="hero-content">
+					<div class="badge">
+						<span class="material-symbols-outlined"> trending_up </span>
+
+						<span> Trending Civic Discussions </span>
+					</div>
+
+					<h1>Strengthening Democratic Governance</h1>
+
+					<p>
+						A collaborative civic platform for public discussions, expert
+						analysis, policy polls, and structured democratic participation.
+					</p>
+
+					<div class="hero-actions">
+						<a class="button button-primary" href="create.html">
+							Create Discussion
+						</a>
+
+						<a class="button button-outline" href="#trending-issues">
+							Explore Issues
+						</a>
+					</div>
+				</div>
+
+				<div class="hero-image">
+					<img
+						src="https://images.unsplash.com/photo-1517048676732-d65bc937f952?auto=format&fit=crop&q=80&w=1200&h=800"
+						alt="Modern civic architecture"
+					/>
+				</div>
+			</section>
+
+			<!-- TRENDING ISSUES -->
+			<section class="section">
+				<h2 id="trending-issues" class="section-title">Trending Issues</h2>
+
+				<div class="card-grid" id="issues-grid"></div>
+			</section>
+
+			<!-- MAIN CONTENT -->
+			<div class="content-grid">
+				<!-- SIDEBAR -->
+				<aside class="side-column">
+					<!-- QUICK POLL -->
+					<section class="poll-card" id="quick-poll-card">
+						<p>Loading poll...</p>
+					</section>
+
+					<!-- CATEGORIES -->
+					<section>
+						<h2 class="side-title">Explore Categories</h2>
+
+						<ul class="category-list" id="categories-list"></ul>
+					</section>
+				</aside>
+
+				<!-- FEED -->
+				<section class="feed">
+					<div class="feed-header">
+						<h2>Latest Discussions</h2>
+
+						<a href="discussions.html"> View All </a>
+					</div>
+
+					<div id="latest-discussions"></div>
+				</section>
+			</div>
+		</main>
+
+		<div id="footer"></div>
+
+		<script type="module" src="js/pages/index.js"></script>
+	
+		<script type="module">
+			import { loadComponent } from "./js/utils/load.js";
+			import { bindToggle } from "./js/utils/theme.js";
+
+			const headerMount = document.getElementById("header") || document.getElementById("header-placeholder");
+			if (headerMount && !headerMount.hasChildNodes()) {
+				loadComponent(headerMount.id, "./partials/header.html");
+			}
+
+			document.addEventListener("component:loaded", (event) => {
+				if (event.detail?.file?.includes("header.html")) {
+					bindToggle(".theme-toggle");
+				}
+			});
+		</script>
+		<script type="module" src="js/utils/background-audio.js"></script>
+	</body>
+</html>

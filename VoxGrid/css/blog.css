@@ -1,0 +1,135 @@
+@import url("variables.css");
+
+@import url("global.css");
+
+body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font: 1rem/1.6 'Inter', system-ui, sans-serif;
+}
+
+html {
+    font-size: 100%;
+}
+
+
+/* CONTAINER */
+.container {
+    max-width: var(--max-width);
+    margin: 3.75rem auto;
+    padding: 1rem 1.25rem;
+}
+
+.meta {
+    font-size: 0.75rem;
+    margin: 1rem 0 0.3rem 0;
+}
+
+.meta span {
+    background-color: var(--meta-bg);
+    border-radius: 2px;
+    padding: 0.15rem;
+}
+
+/* TITLE */
+h1 {
+    font-size: 2.625rem;
+    font-weight: 700;
+    margin: 0;
+    padding: 0;
+    font-family: "Newsreader";
+}
+
+/* AUTHOR */
+.author {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1.875rem;
+}
+
+.author img {
+    border-radius: 50%;
+    margin-right: 0.75rem;
+    width: 2.5rem;
+    height: 2.5rem;
+}
+
+.author p {
+    font-size: 0.75rem;
+    color: var(--muted);
+    margin: 0;
+}
+
+.hero-image {
+    width: 100%;
+    margin: 1.875rem 0 2.125rem;
+    border-radius: 0.5rem;
+    overflow: hidden;
+    border: 1px solid var(--line);
+    background: var(--media-bg);
+    box-shadow: 0 0.75rem 1.875rem var(--shadow);
+}
+
+.hero-image img {
+    width: 100%;
+    height: clamp(14rem, 42vw, 24rem);
+    object-fit: cover;
+    object-position: center 38%;
+    display: block;
+}
+
+.content p {
+    margin-bottom: 1.125rem;
+    font-size: 1rem;
+}
+
+.content .lead {
+    font-size: 1.125rem;
+}
+
+h2 {
+    margin: 2.5rem 0 0.9375rem;
+    font-size: 1.625rem;
+    font-family: "Newsreader";
+}
+
+blockquote {
+    border-left: 0.1875rem solid var(--line);
+    padding-left: 1rem;
+    margin: 1.25rem 0;
+    font-style: italic;
+    color: var(--text);
+}
+
+@media (max-width: 768px) {
+    html {
+        font-size: 90%;
+    }
+}
+
+@media (max-width: 48rem) {
+    .container {
+        margin-block: 2rem;
+        padding-inline: 1rem;
+    }
+
+    h1 {
+        font-size: clamp(2rem, 10vw, 2.625rem);
+        line-height: 1.1;
+    }
+
+    .meta {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.35rem;
+    }
+
+    .author {
+        align-items: flex-start;
+    }
+
+    blockquote {
+        margin-inline: 0;
+    }
+}

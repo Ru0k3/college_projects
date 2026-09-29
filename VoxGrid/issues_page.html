@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<script>
+			(() => {
+				try {
+					const saved = localStorage.getItem("voxgrid-theme");
+					const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+					document.documentElement.dataset.theme = saved || (prefersDark ? "dark" : "light");
+				} catch (error) {
+					document.documentElement.dataset.theme = "light";
+				}
+			})();
+		</script>
+
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Issues Feed | VoxGrid</title>
+		<link rel="stylesheet" href="css/global.css" />
+		<link rel="stylesheet" href="css/issues_page.css" />
+		<link rel="stylesheet" href="css/components.css" />
+	</head>
+	<body>
+		<div id="header"></div>
+
+		<main class="container">
+			<section class="issues-header">
+				<h1 id="category-title">Category Name</h1>
+				<input type="text" id="search-input" placeholder="Search issues..." />
+			</section>
+
+			<section id="issues-grid" class="issues-grid"></section>
+		</main>
+
+		<div id="footer"></div>
+
+		<script type="module" src="../js/pages/issues_page.js"></script>
+	
+		<script type="module">
+			import { loadComponent } from "./js/utils/load.js";
+			import { bindToggle } from "./js/utils/theme.js";
+
+			const headerMount = document.getElementById("header") || document.getElementById("header-placeholder");
+			if (headerMount && !headerMount.hasChildNodes()) {
+				loadComponent(headerMount.id, "./partials/header.html");
+			}
+
+			document.addEventListener("component:loaded", (event) => {
+				if (event.detail?.file?.includes("header.html")) {
+					bindToggle(".theme-toggle");
+				}
+			});
+		</script>
+		<script type="module" src="js/utils/background-audio.js"></script>
+	</body>
+</html>

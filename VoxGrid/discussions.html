@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<script>
+			(() => {
+				try {
+					const saved = localStorage.getItem("voxgrid-theme");
+					const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+					document.documentElement.dataset.theme = saved || (prefersDark ? "dark" : "light");
+				} catch (error) {
+					document.documentElement.dataset.theme = "light";
+				}
+			})();
+		</script>
+
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Discussions</title>
+		<link rel="stylesheet" href="css/variables.css" />
+		<link rel="stylesheet" href="css/global.css" />
+		<link rel="stylesheet" href="css/discussions.css" />
+		<link rel="stylesheet" href="css/components.css" />
+	</head>
+	<body>
+		<div id="header"></div>
+
+		<main class="container">
+			<!-- TITLE -->
+			<h1>Re-evaluating Municipal Zoning Board Appointment Process</h1>
+
+			<!-- DESCRIPTION -->
+			<div class="description-box">
+				<p>
+					This discussion addresses the proposed changes to how members are
+					appointed to the Municipal Zoning Board. The goal is to evaluate if
+					shifting from mayoral appointment to a staggered city council election
+					process increases transparency and community representation without
+					compromising the board's technical expertise.
+				</p>
+			</div>
+
+			<div class="progress-bar">
+				<div class="agree"></div>
+			</div>
+
+			<div class="opinion-stats">
+				<span>* 65% Agree</span>
+				<span>35% Disagree *</span>
+			</div>
+
+			<!-- ACTION BUTTONS -->
+			<div class="actions-row">
+				<button class="btn">Agree</button>
+				<button class="btn">Disagree</button>
+			</div>
+
+			<hr />
+
+			<!-- DISCUSSION -->
+			<div class="discussion-header">
+				<h2>Discussion</h2>
+				<div class="tabs">
+					<span class="active">Top</span>
+					<span>Latest</span>
+					<span>Most Debated</span>
+				</div>
+			</div>
+
+			<!-- COMMENT 1 -->
+			<div id="comments-container">
+				<div class="comment">
+					<div class="avatar"></div>
+					<div class="comment-body">
+						<div class="comment-meta">
+							<strong>Marcus R.</strong>
+							<span>2 hours ago</span>
+							<span class="tag">Constructive</span>
+						</div>
+						<p>
+							While I support greater transparency, moving to a city council
+							election process risks politicizing appointments that should
+							strictly rely on technical urban planning expertise.
+						</p>
+						<div class="comment-actions">
+							<!-- Add Button tp up or down vote -->
+							Up 18 &nbsp;&nbsp; Down 0 &nbsp;&nbsp; Reply
+						</div>
+					</div>
+				</div>
+
+				<!-- COMMENT 2 -->
+				<div class="comment">
+					<div class="avatar light">EL</div>
+					<div class="comment-body">
+						<div class="comment-meta">
+							<strong>Elena L.</strong>
+							<span>4 hours ago</span>
+						</div>
+						<p>
+							The current mayoral appointment system has favored developers over
+							local community concerns. A staggered election process ensures
+							balance.
+						</p>
+						<div class="comment-actions">
+							Up 45 &nbsp;&nbsp; Down 8 &nbsp;&nbsp; Reply
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- POST INPUT (BOTTOM) -->
+			<div class="post-box">
+				<div class="avatar small"></div>
+				<input type="text" placeholder="Contribute to the discussion..." />
+				<button>Post</button>
+			</div>
+		</main>
+		<div id="footer"></div>
+
+		<script type="module" src="js/pages/discussions.js"></script>
+	
+		<script type="module">
+			import { loadComponent } from "./js/utils/load.js";
+			import { bindToggle } from "./js/utils/theme.js";
+
+			const headerMount = document.getElementById("header") || document.getElementById("header-placeholder");
+			if (headerMount && !headerMount.hasChildNodes()) {
+				loadComponent(headerMount.id, "./partials/header.html");
+			}
+
+			document.addEventListener("component:loaded", (event) => {
+				if (event.detail?.file?.includes("header.html")) {
+					bindToggle(".theme-toggle");
+				}
+			});
+		</script>
+		<script type="module" src="js/utils/background-audio.js"></script>
+	</body>
+</html>

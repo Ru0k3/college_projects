@@ -1,0 +1,136 @@
+@import url("variables.css");
+
+/* Reset / Base */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Inter', sans-serif;
+}
+
+body {
+    background-color: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+}
+
+.container {
+    width: min(100%, var(--container-width));
+    margin: 0 auto;
+    padding: 0 2rem;
+}
+
+/* Header */
+.issues-header {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.issues-header h1 {
+    font-size: 2rem;
+    font-weight: 700;
+}
+
+#search-input {
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    outline: none;
+}
+
+#search-input:focus {
+    border-color: var(--focus-border);
+    /* deep blue highlight */
+    box-shadow: 0 0 0 2px var(--focus-shadow);
+}
+
+/* Issues grid */
+.issues-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+}
+
+/* Issue card */
+.issue-card {
+    background-color: var(--surface);
+    border: 1px solid var(--soft-line);
+    border-radius: 10px;
+    padding: 1.5rem;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+.issue-card:hover {
+    box-shadow: 0 4px 20px var(--card-shadow);
+    transform: translateY(-2px);
+}
+
+.issue-card h2 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+.issue-card p {
+    font-size: 0.95rem;
+    color: var(--muted);
+    flex-grow: 1;
+}
+
+.issue-card-footer {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 1rem;
+    font-size: 0.85rem;
+    color: var(--muted);
+}
+
+.issue-card-footer span {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+}
+
+.issue-card-footer .material-symbols-outlined {
+    font-size: 1rem;
+}
+@media (max-width: 48rem) {
+    .container {
+        padding-inline: 1rem;
+    }
+
+    .issues-header {
+        margin-bottom: 1.5rem;
+    }
+
+    .issues-header h1 {
+        font-size: clamp(1.75rem, 9vw, 2rem);
+    }
+
+    #search-input {
+        width: 100%;
+    }
+
+    .issues-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+
+    .issue-card {
+        padding: 1.125rem;
+    }
+}
+
+@media (max-width: 30rem) {
+    .issue-card-footer {
+        gap: 0.5rem;
+        flex-direction: column;
+    }
+}

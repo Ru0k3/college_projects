@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html class="light" lang="en">
+<head>
+		<script>
+			(() => {
+				try {
+					const saved = localStorage.getItem("voxgrid-theme");
+					const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+					document.documentElement.dataset.theme = saved || (prefersDark ? "dark" : "light");
+				} catch (error) {
+					document.documentElement.dataset.theme = "light";
+				}
+			})();
+		</script>
+
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Poll Results - Civic Authority</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Newsreader:opsz,wght@6..72,400;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="css/components.css" />
+  <link rel="stylesheet" href="css/individual-poll.css" />
+</head>
+<body>
+  
+		<div id="header"></div>
+<main class="page">
+    <section class="poll-results">
+      <header class="poll-header">
+        <p class="eyebrow">Poll Results</p>
+        <h1>Should City Council meetings enforce a strict 3-minute limit on public comments to allow more speakers?</h1>
+
+        <div class="poll-meta">
+          <span class="material-symbols-outlined" aria-hidden="true">groups</span>
+          <span id="pr-total-label">1,204 total votes cast</span>
+        </div>
+      </header>
+
+      <div class="results-card" aria-label="Poll result percentages">
+        <div class="result-row">
+          <div class="result-label">
+            <span>Yes, prioritize volume of participants</span>
+            <strong id="pr-pct-yes">62%</strong>
+          </div>
+          <div class="result-bar">
+            <div class="result-fill yes" id="pr-bar-yes" style="width:62%"></div>
+          </div>
+          <p id="pr-count-yes">746 votes</p>
+        </div>
+
+        <div class="result-row">
+          <div class="result-label">
+            <span>No, allow 5 minutes for deeper nuance</span>
+            <strong id="pr-pct-no">31%</strong>
+          </div>
+          <div class="result-bar">
+            <div class="result-fill no" id="pr-bar-no" style="width:31%"></div>
+          </div>
+          <p id="pr-count-no">373 votes</p>
+        </div>
+
+        <div class="result-row">
+          <div class="result-label">
+            <span>Abstain / See Results</span>
+            <strong id="pr-pct-abstain">7%</strong>
+          </div>
+          <div class="result-bar">
+            <div class="result-fill abstain" id="pr-bar-abstain" style="width:7%"></div>
+          </div>
+          <p id="pr-count-abstain">85 votes</p>
+        </div>
+      </div>
+
+      <p class="poll-note">
+        This poll was open to all registered residents of the district. The results will be presented at the upcoming procedural review meeting.
+      </p>
+
+      <div id="civic-judgement" style="margin-top:24px; padding:20px 24px; border-left:4px solid var(--text); background:var(--surface-soft); border-radius:4px;">
+        <p style="font-size:0.8rem; font-weight:700; text-transform:uppercase; letter-spacing:0.05em; margin:0 0 8px;">Civic Judgement</p>
+        <p id="judgement-text" style="margin:0; font-size:1rem; line-height:1.6;"></p>
+      </div>
+    </section>
+
+    <section class="related-section">
+      <h2>Explore Further</h2>
+
+      <div class="related-grid">
+        <a class="related-card" href="discussions.html">
+          <span class="material-symbols-outlined card-bg-icon" aria-hidden="true">forum</span>
+          <span class="eyebrow">Related Discussion</span>
+          <h3>Procedural Efficiency vs. Public Input</h3>
+          <p>
+            A long-form debate on balancing council time constraints with the need for comprehensive constituent voices during open sessions.
+          </p>
+          <span class="card-link">
+            Join the conversation
+            <span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span>
+          </span>
+        </a>
+
+        <a class="related-card" href="individual-poll.html">
+          <span class="material-symbols-outlined card-bg-icon" aria-hidden="true">poll</span>
+          <span class="eyebrow">Active Poll</span>
+          <h3>Cast or change your vote</h3>
+          <p>
+            Return to the active poll to vote or review the live breakdown of public opinion on the comment time-limit question.
+          </p>
+          <span class="card-link">
+            Go to poll
+            <span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span>
+          </span>
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <div id="footer"></div>
+  <script type="module" src="js/pages/poll-results.js"></script>
+
+		<script type="module">
+			import { loadComponent } from "./js/utils/load.js";
+			import { bindToggle } from "./js/utils/theme.js";
+
+			const headerMount = document.getElementById("header") || document.getElementById("header-placeholder");
+			if (headerMount && !headerMount.hasChildNodes()) {
+				loadComponent(headerMount.id, "./partials/header.html");
+			}
+			loadComponent("footer", "./partials/footer.html");
+
+			document.addEventListener("component:loaded", (event) => {
+				if (event.detail?.file?.includes("header.html")) {
+					bindToggle(".theme-toggle");
+				}
+			});
+		</script>
+		<script type="module" src="js/utils/background-audio.js"></script>
+	</body>
+</html>
+

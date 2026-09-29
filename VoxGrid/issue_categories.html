@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<script>
+			(() => {
+				try {
+					const saved = localStorage.getItem("voxgrid-theme");
+					const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+					document.documentElement.dataset.theme = saved || (prefersDark ? "dark" : "light");
+				} catch (error) {
+					document.documentElement.dataset.theme = "light";
+				}
+			})();
+		</script>
+
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>VoxGrid</title>
+
+		<!-- Stylesheet -->
+		<link rel="stylesheet" href="css/issue_categories.css" />
+		<link rel="stylesheet" href="css/components.css" />
+	</head>
+	<body>
+		<!-- ===================== TOP NAVIGATION ===================== -->
+		<div id="header"></div>
+
+		<!-- ===================== MAIN CONTENT ===================== -->
+		<main>
+			<div class="container">
+				<!-- Page Header -->
+				<div class="page-header">
+					<h1 class="text-headline-lg page-header__title">Browse by Topic</h1>
+					<p class="text-body-lg page-header__subtitle">
+						Explore active civic discussions and proposals organized by
+						fundamental categories of public interest. Engage with the ongoing
+						record.
+					</p>
+				</div>
+
+				<!-- Categories Grid -->
+				<!-- NOTE: Cards are rendered dynamically by issue_categories.js — do not add static <article> elements here -->
+				<div class="categories-grid" id="js-categories-grid"></div>
+			</div>
+			<!-- /.container -->
+		</main>
+
+		<!-- ===================== FOOTER ===================== -->
+		<div id="footer"></div>
+
+		<!-- Script -->
+		<script type="module" src="js/pages/issue_categories.js"></script>
+	
+		<script type="module">
+			import { loadComponent } from "./js/utils/load.js";
+			import { bindToggle } from "./js/utils/theme.js";
+
+			const headerMount = document.getElementById("header") || document.getElementById("header-placeholder");
+			if (headerMount && !headerMount.hasChildNodes()) {
+				loadComponent(headerMount.id, "./partials/header.html");
+			}
+
+			document.addEventListener("component:loaded", (event) => {
+				if (event.detail?.file?.includes("header.html")) {
+					bindToggle(".theme-toggle");
+				}
+			});
+		</script>
+		<script type="module" src="js/utils/background-audio.js"></script>
+	</body>
+</html>

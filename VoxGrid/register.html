@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <script>
+      (() => {
+        try {
+          const saved = localStorage.getItem("voxgrid-theme");
+          const prefersDark = window.matchMedia(
+            "(prefers-color-scheme: dark)",
+          ).matches;
+          document.documentElement.dataset.theme =
+            saved || (prefersDark ? "dark" : "light");
+        } catch (error) {
+          document.documentElement.dataset.theme = "light";
+        }
+      })();
+    </script>
+
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Register | VoxGrid</title>
+    <link rel="stylesheet" href="css/components.css" />
+    <link rel="stylesheet" href="css/register.css" />
+  </head>
+  <body>
+    <main class="register-page">
+      <section class="register-hero">
+        <h1>The Modern Record of Note.</h1>
+        <p>
+          Join a civic community focused on thoughtful discussion and
+          transparent participation.
+        </p>
+        <figure class="hero-visual">
+          <video
+            class="hero-visual__image"
+            src="assets/video/video.mp4"
+            aria-label="People collaborating in a civic community setting"
+            autoplay
+            loop
+            muted
+            playsinline
+          ></video>
+        </figure>
+      </section>
+
+      <section class="register-card" aria-labelledby="register-title">
+        <h2 id="register-title">Create an Account</h2>
+        <p>Set up your VoxGrid profile.</p>
+
+        <form
+          id="register-form"
+          data-endpoint="/api/register"
+          data-redirect="login.html"
+          novalidate
+        >
+          <label class="field" for="full-name">
+            <span>Full Name</span>
+            <input
+              id="full-name"
+              name="fullName"
+              type="text"
+              autocomplete="name"
+              placeholder="Alex Morgan"
+              required
+            />
+          </label>
+
+          <label class="field" for="register-email">
+            <span>Email</span>
+            <input
+              id="register-email"
+              name="email"
+              type="email"
+              autocomplete="email"
+              placeholder="name@example.com"
+              required
+            />
+          </label>
+
+          <label class="field" for="register-password">
+            <span>Password</span>
+            <input
+              id="register-password"
+              name="password"
+              type="password"
+              autocomplete="new-password"
+              placeholder="Create a password"
+              minlength="8"
+              required
+            />
+          </label>
+
+          <label class="field" for="confirm-password">
+            <span>Confirm Password</span>
+            <input
+              id="confirm-password"
+              name="confirmPassword"
+              type="password"
+              autocomplete="new-password"
+              placeholder="Repeat your password"
+              minlength="8"
+              required
+            />
+          </label>
+
+          <button id="register-submit" type="submit">Create Account</button>
+          <p
+            id="signup-error"
+            class="status"
+            role="status"
+            aria-live="polite"
+          ></p>
+          <p class="switch-auth">
+            Already registered? <a href="login.html">Sign in</a>
+          </p>
+        </form>
+      </section>
+    </main>
+    <script type="module" src="js/pages/register.js"></script>
+
+    <script type="module">
+      import { loadComponent } from "./js/utils/load.js";
+      import { bindToggle } from "./js/utils/theme.js";
+
+      const headerMount =
+        document.getElementById("header") ||
+        document.getElementById("header-placeholder");
+      
+      if (headerMount && !headerMount.hasChildNodes()) {
+        loadComponent(headerMount.id, "./partials/header.html");
+      }
+
+      document.addEventListener("component:loaded", (event) => {
+        if (event.detail?.file?.includes("header.html")) {
+          bindToggle(".theme-toggle");
+        }
+      });
+    </script>
+    <script type="module" src="js/utils/background-audio.js"></script>
+  </body>
+</html>

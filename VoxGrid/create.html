@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <script>
+      (() => {
+        try {
+          const saved = localStorage.getItem("voxgrid-theme");
+          const prefersDark = window.matchMedia(
+            "(prefers-color-scheme: dark)",
+          ).matches;
+          document.documentElement.dataset.theme =
+            saved || (prefersDark ? "dark" : "light");
+        } catch (error) {
+          document.documentElement.dataset.theme = "light";
+        }
+      })();
+    </script>
+
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Create Post | VoxGrid</title>
+
+    <link rel="stylesheet" href="css/global.css" />
+    <link rel="stylesheet" href="./css/create.css" />
+    <link rel="stylesheet" href="./css/components.css" />
+    <script type="module" src="./js/pages/create.js" defer></script>
+  </head>
+  <body>
+    <div id="header"></div>
+    <main class="create-page">
+      <header class="create-header">
+        <button class="icon-btn" onclick="history.back()">Close</button>
+
+        <h1 class="create-title">Create New Post</h1>
+
+        <button class="draft-btn">Save Draft</button>
+      </header>
+
+      <section class="section-block">
+        <p class="section-label">1. Format</p>
+
+        <div class="format-grid">
+          <button class="format-card active" data-type="discussion">
+            <h2>Discussion</h2>
+
+            <p>Start a community dialogue on civic matters.</p>
+          </button>
+
+          <button class="format-card" data-type="article">
+            <h2>Article</h2>
+
+            <p>Publish a structured opinion or analysis.</p>
+          </button>
+
+          <button class="format-card" data-type="poll">
+            <h2>Poll</h2>
+
+            <p>Gather structured votes on specific proposals.</p>
+          </button>
+        </div>
+      </section>
+
+      <section class="section-block">
+        <p class="section-label">2. Content</p>
+
+        <div class="editor-shell">
+          <div id="dynamic-content-area">
+            <input
+              type="text"
+              class="post-title"
+              placeholder="Enter a descriptive title..."
+            />
+
+            <textarea
+              class="content-textarea"
+              placeholder="Detail your proposition, analysis, or inquiry..."
+            ></textarea>
+          </div>
+        </div>
+      </section>
+
+      <section class="section-block">
+        <p class="section-label">3. Classification</p>
+
+        <div class="classification-grid">
+          <div class="field-group">
+            <label>Primary Category</label>
+
+            <select>
+              <option>Select a domain...</option>
+              <option>Governance</option>
+              <option>Education</option>
+              <option>Environment</option>
+              <option>Public Health</option>
+              <option>Economy</option>
+            </select>
+          </div>
+        </div>
+      </section>
+
+      <section class="actions-row">
+        <button class="preview-btn">Preview</button>
+
+        <button class="publish-btn">Publish Record</button>
+      </section>
+    </main>
+
+    <script type="module">
+      import { loadComponent } from "./js/utils/load.js";
+      import { bindToggle } from "./js/utils/theme.js";
+
+      const headerMount =
+        document.getElementById("header") ||
+        document.getElementById("header-placeholder");
+      if (headerMount && !headerMount.hasChildNodes()) {
+        loadComponent(headerMount.id, "./partials/header.html");
+      }
+
+      document.addEventListener("component:loaded", (event) => {
+        if (event.detail?.file?.includes("header.html")) {
+          bindToggle(".theme-toggle");
+        }
+      });
+    </script>
+    <script type="module" src="js/utils/background-audio.js"></script>
+  </body>
+</html>

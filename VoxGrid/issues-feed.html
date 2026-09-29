@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<script>
+			(() => {
+				try {
+					const saved = localStorage.getItem("voxgrid-theme");
+					const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+					document.documentElement.dataset.theme = saved || (prefersDark ? "dark" : "light");
+				} catch (error) {
+					document.documentElement.dataset.theme = "light";
+				}
+			})();
+		</script>
+
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>VoxGrid - Governance</title>
+		<link rel="stylesheet" href="css/variables.css" />
+		<link rel="stylesheet" href="css/global.css" />
+		<link rel="stylesheet" href="css/components.css" />
+		<link rel="stylesheet" href="css/issues-feed.css" />
+	</head>
+	<body>
+		<div id="header"></div>
+
+		<main class="page">
+			<div class="container layout">
+				<section class="content">
+					<header class="hero">
+						<h1></h1>
+						<p></p>
+					</header>
+					<div class="section-rule"></div>
+
+					<article class="post post--discussion">
+						<div class="vote">
+							<button type="button" aria-label="Upvote">
+								<svg viewBox="0 0 12 8" aria-hidden="true">
+									<path d="M1 7l5-5 5 5"></path>
+								</svg>
+							</button>
+							<span>342</span>
+							<button type="button" aria-label="Downvote">
+								<svg viewBox="0 0 12 8" aria-hidden="true">
+									<path d="M1 1l5 5 5-5"></path>
+								</svg>
+							</button>
+						</div>
+						<div class="post__body">
+							<div class="post__meta">
+								<span class="tag tag--muted">Discussion</span>
+								<span>2h ago by <a href="#">@policy_wonk</a></span>
+							</div>
+							<h2>
+								Re-evaluating the Municipal Zoning Board Appointment Process
+							</h2>
+							<p>
+								The current method for appointing members to the zoning board
+								has consistently resulted in a lack of diverse professional
+								backgrounds. I propose we shift to a hybrid model...
+							</p>
+							<div class="post__actions">
+								<a href="discussions.html">154 Comments</a>
+								<a href="#">Save</a>
+							</div>
+						</div>
+					</article>
+
+					<article class="post post--feature">
+						<div class="feature-art">
+							<!-- <img
+								class="feature-art__image"
+								src="assets/images/issues-feed-russian.avif"
+								alt="Aerial city layout highlighting district boundaries for governance analysis"
+								loading="lazy"
+							/> -->
+							<span class="tag tag--dark">Expert Blog</span>
+						</div>
+						<div class="post__body">
+							<h2>
+								<a href="blog.html">The Ethics of Algorithmic Districting</a>
+							</h2>
+							<p>
+								As more municipalities look to computational models for
+								redrawing district lines, we must ask: whose data trains these
+								systems, and who bears the risk when civic maps inherit hidden
+								bias?
+							</p>
+							<div class="author-row">
+								<div class="author-row__person">
+									<div class="author-row__avatar" aria-hidden="true"></div>
+									<div>
+										<strong>Dr. Elena Rostova</strong>
+										<span>Professor of Civic Data</span>
+									</div>
+								</div>
+							</div>
+						</div>
+					</article>
+
+					<article class="post post--poll">
+						<div class="poll-head">
+							<span class="poll-head__label">Active Poll</span>
+						</div>
+						<h2>
+							Should City Council meetings enforce a strict 3-minute limit on
+							public comments to allow more speakers?
+						</h2>
+						<div class="poll-options">
+							<button
+								type="button"
+								class="poll-option-btn"
+								onclick="window.location.href = 'individual-poll.html?vote=yes'"
+							>
+								Yes, prioritize volume of participants
+							</button>
+							<button
+								type="button"
+								class="poll-option-btn"
+								onclick="window.location.href = 'individual-poll.html?vote=no'"
+							>
+								No, allow 5 minutes for deeper nuance
+							</button>
+							<button
+								type="button"
+								class="poll-option-btn"
+								onclick="
+									window.location.href = 'individual-poll.html?vote=abstain'
+								"
+							>
+								Abstain / See Results
+							</button>
+						</div>
+						<div class="poll-footer">
+							<span>1,204 Total Votes</span>
+							<a href="individual-poll.html">View Discussion</a>
+						</div>
+					</article>
+
+					<div class="section-rule"></div>
+				</section>
+			</div>
+		</main>
+
+		<div id="footer"></div>
+		<script type="module" src="js/pages/issues-feed.js"></script>
+	
+		<script type="module">
+			import { loadComponent } from "./js/utils/load.js";
+			import { bindToggle } from "./js/utils/theme.js";
+
+			const headerMount = document.getElementById("header") || document.getElementById("header-placeholder");
+			if (headerMount && !headerMount.hasChildNodes()) {
+				loadComponent(headerMount.id, "./partials/header.html");
+			}
+
+			document.addEventListener("component:loaded", (event) => {
+				if (event.detail?.file?.includes("header.html")) {
+					bindToggle(".theme-toggle");
+				}
+			});
+		</script>
+		<script type="module" src="js/utils/background-audio.js"></script>
+	</body>
+</html>
